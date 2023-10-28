@@ -7,6 +7,7 @@ import axios from 'axios';
 function User() {
     const navigate = useNavigate();
 
+<<<<<<< Updated upstream
   useEffect(() => {
 
     const token = localStorage.getItem('token')
@@ -51,6 +52,15 @@ function User() {
         navigate('/Login');
       }
 >>>>>>> Stashed changes
+=======
+    function handleLogout() {
+        // Add your logout logic here
+      }
+
+    const [Selected, setSelected] = useState("")
+    const [Airlined, setAirlined] = useState("")
+ 
+>>>>>>> Stashed changes
 
     return (
         <div>
@@ -72,9 +82,10 @@ function User() {
                     </div>
                     <div className="nav-right">
                         <div className='nav-username'>
-                            User name
+                     
                         </div>
                     </div>
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 =======
                     <IoExitOutline 
@@ -82,6 +93,13 @@ function User() {
                     size={25} 
                     onClick={handleLogout}
                     />
+>>>>>>> Stashed changes
+=======
+                    <IoExitOutline
+                     className='icon-user-exit' 
+                     size={25} 
+                     onClick={handleLogout}
+                     />
 >>>>>>> Stashed changes
                 </div>
             
