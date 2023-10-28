@@ -1,6 +1,7 @@
 import React, { useEffect , useState } from 'react'
 import { Link, NavLink,useNavigate } from 'react-router-dom'
 import './User.css'
+<<<<<<< Updated upstream
 import axios from 'axios';
 
 function User() {
@@ -36,6 +37,20 @@ function User() {
       alert("Incorrect information. Please check your credentials.");
     });
   }, []);
+=======
+import Dropdown from './Dropdown'
+import Airline from './Airline'
+import {useNavigate} from 'react-router-dom';
+
+function User() {
+    const navigate = useNavigate();
+    const [Selected, setSelected] = useState("")
+    const [Airlined, setAirlined] = useState("")
+    function handleLogout() {
+        // Add your logout logic here
+        navigate('/Login');
+      }
+>>>>>>> Stashed changes
 
     return (
         <div>
@@ -60,6 +75,14 @@ function User() {
                             User name
                         </div>
                     </div>
+<<<<<<< Updated upstream
+=======
+                    <IoExitOutline 
+                    className='icon-user-exit' 
+                    size={25} 
+                    onClick={handleLogout}
+                    />
+>>>>>>> Stashed changes
                 </div>
             
 
