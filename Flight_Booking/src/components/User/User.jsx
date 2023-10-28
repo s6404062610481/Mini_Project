@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router-dom'
 import { IoExitOutline } from 'react-icons/io5'
 import './User.css'
 import Dropdown from './Dropdown'
-import Airline from './Airline'
 
 function User() {
 
