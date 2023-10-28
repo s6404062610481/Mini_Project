@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import './User_order.css'
 
 function User_order() {
+    
     return (
         <div>
             <div className='Home'>
@@ -12,13 +13,10 @@ function User_order() {
                     </div> 
                     <div className="navcenter-user">
                         <div className="navhome-user">
-                            <Link to="/user">Home</Link>
+                            <NavLink to="/user">Home</NavLink>
                         </div>
                         <div className="navorder-user">
-                            <Link to="/user_order">Your order</Link>
-                        </div>
-                        <div className="navfav-user">
-                            <Link to="/user_favourites">Favourites</Link>
+                            <NavLink to="/user_order">Your order</NavLink>
                         </div>
                     </div>
                     <div className="nav-right">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { IoExitOutline } from 'react-icons/io5'
 import './User.css'
 import Dropdown from './Dropdown'
@@ -8,7 +8,7 @@ import Airline from './Airline'
 function User() {
 
     const [Selected, setSelected] = useState("")
-    const [Airlined, setAirlined] = useState("")
+    const [Date, setDate] = useState("")
 
     return (
         <div>
@@ -19,13 +19,10 @@ function User() {
                     </div> 
                     <div className="navcenter-user">
                         <div className="navhome-user">
-                            <Link to="/user">Home</Link>
+                            <NavLink to="/user">Home</NavLink>
                         </div>
                         <div className="navorder-user">
-                            <Link to="/user_order">Your order</Link>
-                        </div>
-                        <div className="navfav-user">
-                            <Link to="/user_favourites">Favourites</Link>
+                            <NavLink to="/user_order">Your order</NavLink>
                         </div>
                     </div>
                     <div className="nav-right">
@@ -46,7 +43,7 @@ function User() {
 
                 <div className="dropdown-data">
                     <Dropdown Selected={Selected} setSelected={setSelected}/>
-                    <Airline Airlined={Airlined} setAirlined={setAirlined}/>
+                    <input type="date" className='date-input' onChange={e=>{setDate(e.target.value)}}/>
                 </div> 
 
                 <div className="submit">
