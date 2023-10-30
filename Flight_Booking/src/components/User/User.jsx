@@ -1,13 +1,19 @@
 import React, { useEffect , useState } from 'react'
 import { Link, NavLink,useNavigate } from 'react-router-dom'
 import './User.css'
-<<<<<<< Updated upstream
+
 import axios from 'axios';
 
 function User() {
+  
     const navigate = useNavigate();
+    const [Selected, setSelected] = useState("")
+    const [Airlined, setAirlined] = useState("")
+    function handleLogout() {
+        // Add your logout logic here
+        navigate('/Login');
+      }
 
-<<<<<<< Updated upstream
   useEffect(() => {
 
     const token = localStorage.getItem('token')
@@ -38,29 +44,7 @@ function User() {
       alert("Incorrect information. Please check your credentials.");
     });
   }, []);
-=======
-import Dropdown from './Dropdown'
-import Airline from './Airline'
-import {useNavigate} from 'react-router-dom';
 
-function User() {
-    const navigate = useNavigate();
-    const [Selected, setSelected] = useState("")
-    const [Airlined, setAirlined] = useState("")
-    function handleLogout() {
-        // Add your logout logic here
-        navigate('/Login');
-      }
->>>>>>> Stashed changes
-=======
-    function handleLogout() {
-        // Add your logout logic here
-      }
-
-    const [Selected, setSelected] = useState("")
-    const [Airlined, setAirlined] = useState("")
- 
->>>>>>> Stashed changes
 
     return (
         <div>
@@ -85,22 +69,18 @@ function User() {
                      
                         </div>
                     </div>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
                     <IoExitOutline 
                     className='icon-user-exit' 
                     size={25} 
                     onClick={handleLogout}
                     />
->>>>>>> Stashed changes
-=======
+
                     <IoExitOutline
                      className='icon-user-exit' 
                      size={25} 
                      onClick={handleLogout}
                      />
->>>>>>> Stashed changes
+
                 </div>
             
 
