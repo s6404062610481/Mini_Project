@@ -70,6 +70,12 @@ app.post('/authen', jsonParser, function (req, res, next) {
     res.json({status: 'error',message: err.message})
   }
 })
+// Search flight
+app.get('/flight',jsonParser, function (req, res) => {
+  const selectQuery = 'SELECT * FROM customer';
+
+ 
+    }
 
 // Handle data insertion into MySQL
 app.post('/flight', (req, res) => {

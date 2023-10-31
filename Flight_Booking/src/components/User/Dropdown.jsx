@@ -17,6 +17,7 @@ function Dropdown({Selected, setSelected}) {
                         <div className="dropdowm-item" 
                         onClick={(e) => {
                                 setSelected(option)
+                                console.log('Selected option:', option);
                                 setIsActive(false)
                             }}>
                             {option}

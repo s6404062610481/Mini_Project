@@ -20,6 +20,14 @@ function User() {
       navigate('/Login');
     };
 
+    //get data form
+    const handleDateChange = (e) => {
+      const selectedDate = e.target.value;
+      setDate(selectedDate);
+      console.log('Selected Date:', selectedDate);
+      // You can do other things with the selected date here, if needed
+    };
+    
     useEffect(() => {
   
       const token = localStorage.getItem('token')
@@ -88,7 +96,13 @@ function User() {
 
                 <div className="dropdown-data">
                     <Dropdown Selected={Selected} setSelected={setSelected}/>
-                    <input type="date" className='date-input' onChange={e=>{setDate(e.target.value)}}/>
+                    
+                    
+                    <input type="date" 
+                    className='date-input' 
+                    onChange={e=>{setDate(e.target.value)}}
+                    onChange={handleDateChange}
+                    />
                 </div> 
 
                 <div className="submit">
