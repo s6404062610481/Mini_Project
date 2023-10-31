@@ -30,7 +30,7 @@ const Login = () => {
       if(response.data.status === 'ok'){
         alert('Login successful ');
         localStorage.setItem('token', response.data.token); // เซ็ตค่า token ใน localStorage
-        navigate('/');
+        navigate('/user');
       } else {
         alert('Invalid username or password');
       }
