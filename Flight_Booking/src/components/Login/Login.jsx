@@ -29,6 +29,7 @@ const Login = () => {
       console.log("Login successful:", response.data);
       if(response.data.status === 'ok'){
         alert('Login successful ');
+        localStorage.setItem('username', formData.username); //เช็ตค่า username ใน localStorage
         localStorage.setItem('token', response.data.token); // เซ็ตค่า token ใน localStorage
         navigate('/user');
       } else {

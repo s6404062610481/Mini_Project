@@ -11,6 +11,14 @@ function User() {
     const [Date, setDate] = useState("")
 
     const navigate = useNavigate();
+    //get name
+    const username = localStorage.getItem('username');
+    //function logout
+    const logout = () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      navigate('/Login');
+    };
 
     useEffect(() => {
   
@@ -60,10 +68,14 @@ function User() {
                     </div>
                     <div className="nav-right">
                         <div className='nav-username'>
-                            User name
+                        {username}
                         </div>
                     </div>
-                    <IoExitOutline className='icon-user-exit' size={25} />
+                    <IoExitOutline 
+                    className='icon-user-exit' 
+                    size={25} 
+                    onClick={logout}
+                    />
                 </div>
             
 
