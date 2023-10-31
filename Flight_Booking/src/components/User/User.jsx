@@ -11,8 +11,10 @@ function User() {
     const [Date, setDate] = useState("")
 
     const navigate = useNavigate();
+
     //get name
     const username = localStorage.getItem('username');
+
     //function logout
     const logout = () => {
       localStorage.removeItem('token');
@@ -20,12 +22,38 @@ function User() {
       navigate('/Login');
     };
 
+    //get value from dropdown
+    const handleDropdownChange = (selectedValue) => {
+      setSelected(selectedValue);
+      // You can now use the selected value in this parent component
+      console.log('Selected option in parent component:', selectedValue);
+      handleSearchClick(selectedValue);
+    };
+
     //get data form
     const handleDateChange = (e) => {
       const selectedDate = e.target.value;
       setDate(selectedDate);
       console.log('Selected Date:', selectedDate);
+      handleSearchClick(selectedDate);
       // You can do other things with the selected date here, if needed
+    };
+
+    //submit SELECT data 
+    const handleSearchClick = (selectedValue) => {
+      axios.get('http://localhost:3333/api/flight', {
+        params: {
+          destination: 'krabi',
+          fdate: '2023-12-01'
+        }
+      })
+      .then((response) => {
+        // Handle and display the data in your React app
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
     };
     
     useEffect(() => {
@@ -95,18 +123,24 @@ function User() {
                 </article>
 
                 <div className="dropdown-data">
-                    <Dropdown Selected={Selected} setSelected={setSelected}/>
+                    <Dropdown 
+                    Selected={Selected} 
+                    setSelected={setSelected} 
+                    onChange={handleDropdownChange}/>
+                    
                     
                     
                     <input type="date" 
                     className='date-input' 
-                    onChange={e=>{setDate(e.target.value)}}
                     onChange={handleDateChange}
+               
                     />
                 </div> 
 
                 <div className="submit">
-                    <Link to='/user_ticket'>Search</Link>
+                    <Link 
+                    to='/Ticket' 
+                    onClick={handleSearchClick}>Search</Link>
                 </div>
             </div>
         </div>

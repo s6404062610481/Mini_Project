@@ -71,29 +71,28 @@ app.post('/authen', jsonParser, function (req, res, next) {
   }
 })
 // Search flight
-app.get('/flight',jsonParser, function (req, res) => {
-  const selectQuery = 'SELECT * FROM customer';
+app.get('/api/flight', (req, res) => {
+   // Get the variable from the query parameters
+   const destination = req.query.destination;
+   const fdate = req.query.fdate;
 
- 
-    }
+   // Construct the SQL query with the variable
+   const query = `SELECT * FROM flight WHERE Destination = "${destination}" AND  "${fdate}"`;
 
-// Handle data insertion into MySQL
-app.post('/flight', (req, res) => {
-  const { name, description } = req.body; // Assuming you expect 'name' and 'description' in the request body
-
-  // Perform data insertion into the MySQL database
-  const query = 'INSERT INTO flight (Sid, snumber, price, status, Fid, Bid) VALUES (?,?,?,?,?,?)';
-  const values = [name, description];
-
-  db.query(query, values, (err, result) => {
+  // Execute the SQL query
+  connection.query(query, (err, results) => {
     if (err) {
-      console.error(err);
-      res.status(500).send('Error inserting data into the database');
-    } else {
-      res.status(201).json({ message: 'Data inserted successfully', id: result.insertId });
+      console.error('Error executing SQL query: ' + err.message);
+      res.status(500).json({ error: 'An error occurred' });
+      return;
     }
+
+    // Return the query results as JSON
+    res.json(results);
   });
-});
+    }
+);
+
 
 
 app.listen(3333, function () {
