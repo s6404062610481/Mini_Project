@@ -3,6 +3,7 @@ import './Ticket.css'
 import { Link } from 'react-router-dom'
 
 function Ticket() {
+    const username = localStorage.getItem('username');
   return (
     <div>
         <div className='Home'>
