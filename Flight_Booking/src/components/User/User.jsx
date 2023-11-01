@@ -40,11 +40,15 @@ function User() {
     };
 
     //submit SELECT data 
-    const handleSearchClick = (selectedValue) => {
+    const handleSearchClick = (selectedValue,selectedDate) => {
+      const des = selectedValue;
+      const date = selectedDate;
+      console.log('handleSearchClick:', des);
+      console.log('handleSearchClick :', date);
       axios.get('http://localhost:3333/api/flight', {
         params: {
-          destination: 'krabi',
-          fdate: '2023-12-01'
+          destination: des,
+          fdate: date
         }
       })
       .then((response) => {
