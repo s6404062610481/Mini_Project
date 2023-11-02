@@ -9,7 +9,7 @@ function User() {
 
     const [Selected, setSelected] = useState("")
     const [Date, setDate] = useState("")
-    const [responseData, setResponseData] = useState(null);
+    const [responseData, setResponseData] = useState([]);
    
 
     const navigate = useNavigate();
@@ -41,23 +41,28 @@ function User() {
 
     //submit SELECT data 
     const handleSearchClick = () => {
-      console.log('handleSearchClick:', Selected);
-      console.log('handleSearchClick :', Date);
-      axios.get('http://localhost:3333/api/flight', {
-        params: {
-          destination: Selected,
-          fdate: Date
-        }
-      })
-      .then((response) => {
-        // Handle and display the data in your React app
-        console.log(response.data);
-        setResponseData(response.data);
-        localStorage.setItem('dataticket', response.data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+      // console.log('handleSearchClick:', Selected);
+      // console.log('handleSearchClick :', Date);
+      localStorage.setItem('Selected', Selected); 
+      localStorage.setItem('Date', Date); 
+      // axios.get('http://localhost:3333/api/flight', {
+      //   params: {
+      //     destination: Selected,
+      //     fdate: Date
+      //   }
+      // })
+      // .then((response) => {
+      //   // Handle and display the data in your React app
+      //   console.log(response.data);
+      //   setResponseData(response.data);
+      //   localStorage.setItem('dataticket', response.data);
+      //   console.log(responseData);
+      // })
+      // .catch((error) => {
+      //   console.error('Error:', error);
+      // });
+
+
     };
     
     useEffect(() => {
@@ -125,6 +130,7 @@ function User() {
                     <h2>จองเที่ยวบินทั่วโลกสำหรับทริปของคุณด้วยข้อเสนอที่ดีที่สุด</h2>
                     </div>
                 </article>
+                {responseData}
 
                 <div className="dropdown-data">
                     <Dropdown 

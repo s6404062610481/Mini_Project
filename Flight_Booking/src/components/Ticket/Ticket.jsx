@@ -1,12 +1,31 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import './Ticket.css'
 import { Link } from 'react-router-dom'
+import axios from 'axios';
 
 function Ticket() {
     const username = localStorage.getItem('username');
-    const dataticket = localStorage.getItem('dataticket');
+    const Selected = localStorage.getItem('Selected');
+    const Date = localStorage.getItem('Date');
+    const [responseData, setResponseData] = useState([]);
 
-    console.log(dataticket[1])
+    useEffect(() => {
+        axios.get('http://localhost:3333/api/flight', {
+        params: {
+          destination: Selected,
+          fdate: Date
+        }
+      })
+      .then((response) => {
+        // Handle and display the data in your React app
+        console.log(response.data);
+        setResponseData(response.data)
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+      }, [Selected, Date]);
+
   return (
     <div>
         <div className='Home'>
@@ -34,6 +53,7 @@ function Ticket() {
                     </div>
                 </div>
             </div>
+          
 
             <form action="" method="post">
                 <div className="datainput">
