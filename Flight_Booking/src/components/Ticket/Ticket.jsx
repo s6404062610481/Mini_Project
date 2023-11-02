@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 
 function Ticket() {
     const username = localStorage.getItem('username');
+    const dataticket = localStorage.getItem('dataticket');
+
+    console.log(dataticket[1])
   return (
     <div>
         <div className='Home'>
@@ -42,7 +45,6 @@ function Ticket() {
                     <Link to='/Ticket'>Search</Link>
                 </div>
             </form>
-
             <div className="ticket">
                 <div className="ticket-form">
                         <div className="goto">

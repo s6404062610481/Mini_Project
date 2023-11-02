@@ -9,6 +9,7 @@ function User() {
 
     const [Selected, setSelected] = useState("")
     const [Date, setDate] = useState("")
+    const [responseData, setResponseData] = useState(null);
    
 
     const navigate = useNavigate();
@@ -51,6 +52,8 @@ function User() {
       .then((response) => {
         // Handle and display the data in your React app
         console.log(response.data);
+        setResponseData(response.data);
+        localStorage.setItem('dataticket', response.data);
       })
       .catch((error) => {
         console.error('Error:', error);
