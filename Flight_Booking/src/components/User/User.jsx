@@ -9,6 +9,7 @@ function User() {
 
     const [Selected, setSelected] = useState("")
     const [Date, setDate] = useState("")
+   
 
     const navigate = useNavigate();
 
@@ -27,7 +28,6 @@ function User() {
       setSelected(selectedValue);
       // You can now use the selected value in this parent component
       console.log('Selected option in parent component:', selectedValue);
-      handleSearchClick(selectedValue);
     };
 
     //get data form
@@ -35,20 +35,17 @@ function User() {
       const selectedDate = e.target.value;
       setDate(selectedDate);
       console.log('Selected Date:', selectedDate);
-      handleSearchClick(selectedDate);
       // You can do other things with the selected date here, if needed
     };
 
     //submit SELECT data 
-    const handleSearchClick = (selectedValue,selectedDate) => {
-      const des = selectedValue;
-      const date = selectedDate;
-      console.log('handleSearchClick:', des);
-      console.log('handleSearchClick :', date);
+    const handleSearchClick = () => {
+      console.log('handleSearchClick:', Selected);
+      console.log('handleSearchClick :', Date);
       axios.get('http://localhost:3333/api/flight', {
         params: {
-          destination: des,
-          fdate: date
+          destination: Selected,
+          fdate: Date
         }
       })
       .then((response) => {
@@ -131,9 +128,7 @@ function User() {
                     Selected={Selected} 
                     setSelected={setSelected} 
                     onChange={handleDropdownChange}/>
-                    
-                    
-                    
+                      
                     <input type="date" 
                     className='date-input' 
                     onChange={handleDateChange}
