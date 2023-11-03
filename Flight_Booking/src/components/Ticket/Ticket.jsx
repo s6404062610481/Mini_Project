@@ -5,26 +5,28 @@ import axios from 'axios';
 
 function Ticket() {
     const username = localStorage.getItem('username');
-    const Selected = localStorage.getItem('Selected');
-    const Date = localStorage.getItem('Date');
-    const [responseData, setResponseData] = useState([]);
+    // const Selected = localStorage.getItem('Selected');
+    // const Date = localStorage.getItem('Date');
+    // const [responseData, setResponseData] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:3333/api/flight', {
-        params: {
-          destination: Selected,
-          fdate: Date
-        }
-      })
-      .then((response) => {
-        // Handle and display the data in your React app
-        console.log(response.data);
-        setResponseData(response.data)
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-      }, [Selected, Date]);
+
+
+    // useEffect(() => {
+    //     axios.get('http://localhost:3333/api/flight', {
+    //     params: {
+    //       destination: Selected,
+    //       fdate: Date
+    //     }
+    //   })
+    //   .then((response) => {
+    //     // Handle and display the data in your React app
+    //     console.log(response.data);
+    //     setResponseData(response.data)
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error:', error);
+    //   });
+    //   }, [Selected, Date]);
 
   return (
     <div>
@@ -54,7 +56,6 @@ function Ticket() {
                 </div>
             </div>
           
-
             <form action="" method="post">
                 <div className="datainput">
                     <input type="text" className='inputwhere' placeholder='เดินทางไปที่ไหน'/>

@@ -40,36 +40,49 @@ function User() {
     };
 
     //submit SELECT data 
+
+
+    // const handleSearchClick = async () => {
+    //   console.log('handleSearchClick:', Selected);
+    //   console.log('handleSearchClick:', Date);
+    
+    //   try {
+    //     const response = await axios.get('http://localhost:3333/api/flight', {
+    //       params: {
+    //         destination: Selected,
+    //         fdate: Date
+    //       }
+    //     });
+    //     console.log('API Response:', response.data); // Log the API response
+    //     // let jsonString = JSON.stringify(response.data)
+    //     //      setResponseData(jsonString)
+    //     //     console.log('data of ResponseData',responseData);
+    //   } catch (error) {
+    //     console.error('Error:', error);
+    //   }
+    // };
+ 
     const handleSearchClick = () => {
-      // console.log('handleSearchClick:', Selected);
-      // console.log('handleSearchClick :', Date);
-      localStorage.setItem('Selected', Selected); 
-      localStorage.setItem('Date', Date); 
-      // axios.get('http://localhost:3333/api/flight', {
-      //   params: {
-      //     destination: Selected,
-      //     fdate: Date
-      //   }
-      // })
-      // .then((response) => {
-      //   // Handle and display the data in your React app
-      //   console.log(response.data);
-      //   setResponseData(response.data);
-      //   localStorage.setItem('dataticket', response.data);
-      //   console.log(responseData);
-      // })
-      // .catch((error) => {
-      //   console.error('Error:', error);
-      // });
-
-
+      axios.get('http://localhost:3333/api/flight', {
+        params: {
+          destination: Selected,
+          fdate: Date
+        }
+      })
+      .then((response) => {
+        // Handle and display the data in your React app
+        console.log(response.data);
+        setResponseData(response.data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
     };
     
     useEffect(() => {
   
       const token = localStorage.getItem('token')
       console.log(token);
-    
       const config = {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -144,13 +157,17 @@ function User() {
                
                     />
                 </div> 
+                <ul>
 
+        </ul>
                 <div className="submit">
-                    <Link 
-                    to='/Ticket' 
-                    onClick={handleSearchClick}>Search</Link>
+                {/* <Link 
+                    // to='/Ticket' 
+                    // onClick={handleSearchClick}>Search</Link> */}
+                    <button onClick={handleSearchClick}>Search</button>
                 </div>
             </div>
+           
         </div>
     )
 }
