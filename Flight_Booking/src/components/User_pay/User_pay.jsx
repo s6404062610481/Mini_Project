@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useState,useEffect  } from 'react'
+import { MdEventSeat } from 'react-icons/md';
+import { Link, NavLink,useNavigate } from 'react-router-dom';
+import { IoExitOutline } from 'react-icons/io5'
+import Axios from 'axios';
 
 function User_pay() {
     return (
@@ -18,13 +22,11 @@ function User_pay() {
                         </div>
                         <div className="nav-right">
                             <div className='nav-username'>
-                            {username}
                             </div>
                         </div>
                         <IoExitOutline 
                         className='icon-user-exit' 
                         size={25} 
-                        onClick={logout}
                         />
                     </div>
             </div>
