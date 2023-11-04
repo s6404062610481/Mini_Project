@@ -1,0 +1,51 @@
+.seat_main_1-user-ticket{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.seat_main_5-user-ticket{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.seat_1_main_5-user-ticket{
+    padding: 25px 0px 25px 50px;
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    margin-left: 40px;
+}
+.seat_2_main_5-user-ticket{
+    padding: 25px 0px 25px 50px;
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    margin-left: -20px;
+}
+.seat_3_main_5-user-ticket{
+    padding: 25px 0px 25px 50px;
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    margin-left: -35px;
+}
+.seat_left_1_main_5-user-ticket{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+}
+.seat_mid_1_main_5-user-ticket{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+}
+.seat_right_1_main_5-user-ticket{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 23px;
+}
