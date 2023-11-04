@@ -138,7 +138,7 @@ function User() {
 
                 <div className="submit">
                     <Link 
-                    to='/Ticket' 
+                    to='/user_ticket' 
                     onClick={handleSearchClick}>Search</Link>
                 </div>
             </div>

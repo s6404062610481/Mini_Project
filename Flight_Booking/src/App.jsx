@@ -11,6 +11,9 @@ import Admin from './components/Admin/Admin';
 import Admin_flight from './components/Admin_flight/Admin_flight';
 import User from './components/User/User';
 import User_order from './components/User_order/User_order';
+import User_ticket from './components/User_Ticket/User_Ticket';
+import User_flight from './components/User_flight/User_flight';
+import User_pay from './components/User_pay/User_pay';
 function App() {
 
   return (
@@ -27,6 +30,9 @@ function App() {
         <Route path='/Admin_flight' element={<Admin_flight />}></Route>
         <Route path='/User' element={<User />}></Route>
         <Route path='/User_order' element={<User_order />}></Route>
+        <Route path='/User_ticket' element={<User_ticket />}></Route>
+        <Route path='/User_flight' element={<User_flight />}></Route>
+        <Route path='/User_pay' element={<User_pay />}></Route>
       </Routes>
       
     </BrowserRouter>
