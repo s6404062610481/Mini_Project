@@ -7,14 +7,18 @@ import './User_ticket.css'
 
 function User_ticket() {
 
-    const [Selected, setSelected] = useState("")
-    const [Date, setDate] = useState("")
+  const [Selected, setSelected] = useState('')
+  const [selectedDate, setSelectedDate] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState({flight: []});
+
    
 
     const navigate = useNavigate();
 
     //get name
     const username = localStorage.getItem('username');
+
 
     //function logout
     const logout = () => {
@@ -33,29 +37,41 @@ function User_ticket() {
     //get data form
     const handleDateChange = (e) => {
       const selectedDate = e.target.value;
-      setDate(selectedDate);
+      setSelectedDate(selectedDate);
       console.log('Selected Date:', selectedDate);
       // You can do other things with the selected date here, if needed
     };
 
     //submit SELECT data 
-    const handleSearchClick = () => {
+    const handleSearchClick = async () => { // Mark the function as async
       console.log('handleSearchClick:', Selected);
-      console.log('handleSearchClick :', Date);
-      axios.get('http://localhost:3333/api/flight', {
-        params: {
-          destination: Selected,
-          fdate: Date
-        }
-      })
-      .then((response) => {
+      console.log('handleSearchClick:', selectedDate);
+      setIsLoading(true);
+  
+      try {
+        const response = await axios.get('http://localhost:3333/api/flight', {
+          params: {
+            destination: Selected,
+            fdate: selectedDate,
+          }
+        });
         // Handle and display the data in your React app
         console.log(response.data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+        const result = await response.data;
+        console.log('result is: ', JSON.stringify(result, null, 4));
+        
+       setData({ 
+        flight: result
       });
+ 
+      } catch (error) {
+        console.error('Error:', error);
+      }finally {
+        setIsLoading(false);
+      }
     };
+    console.log('Data state:', data);
+    
     
     useEffect(() => {
   
@@ -126,61 +142,42 @@ function User_ticket() {
                
                     />
                 </div> 
-
+           
                 <div className="submit-user-ticket">
-                    <Link 
-                    to='/user_ticket' 
-                    onClick={handleSearchClick}>Search</Link>
+    
+                    <button
+                    // to='/user_ticket' 
+                    onClick={handleSearchClick}>Search</button>
+                    
                 </div>
 
+        
+        
+    
+                {data.flight.map(flight => (
                 <div className="ticket-user-ticket">
-                    <div className="ticket-form">
-                            <div className="goto">
-                                เดินทางไปที่ : Thailand 
+               
+                    <div className="ticket-form" key={flight.Fid}>
+                         
+                            <div className="goto" >
+                                เดินทางไปที่ :  {flight.Destination}
                             </div>
+        
                             <div className="date">
-                                วัน : 01/12/2024
+                                วัน :  {new Date(flight.Fdate).toLocaleDateString()}
                             </div>
                             <div className="time">
-                                เวลา : 09:00 น.
+                                เวลา : {flight.Ftime}
                             </div>
+                        
                             <div className="next">
                             <Link to="/user_flight">จองที่นั่ง</Link>
-                            </div>
-                    </div>
+                            </div>  
+                    </div>                      
                 </div>
-                <div className="ticket-user-ticket">
-                    <div className="ticket-form">
-                            <div className="goto">
-                                เดินทางไปที่ : Thailand 
-                            </div>
-                            <div className="date">
-                                วัน : 01/12/2024
-                            </div>
-                            <div className="time">
-                                เวลา : 09:00 น.
-                            </div>
-                            <div className="next">
-                            <Link to="/user_flight">จองที่นั่ง</Link>
-                            </div>
-                    </div>
-                </div>
-                <div className="ticket-user-ticket">
-                    <div className="ticket-form">
-                            <div className="goto">
-                                เดินทางไปที่ : Thailand 
-                            </div>
-                            <div className="date">
-                                วัน : 01/12/2024
-                            </div>
-                            <div className="time">
-                                เวลา : 09:00 น.
-                            </div>
-                            <div className="next">
-                            <Link to="/user_flight">จองที่นั่ง</Link>
-                            </div>
-                    </div>
-                </div>
+                   ))}
+               
+                
 
             </div>
         </div>

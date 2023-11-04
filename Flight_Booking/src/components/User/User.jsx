@@ -7,8 +7,10 @@ import axios from 'axios';
 
 function User() {
 
-    const [Selected, setSelected] = useState("")
-    const [Date, setDate] = useState("")
+    const [Selected, setSelected] = useState('')
+    const [selectedDate, setSelectedDate] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [Data, setData] = useState([]);
    
 
     const navigate = useNavigate();
@@ -33,35 +35,46 @@ function User() {
     //get data form
     const handleDateChange = (e) => {
       const selectedDate = e.target.value;
-      setDate(selectedDate);
+      setSelectedDate(selectedDate);
       console.log('Selected Date:', selectedDate);
       // You can do other things with the selected date here, if needed
     };
 
     //submit SELECT data 
-    const handleSearchClick = () => {
+    const handleSearchClick = async () => { // Mark the function as async
       console.log('handleSearchClick:', Selected);
-      console.log('handleSearchClick :', Date);
-      axios.get('http://localhost:3333/api/flight', {
-        params: {
-          destination: Selected,
-          fdate: Date
-        }
-      })
-      .then((response) => {
+      console.log('handleSearchClick:', selectedDate);
+      setIsLoading(true);
+  
+      try {
+        const response = await axios.get('http://localhost:3333/api/flight', {
+          params: {
+            destination: Selected,
+            fdate: selectedDate,
+          }
+        });
         // Handle and display the data in your React app
         console.log(response.data);
-      })
-      .catch((error) => {
+        const result = await response.data;
+        console.log('result is: ', JSON.stringify(result, null, 4));
+        setData(result);
+        localStorage.setItem('Data', Data); 
+      } catch (error) {
         console.error('Error:', error);
-      });
+      }finally {
+        setIsLoading(false);
+      }
     };
+    
+    //Send data 
+
     
     useEffect(() => {
   
       const token = localStorage.getItem('token')
       console.log(token);
     
+
       const config = {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -135,14 +148,15 @@ function User() {
                
                     />
                 </div> 
-
+         
                 <div className="submit">
-                    <Link 
+                    <Link
                     to='/user_ticket' 
                     onClick={handleSearchClick}>Search</Link>
                 </div>
             </div>
         </div>
+        
     )
 }
 
