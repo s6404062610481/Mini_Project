@@ -2,6 +2,7 @@ import React, { useState,useEffect  } from 'react'
 import { Link, NavLink,useNavigate } from 'react-router-dom';
 import { IoExitOutline } from 'react-icons/io5'
 import './User_pay.css'
+import qrcode from './qrcode.png'
 
 function User_pay() {
     return (
@@ -83,7 +84,7 @@ function User_pay() {
                         </div>
                         <hr />
                         <div className="bg-user-pay">
-                           <img src="" alt="" />
+                           <img src={"qrcode"} alt="" />
                         </div>
                     </div>
                 </div>
