@@ -83,3 +83,14 @@
 .seat-user-pay span{
     font-weight: bold;
 }
+.bg-user-pay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: -10px;
+}
+.bg-user-pay img{
+    width: 125px;
+    height: 125px;
+}

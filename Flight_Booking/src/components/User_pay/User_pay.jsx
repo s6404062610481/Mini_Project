@@ -84,7 +84,7 @@ function User_pay() {
                         </div>
                         <hr />
                         <div className="bg-user-pay">
-                           <img src={"qrcode"} alt="" />
+                           <img src={qrcode} alt="" />
                         </div>
                     </div>
                 </div>
