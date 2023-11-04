@@ -114,7 +114,7 @@ function User_ticket() {
                         />
                     </div>
 
-                <div className="dropdown-data">
+                <div className="dropdown-data-user-ticket">
                     <Dropdown 
                     Selected={Selected} 
                     setSelected={setSelected} 
@@ -127,10 +127,59 @@ function User_ticket() {
                     />
                 </div> 
 
-                <div className="submit">
+                <div className="submit-user-ticket">
                     <Link 
                     to='/user_ticket' 
                     onClick={handleSearchClick}>Search</Link>
+                </div>
+
+                <div className="ticket-user-ticket">
+                    <div className="ticket-form">
+                            <div className="goto">
+                                เดินทางไปที่ : Thailand 
+                            </div>
+                            <div className="date">
+                                วัน : 01/12/2024
+                            </div>
+                            <div className="time">
+                                เวลา : 09:00 น.
+                            </div>
+                            <div className="next">
+                            <Link to="/Flight">จองที่นั่ง</Link>
+                            </div>
+                    </div>
+                </div>
+                <div className="ticket-user-ticket">
+                    <div className="ticket-form">
+                            <div className="goto">
+                                เดินทางไปที่ : Thailand 
+                            </div>
+                            <div className="date">
+                                วัน : 01/12/2024
+                            </div>
+                            <div className="time">
+                                เวลา : 09:00 น.
+                            </div>
+                            <div className="next">
+                            <Link to="/Flight">จองที่นั่ง</Link>
+                            </div>
+                    </div>
+                </div>
+                <div className="ticket-user-ticket">
+                    <div className="ticket-form">
+                            <div className="goto">
+                                เดินทางไปที่ : Thailand 
+                            </div>
+                            <div className="date">
+                                วัน : 01/12/2024
+                            </div>
+                            <div className="time">
+                                เวลา : 09:00 น.
+                            </div>
+                            <div className="next">
+                            <Link to="/Flight">จองที่นั่ง</Link>
+                            </div>
+                    </div>
                 </div>
 
             </div>
