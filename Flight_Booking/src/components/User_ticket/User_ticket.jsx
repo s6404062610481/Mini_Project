@@ -40,8 +40,6 @@ function User_ticket() {
 
     //submit SELECT data 
     const handleSearchClick = () => {
-      console.log('handleSearchClick:', Selected);
-      console.log('handleSearchClick :', Date);
       axios.get('http://localhost:3333/api/flight', {
         params: {
           destination: Selected,
@@ -49,8 +47,11 @@ function User_ticket() {
         }
       })
       .then((response) => {
-        // Handle and display the data in your React app
-        console.log(response.data);
+        // Filter flights based on selected destination and date
+        const filteredFlights = response.data.filter((flight) => flight.Destination === Selected && flight.Fdate === Date);
+        // Handle and display the filtered data in your React app
+        console.log(filteredFlights);
+        // เราสามารถทำอะไรก็ได้ที่นี่ด้วยข้อมูลที่ได้รับจาก filteredFlights
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -85,7 +86,7 @@ function User_ticket() {
         // Handle login error (e.g., show an error message)
         alert("Incorrect information. Please check your credentials.");
       });
-    }, []);
+    }, [Selected, Date]);
 
     return (
         <div>
@@ -133,57 +134,11 @@ function User_ticket() {
                     onClick={handleSearchClick}>Search</Link>
                 </div>
 
-                <div className="ticket-user-ticket">
-                    <div className="ticket-form">
-                            <div className="goto">
-                                เดินทางไปที่ : Thailand 
-                            </div>
-                            <div className="date">
-                                วัน : 01/12/2024
-                            </div>
-                            <div className="time">
-                                เวลา : 09:00 น.
-                            </div>
-                            <div className="next">
-                            <Link to="/user_flight">จองที่นั่ง</Link>
-                            </div>
-                    </div>
-                </div>
-                <div className="ticket-user-ticket">
-                    <div className="ticket-form">
-                            <div className="goto">
-                                เดินทางไปที่ : Thailand 
-                            </div>
-                            <div className="date">
-                                วัน : 01/12/2024
-                            </div>
-                            <div className="time">
-                                เวลา : 09:00 น.
-                            </div>
-                            <div className="next">
-                            <Link to="/user_flight">จองที่นั่ง</Link>
-                            </div>
-                    </div>
-                </div>
-                <div className="ticket-user-ticket">
-                    <div className="ticket-form">
-                            <div className="goto">
-                                เดินทางไปที่ : Thailand 
-                            </div>
-                            <div className="date">
-                                วัน : 01/12/2024
-                            </div>
-                            <div className="time">
-                                เวลา : 09:00 น.
-                            </div>
-                            <div className="next">
-                            <Link to="/user_flight">จองที่นั่ง</Link>
-                            </div>
-                    </div>
+                
                 </div>
 
             </div>
-        </div>
+        
     )
 }
 

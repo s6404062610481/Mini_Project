@@ -58,7 +58,7 @@ function User_flight() {
         console.error('Error:', error);
       });
     };
-
+                       // *********************//
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [selectedAndReservedSeats, setSelectedAndReservedSeats] = useState([]);
 
@@ -83,6 +83,16 @@ function User_flight() {
         setSelectedSeats([...selectedSeats, seatNumber]);
         }
     };
+                        /////////
+    const [status,setStatus] = useState(false);
+    const handleNextClick = () => {
+      if (selectedSeats.length > 0) {
+        setStatus(true);
+        console.log("Success"); 
+    } else {
+        console.log("Please select a seat.");
+    }
+};
   
     return (
         <div>
@@ -499,8 +509,8 @@ function User_flight() {
           </div>
         </div>
         <div className="btn-main">
-          <Link to='/user_ticket'>Back</Link>
-          <Link to='/user_pay'>Next</Link>
+          <Link to='/user_ticket'onClick={handleNextClick}>Back</Link>
+          <Link to='/user_pay'onClick={handleNextClick}>Next</Link>
         </div>
 
             </div>
