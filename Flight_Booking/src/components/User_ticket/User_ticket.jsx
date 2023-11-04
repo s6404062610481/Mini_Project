@@ -145,7 +145,7 @@ function User_ticket() {
                                 เวลา : 09:00 น.
                             </div>
                             <div className="next">
-                            <Link to="/Flight">จองที่นั่ง</Link>
+                            <Link to="/user_flight">จองที่นั่ง</Link>
                             </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@ function User_ticket() {
                                 เวลา : 09:00 น.
                             </div>
                             <div className="next">
-                            <Link to="/Flight">จองที่นั่ง</Link>
+                            <Link to="/user_flight">จองที่นั่ง</Link>
                             </div>
                     </div>
                 </div>
@@ -177,7 +177,7 @@ function User_ticket() {
                                 เวลา : 09:00 น.
                             </div>
                             <div className="next">
-                            <Link to="/Flight">จองที่นั่ง</Link>
+                            <Link to="/user_flight">จองที่นั่ง</Link>
                             </div>
                     </div>
                 </div>
