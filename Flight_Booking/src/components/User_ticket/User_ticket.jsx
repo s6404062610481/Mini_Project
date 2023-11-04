@@ -18,6 +18,8 @@ function User_ticket() {
 
     //get name
     const username = localStorage.getItem('username');
+    // const Selected = localStorage.getItem('Selected');
+    // const selectedDate = localStorage.getItem('selectedDate');
 
 
     //function logout

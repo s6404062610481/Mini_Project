@@ -10,7 +10,7 @@ function User() {
     const [Selected, setSelected] = useState('')
     const [selectedDate, setSelectedDate] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [Data, setData] = useState([]);
+    const [Data, setData] = useState({flight: []});
    
 
     const navigate = useNavigate();
@@ -44,35 +44,52 @@ function User() {
     const handleSearchClick = async () => { // Mark the function as async
       console.log('handleSearchClick:', Selected);
       console.log('handleSearchClick:', selectedDate);
-      setIsLoading(true);
+      localStorage.setItem('Selected', Selected); 
+      localStorage.setItem('selectedDate', selectedDate); 
+
+      // setIsLoading(true);
   
-      try {
-        const response = await axios.get('http://localhost:3333/api/flight', {
-          params: {
-            destination: Selected,
-            fdate: selectedDate,
-          }
-        });
-        // Handle and display the data in your React app
-        console.log(response.data);
-        const result = await response.data;
-        console.log('result is: ', JSON.stringify(result, null, 4));
-        setData(result);
-        localStorage.setItem('Data', Data); 
-      } catch (error) {
-        console.error('Error:', error);
-      }finally {
-        setIsLoading(false);
-      }
+      // try {
+      //   const response = await axios.get('http://localhost:3333/api/flight', {
+      //     params: {
+      //       destination: Selected,
+      //       fdate: selectedDate,
+      //     }
+      //   });
+      //   // Handle and display the data in your React app
+      //   console.log(response.data);
+      //   const result = await response.data;
+      //   console.log('result is: ', JSON.stringify(result, null, 4));
+      //   setData(result);
+      //   localStorage.setItem('Data', Data); 
+      // } catch (error) {
+      //   console.error('Error:', error);
+      // }finally {
+      //   setIsLoading(false);
+      // }
     };
     
     //Send data 
 
-    
+    console.log("data usetate",Data)
     useEffect(() => {
   
       const token = localStorage.getItem('token')
       console.log(token);
+
+      const fetchData = async () => {
+        const result = await axios(
+          'http://localhost:3333/api/flightall',
+        );
+  
+        setData({
+          users: result.data
+        });
+      };
+  
+      fetchData();
+
+      
     
 
       const config = {
@@ -81,6 +98,8 @@ function User() {
           'Content-Type': 'application/json', // Specify the content type if needed
         },
       };
+
+      
   
       console.log('Headers:', config.headers);
       axios.post("http://localhost:3333/authen", {}, config)
@@ -155,7 +174,9 @@ function User() {
                     onClick={handleSearchClick}>Search</Link>
                 </div>
             </div>
+            
         </div>
+        
         
     )
 }

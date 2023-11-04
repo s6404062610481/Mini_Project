@@ -71,15 +71,6 @@ app.post('/authen', jsonParser, function (req, res, next) {
   }
 })
 // Search flight
-// app.get("//api/flight", (req, res) => {
-//   connection.query("SELECT * FROM flight", (err, result) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.send(result);
-//     }
-//   });
-// });
   app.get('/api/flight', (req, res) => {
     // Get the variable from the query parameters
      // Get the variable from the query parameters
@@ -102,6 +93,29 @@ app.post('/authen', jsonParser, function (req, res, next) {
     });
       }
   );
+
+  app.get('/api/flightall', (req, res) => {
+    // Get the variable from the query parameters
+     // Get the variable from the query parameters
+ 
+
+   // Construct the SQL query with the variable
+   const query = `SELECT * FROM flight `;
+
+    // Execute the SQL query
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error('Error executing SQL query: ' + err.message);
+        res.status(500).json({ error: 'An error occurred' });
+        return;
+      }
+
+      // Return the query results as JSON
+      res.json(results);
+    });
+      }
+  );
+
 
 
 
