@@ -9,7 +9,6 @@ function User() {
 
     const [Selected, setSelected] = useState("")
     const [Date, setDate] = useState("")
-    const [responseData, setResponseData] = useState([]);
    
 
     const navigate = useNavigate();
@@ -40,29 +39,9 @@ function User() {
     };
 
     //submit SELECT data 
-
-
-    // const handleSearchClick = async () => {
-    //   console.log('handleSearchClick:', Selected);
-    //   console.log('handleSearchClick:', Date);
-    
-    //   try {
-    //     const response = await axios.get('http://localhost:3333/api/flight', {
-    //       params: {
-    //         destination: Selected,
-    //         fdate: Date
-    //       }
-    //     });
-    //     console.log('API Response:', response.data); // Log the API response
-    //     // let jsonString = JSON.stringify(response.data)
-    //     //      setResponseData(jsonString)
-    //     //     console.log('data of ResponseData',responseData);
-    //   } catch (error) {
-    //     console.error('Error:', error);
-    //   }
-    // };
- 
     const handleSearchClick = () => {
+      console.log('handleSearchClick:', Selected);
+      console.log('handleSearchClick :', Date);
       axios.get('http://localhost:3333/api/flight', {
         params: {
           destination: Selected,
@@ -72,7 +51,6 @@ function User() {
       .then((response) => {
         // Handle and display the data in your React app
         console.log(response.data);
-        setResponseData(response.data);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -83,6 +61,7 @@ function User() {
   
       const token = localStorage.getItem('token')
       console.log(token);
+    
       const config = {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -143,7 +122,6 @@ function User() {
                     <h2>จองเที่ยวบินทั่วโลกสำหรับทริปของคุณด้วยข้อเสนอที่ดีที่สุด</h2>
                     </div>
                 </article>
-                {responseData}
 
                 <div className="dropdown-data">
                     <Dropdown 
@@ -157,17 +135,13 @@ function User() {
                
                     />
                 </div> 
-                <ul>
 
-        </ul>
                 <div className="submit">
-                {/* <Link 
-                    // to='/Ticket' 
-                    // onClick={handleSearchClick}>Search</Link> */}
-                    <button onClick={handleSearchClick}>Search</button>
+                    <Link 
+                    to='/Ticket' 
+                    onClick={handleSearchClick}>Search</Link>
                 </div>
             </div>
-           
         </div>
     )
 }
