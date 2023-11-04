@@ -28,7 +28,38 @@ function User_pay() {
                         className='icon-user-exit' 
                         size={25} 
                         />
+                </div>
+
+                <div className="main-user-pay">
+                    <div className="content-user-pay">
+                        <div className="name-user-pay">
+                            Name : <span>Tanawat Kama</span>
+                        </div>
+                        <div className="time-fligth">
+                            <div className="time-user-pay">
+                                Time : <span>09:30:00</span>
+                            </div>
+                            <div className="flight-user-pay">
+                                Flight : <span>A0233</span>
+                            </div>
+                        </div>
+                        <div className="Date">
+                            Date : <span>01/12/2565</span>
+                        </div>
+                        <div className="to-price">
+                            <div className="to">
+                                To : <span>Puket</span>
+                            </div>
+                            <div className="price">
+                                Price : <span>1300 Bath</span>
+                            </div>
+                        </div>
+                        <div className="seat-user-pay">
+                            Seat : <span>B09</span>
+                        </div>
                     </div>
+                </div>
+
             </div>
         </div>
     )
