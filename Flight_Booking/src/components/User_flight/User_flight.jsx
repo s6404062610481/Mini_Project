@@ -124,12 +124,6 @@ function User_flight() {
                     />
                 </div> 
 
-                <div className="submit-user-ticket">
-                    <Link 
-                    to='/user_ticket' 
-                    onClick={handleSearchClick}>Search</Link>
-                </div>
-
             <div className="seat_main_1-user-ticket">
           {/* red */}
           <div className="seat_1">
