@@ -58,7 +58,6 @@ nav{
 }
 .navcenter{
     display: flex;
-    margin-left: 100px;
     justify-content: space-between;
     align-items: center;
     width: 350px;
@@ -66,14 +65,12 @@ nav{
 }
 .navhome{
     border-radius: 30px;
+    color: #333;
 }
 .navhome a{
     color: #333;
 }
-.navorder a{
-    color: #333;
-}
-.navfav a{
+.navorder{
     color: #333;
 }
 .in{

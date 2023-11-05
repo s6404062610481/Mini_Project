@@ -95,14 +95,14 @@ const Home = () => {
     <div>
             <div className='Home'>
                 <div className='nav-user'>
-                    <div className="logo-user">
+                    <div className="logo">
                         <Link to="/">Canfly</Link>
                     </div> 
-                    <div className="navcenter-user">
-                        <div className="navhome-user">
+                    <div className="navcenter">
+                        <div className="navhome">
                             <NavLink to="/">Home</NavLink>
                         </div>
-                        <div className="navorder-user">
+                        <div className="navorder">
                             <NavLink to="/">Your order</NavLink>
                         </div>
                     </div>
