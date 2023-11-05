@@ -5,6 +5,11 @@
     height: 400px;
     box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
 }
+.main-user-order{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .booking-user-order{
     margin-bottom: 30px;
 }
@@ -12,13 +17,17 @@
     margin-bottom: 10px;
     font-weight: bold;
 }
+.name-flight{
+    margin-bottom: 30px;
+}
 .name-flight-data-user-order{
     font-size: large;
     color: rgb(8, 179, 136);
     font-weight: bold;
 }
-.name-flight{
-    margin-bottom: 30px;
+.img-data-user-order img{
+    width: 150px;
+    height: 150px;
 }
 .flight-id{
     margin-bottom: 15px;
