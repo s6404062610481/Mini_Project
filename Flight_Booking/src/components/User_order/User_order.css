@@ -1,9 +1,65 @@
 .ticket-form-user-order{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 40px 60px 60px 60px;
     border-radius: 30px;
-    width: 900px;
-    height: 75px;
+    width: 600px;
+    height: 400px;
     box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+}
+.booking-user-order{
+    margin-bottom: 30px;
+}
+.booking-data-user-order{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.name-flight-data-user-order{
+    font-size: large;
+    color: rgb(8, 179, 136);
+    font-weight: bold;
+}
+.name-flight{
+    margin-bottom: 30px;
+}
+.flight-id{
+    margin-bottom: 15px;
+}
+.flight-id-data{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.hr-user-order{
+    height: 5px;
+    background-color: blue;
+    border: none;
+    margin-bottom: 15px;
+}
+.destination{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-right: 60px;
+}
+.des-to-data{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.dses-seat-data{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.date-time-user-order{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-right: 30px;
+}
+.date-data-user-order{
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.time-date-user-order{
+    margin-bottom: 10px;
+    font-weight: bold;
 }

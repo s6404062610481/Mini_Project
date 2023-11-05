@@ -34,20 +34,18 @@ function User_order() {
                             </div>
                             <span>1</span>
                         </div>
-                        <br />
                         <div className="name-flight">
                             <div className="name-flight-data-user-order">
                                 FLIGHT INFORMATION
                             </div>
                         </div>
-                        <br />
                         <div className="flight-id">
                             <div className="flight-id-data">
                                 Flight ID
                             </div>
                             <span>001233</span>
                         </div>
-                        <hr />
+                        <hr className='hr-user-order' />
                         <div className="destination">
                             <div className="des-to">
                                 <div className="des-to-data">
