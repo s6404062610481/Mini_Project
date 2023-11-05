@@ -2,8 +2,19 @@ import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import './User_order.css'
 import qrcode2 from './qrcode2.png'
+import { IoExitOutline } from 'react-icons/io5'
 
 function User_order() {
+
+    //get name
+    const username = localStorage.getItem('username');
+
+    //function logout
+    const logout = () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      navigate('/Login');
+    };
     
     return (
         <div>
@@ -22,9 +33,14 @@ function User_order() {
                     </div>
                     <div className="nav-right">
                         <div className='nav-username'>
-                            User name
+                        {username}
                         </div>
                     </div>
+                    <IoExitOutline 
+                    className='icon-user-exit' 
+                    size={25} 
+                    onClick={logout}
+                    />
                 </div>
 
                 <div className="ticket">
