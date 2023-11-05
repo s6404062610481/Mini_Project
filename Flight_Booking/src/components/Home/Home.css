@@ -134,7 +134,7 @@ nav{
     align-items: center;
 }
 
-.submit a{
+.submit div{
     margin-top: -25px;
     display: flex;
     justify-content: center;
