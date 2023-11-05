@@ -74,16 +74,7 @@ function User() {
     
     useEffect(() => {
 
-        axios.get('http://localhost:3333/api/flightall').then((response) => {
-            const result =  response.data;
-            setData({ 
-                flight: result
-              });
-            console.log(response);
-          })
-          .catch((error) => {
-            // handle errors
-          });
+       
           console.log('Data state in useEffect:', data);
       const token = localStorage.getItem('token')
       console.log(token);
@@ -153,29 +144,7 @@ function User() {
                     <Link to="/user_ticket" onClick={handleSearchClick}>Search</Link>
                 </div>
 
-                {data.flight.map(flight => (
-                <div className="ticket-user-ticket">
-               
-                    <div className="ticket-form" key={flight.Fid}>
-                         
-                            <div className="goto" >
-                                เดินทางไปที่ :  {flight.Destination}
-                            </div>
-        
-                            <div className="date">
-                                วัน :  {new Date(flight.Fdate).toLocaleDateString()}
-                            </div>
-                            <div className="time">
-                                เวลา : {flight.Ftime}
-                            </div>
-                        
-                            <div className="next">
-                            <Link to="/User_flight">จองที่นั่ง</Link>
-                            </div>  
-                    </div>                      
-                    <Link to='/user_ticket' >Search</Link>
-                </div>
-                   ))}
+                
               
 
             </div>
