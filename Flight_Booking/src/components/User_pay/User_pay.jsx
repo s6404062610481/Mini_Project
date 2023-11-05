@@ -1,8 +1,8 @@
 import React, { useState,useEffect  } from 'react'
-import { MdEventSeat } from 'react-icons/md';
 import { Link, NavLink,useNavigate } from 'react-router-dom';
 import { IoExitOutline } from 'react-icons/io5'
-import Axios from 'axios';
+import './User_pay.css'
+import qrcode from './qrcode.png'
 
 function User_pay() {
     return (
@@ -33,29 +33,58 @@ function User_pay() {
                 <div className="main-user-pay">
                     <div className="content-user-pay">
                         <div className="name-user-pay">
-                            Name : <span>Tanawat Kama</span>
+                            <div className="name-data-user-pay">
+                                Name
+                            </div>
+                            <span>Tanawat Kama</span>
                         </div>
+                        <hr />
                         <div className="time-fligth">
                             <div className="time-user-pay">
-                                Time : <span>09:30:00</span>
+                                <div className="time-data-user-pay">
+                                    Time    
+                                </div>
+                                <span>09:30:00</span>
                             </div>
                             <div className="flight-user-pay">
-                                Flight : <span>A0233</span>
+                                <div className="flight-data-user-pay">
+                                    Flight
+                                </div>
+                                <span>A0233</span>
                             </div>
                         </div>
-                        <div className="Date">
-                            Date : <span>01/12/2565</span>
-                        </div>
-                        <div className="to-price">
-                            <div className="to">
-                                To : <span>Puket</span>
+                        <hr />
+                        <div className="date-user-pay">
+                            <div className="date-data-user-pay">
+                                Date
                             </div>
-                            <div className="price">
-                                Price : <span>1300 Bath</span>
+                            <span>01/12/2565</span>
+                        </div>
+                        <hr />
+                        <div className="to-price-user-pay">
+                            <div className="to-user-pay">
+                                <div className="to-data-user-pay">
+                                    To
+                                </div>
+                                <span>Puket</span>
+                            </div>
+                            <div className="price-user-pay">
+                                <div className="price-data-user-pay">
+                                    Price
+                                </div>
+                                <span>1300 Bath</span>
                             </div>
                         </div>
+                        <hr />
                         <div className="seat-user-pay">
-                            Seat : <span>B09</span>
+                            <div className="seat-data-user-pay">
+                                Seat
+                            </div>
+                            <span>B09</span>
+                        </div>
+                        <hr />
+                        <div className="bg-user-pay">
+                           <img src={qrcode} alt="" />
                         </div>
                     </div>
                 </div>

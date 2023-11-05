@@ -58,7 +58,6 @@ nav{
 }
 .navcenter{
     display: flex;
-    margin-left: 100px;
     justify-content: space-between;
     align-items: center;
     width: 350px;
@@ -66,14 +65,12 @@ nav{
 }
 .navhome{
     border-radius: 30px;
+    color: #333;
 }
 .navhome a{
     color: #333;
 }
-.navorder a{
-    color: #333;
-}
-.navfav a{
+.navorder{
     color: #333;
 }
 .in{
@@ -134,7 +131,7 @@ nav{
     align-items: center;
 }
 
-.submit a{
+.submit div{
     margin-top: -25px;
     display: flex;
     justify-content: center;
@@ -147,6 +144,7 @@ nav{
     height: 35px;
     padding: 0px 5px;
     box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+    cursor: pointer;
 }
 
 .ticket{

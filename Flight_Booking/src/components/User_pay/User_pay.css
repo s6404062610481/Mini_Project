@@ -1,0 +1,96 @@
+.main-user-pay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content-user-pay{
+    width: 300px;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+}
+.name-user-pay{
+    margin-bottom: 15px;
+}
+.name-data-user-pay{
+    margin: 10px;
+}
+.name-user-pay span{
+    margin-left: 10px;
+    font-weight: bold;
+}
+.time-fligth{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.time-data-user-pay{
+    margin-bottom: 10px;
+}
+.time-user-pay span{
+    font-weight: bold;
+}
+.flight-data-user-pay{
+    margin-bottom: 10px;
+}
+.flight-user-pay span{
+    font-weight: bold;
+}
+.date-user-pay{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.date-data-user-pay{
+    margin: 10px;
+}
+.date-user-pay span{
+    margin-left: 10px;
+    font-weight: bold;
+}
+.to-price-user-pay{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.to-data-user-pay{
+    margin-bottom: 10px;
+}
+.to-user-pay span{
+    font-weight: bold;
+}
+.price-data-user-pay{
+    margin-bottom: 10px;
+}
+.price-user-pay span{
+    font-weight: bold;
+}
+.seat-user-pay{
+    margin: 10px 10px 15px 10px;
+}
+.seat-data-user-pay{
+    margin-bottom: 10px;
+}
+.seat-user-pay span{
+    font-weight: bold;
+}
+.bg-user-pay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: -10px;
+}
+.bg-user-pay img{
+    width: 125px;
+    height: 125px;
+}

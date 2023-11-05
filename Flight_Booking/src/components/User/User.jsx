@@ -173,6 +173,56 @@ function User() {
                     to='/user_ticket' 
                     onClick={handleSearchClick}>Search</Link>
                 </div>
+
+                <div className="ticket-user-ticket">
+                    <div className="ticket-form">
+                        <div className="goto">
+                            เดินทางไปที่ : Thailand 
+                        </div>
+                        <div className="date">
+                            วัน : 01/12/2024
+                        </div>
+                        <div className="time">
+                            เวลา : 09:00 น.
+                        </div>
+                        <div className="next">
+                        <Link to="/user_flight">จองที่นั่ง</Link>
+                        </div>
+                    </div>
+                </div>
+                <div className="ticket-user-ticket">
+                    <div className="ticket-form">
+                        <div className="goto">
+                            เดินทางไปที่ : Thailand 
+                        </div>
+                        <div className="date">
+                            วัน : 01/12/2024
+                        </div>
+                        <div className="time">
+                            เวลา : 09:00 น.
+                        </div>
+                        <div className="next">
+                        <Link to="/user_flight">จองที่นั่ง</Link>
+                        </div>
+                    </div>
+                </div>
+                <div className="ticket-user-ticket">
+                    <div className="ticket-form">
+                        <div className="goto">
+                            เดินทางไปที่ : Thailand 
+                        </div>
+                        <div className="date">
+                            วัน : 01/12/2024
+                        </div>
+                        <div className="time">
+                            เวลา : 09:00 น.
+                        </div>
+                        <div className="next">
+                        <Link to="/user_flight">จองที่นั่ง</Link>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             
         </div>

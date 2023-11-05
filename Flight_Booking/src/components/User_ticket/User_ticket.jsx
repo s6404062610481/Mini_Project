@@ -103,7 +103,7 @@ function User_ticket() {
         // Handle login error (e.g., show an error message)
         alert("Incorrect information. Please check your credentials.");
       });
-    }, []);
+    }, [Selected, Date]);
 
     return (
         <div>
@@ -182,7 +182,7 @@ function User_ticket() {
                 
 
             </div>
-        </div>
+        
     )
 }
 
