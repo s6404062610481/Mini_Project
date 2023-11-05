@@ -147,6 +147,7 @@ nav{
     height: 35px;
     padding: 0px 5px;
     box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+    cursor: pointer;
 }
 
 .ticket{

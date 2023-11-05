@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import './User'
 
 function Dropdown({ Selected, setSelected, onChange }) {
   const [IsActive, setIsActive] = useState(false);
-  const option = ["Phuket", "hadyai", "krabi"]; // Corrected spelling
+  const option = ["Phuket", "Hadyai", "Krabi"]; // Corrected spelling
 
   return (
     <div>

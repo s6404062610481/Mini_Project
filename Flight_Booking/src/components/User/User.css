@@ -68,33 +68,32 @@
     margin: 50px 20px;
     user-select: none;
 }
-.dropdown-btn{
+.dropdown .dropdown-btn{
     box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
     border-radius: 30px;
-    background: #fff;
+    background-color: #fff;
     color: #333;
     padding: 15px 20px;
     height: 50px;
     cursor: pointer;
 }
-.dropdown-content{
+.dropdown .dropdown-content{
     position: absolute;
     box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
-    background: #fff;
+    background-color: #fff;
     border-radius: 30px;
     width: 300px;
     color: #333;
     padding: 15px;
-    cursor: pointer;
 }
 
-.dropdowm-item{
+.dropdown .dropdown-content .dropdown-item{
     padding: 10px;
     cursor: pointer;
     transition: all 0.2s;
 }
-.dropdowm-item:hover{
-    background: #efeded;
+.dropdown .dropdown-content .dropdowmn-item:hover{
+    background-color: #c01212;
 }
 
 .icon-user-exit{
