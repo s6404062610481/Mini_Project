@@ -106,16 +106,14 @@ const Home = () => {
                             <NavLink to="/">Your order</NavLink>
                         </div>
                     </div>
-                    <div className="nav-right">
-                        <div className='nav-username'>
-                        {username}
-                        </div>
-                    </div>
-                    <IoExitOutline 
-                    className='icon-user-exit' 
-                    size={25} 
-                    onClick={logout}
-                    />
+                    <div className="in">
+                      <div className='sign'>
+                        <Link to="/Signin">SIGN IN</Link>
+                      </div>
+                      <div className='log'>
+                        <Link to="/Login">LOG IN</Link>
+                      </div>
+                  </div>
                 </div>
             
 
