@@ -44,6 +44,8 @@ function User() {
     const handleSearchClick = async () => { // Mark the function as async
         console.log('handleSearchClick:', Selected);
         console.log('handleSearchClick:', selectedDate);
+        localStorage.setItem('sendSelected', Selected); 
+        localStorage.setItem('sendselectedDate',selectedDate); 
         setIsLoading(true);
     
         try {
@@ -161,7 +163,7 @@ function User() {
                 </div> 
 
                 <div className="submit">
-                    <div onClick={handleSearchClick}>Search</div>
+                    <Link to="/user_ticket" onClick={handleSearchClick}>Search</Link>
                 </div>
 
                 {data.flight.map(flight => (
@@ -181,7 +183,7 @@ function User() {
                             </div>
                         
                             <div className="next">
-                            <Link to="/user_flight">จองที่นั่ง</Link>
+                            <Link to="/User_flight">จองที่นั่ง</Link>
                             </div>  
                     </div>                      
                 </div>

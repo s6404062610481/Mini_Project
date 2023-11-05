@@ -18,10 +18,10 @@ function User_ticket() {
 
     //get name
     const username = localStorage.getItem('username');
-    // const Selected = localStorage.getItem('Selected');
-    // const selectedDate = localStorage.getItem('selectedDate');
-
-
+    // const Selectedget = localStorage.getItem('sendSelected');
+    // const selectedDateget = localStorage.getItem('sendselectedDate');
+    
+    
     //function logout
     const logout = () => {
       localStorage.removeItem('token');
@@ -76,9 +76,39 @@ function User_ticket() {
     
     
     useEffect(() => {
-  
+
+      
       const token = localStorage.getItem('token')
       console.log(token);
+
+      const Selectedget = localStorage.getItem('sendSelected');
+       const selectedDateget = localStorage.getItem('sendselectedDate');
+       console.log('Selectedget8888888888888888',Selectedget);
+       console.log('selectedDateget88888888888888',selectedDateget);
+
+
+
+      axios.get('http://localhost:3333/api/flight', {
+  params: {
+    destination: Selectedget,
+    fdate: Selectedget,
+  }
+})
+  .then((response) => {
+    // Handle and display the data in your React app
+    console.log(response.data);
+    const result = response.data;
+    console.log('result is: ', JSON.stringify(result, null, 4));
+
+    setData({ flight: result });
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  })
+  .finally(() => {
+    setIsLoading(false);
+  });
+    console.log('Data state:', data);
     
       const config = {
         headers: {
