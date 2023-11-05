@@ -106,84 +106,59 @@ function User_ticket() {
     }, [Selected, Date]);
 
     return (
-        <div>
-            <div className='Home'>
-                <div className='nav-user'>
-                    <div className="logo-user">
-                            <Link to="/user">Canfly</Link>
-                        </div> 
-                        <div className="navcenter-user">
-                            <div className="navhome-user">
-                                <NavLink to="/user">Home</NavLink>
-                            </div>
-                            <div className="navorder-user">
-                                <NavLink to="/user_order">Your order</NavLink>
-                            </div>
-                        </div>
-                        <div className="nav-right">
-                            <div className='nav-username'>
-                            {username}
-                            </div>
-                        </div>
-                        <IoExitOutline 
-                        className='icon-user-exit' 
-                        size={25} 
-                        onClick={logout}
-                        />
-                    </div>
+      <div>
+          <div className='Home'>
+              <div className='nav-user'>
+                  <div className="logo-user">
+                          <Link to="/user">Canfly</Link>
+                      </div> 
+                      <div className="navcenter-user">
+                          <div className="navhome-user">
+                              <NavLink to="/user">Home</NavLink>
+                          </div>
+                          <div className="navorder-user">
+                              <NavLink to="/user_order">Your order</NavLink>
+                          </div>
+                      </div>
+                      <div className="nav-right">
+                          <div className='nav-username'>
+                          {username}
+                          </div>
+                      </div>
+                      <IoExitOutline 
+                      className='icon-user-exit' 
+                      size={25} 
+                      onClick={logout}
+                      />
+                  </div>
 
-                <div className="dropdown-data-user-ticket">
-                    <Dropdown 
-                    Selected={Selected} 
-                    setSelected={setSelected} 
-                    onChange={handleDropdownChange}/>
-                      
-                    <input type="date" 
-                    className='date-input' 
-                    onChange={handleDateChange}
-               
-                    />
-                </div> 
-           
-                <div className="submit-user-ticket">
-    
-                    <button
-                    // to='/user_ticket' 
-                    onClick={handleSearchClick}>Search</button>
+              <div className="dropdown-data-user-ticket">
+                  <Dropdown 
+                  Selected={Selected} 
+                  setSelected={setSelected} 
+                  onChange={handleDropdownChange}/>
                     
-                </div>
+                  <input type="date" 
+                  className='date-input' 
+                  onChange={handleDateChange}
+             
+                  />
+              </div> 
 
-        
-        
-    
-                {data.flight.map(flight => (
-                <div className="ticket-user-ticket">
-               
-                    <div className="ticket-form" key={flight.Fid}>
-                         
-                            <div className="goto" >
-                                เดินทางไปที่ :  {flight.Destination}
-                            </div>
-        
-                            <div className="date">
-                                วัน :  {new Date(flight.Fdate).toLocaleDateString()}
-                            </div>
-                            <div className="time">
-                                เวลา : {flight.Ftime}
-                            </div>
-                        
-                            <div className="next">
-                            <Link to="/user_flight">จองที่นั่ง</Link>
-                            </div>  
-                    </div>                      
-                </div>
-                   ))}
-               
-                
+              <div className="submit-user-ticket">
+                  <Link 
+                  to='/user_ticket' 
+                  onClick={handleSearchClick}>Search</Link>
+              </div>
 
-            </div>
-        
-    )
+              
+              </div>
+
+          </div>
+      
+  )
 }
+
+
 
 export default User_ticket
