@@ -71,7 +71,18 @@ function User() {
       console.log('Data state:', data);
     
     useEffect(() => {
-  
+
+        axios.get('http://localhost:3333/api/flightall').then((response) => {
+            const result =  response.data;
+            setData({ 
+                flight: result
+              });
+            console.log(response);
+          })
+          .catch((error) => {
+            // handle errors
+          });
+          console.log('Data state in useEffect:', data);
       const token = localStorage.getItem('token')
       console.log(token);
     
@@ -175,6 +186,7 @@ function User() {
                     </div>                      
                 </div>
                    ))}
+              
 
             </div>
         </div>
