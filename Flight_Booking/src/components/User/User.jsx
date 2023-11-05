@@ -149,19 +149,6 @@ function User() {
                     </div>
                 </article>
 
-                <div className="dropdown-data">
-                    <Dropdown 
-                    Selected={Selected} 
-                    setSelected={setSelected} 
-                    onChange={handleDropdownChange}/>
-                      
-                    <input type="date" 
-                    className='date-input' 
-                    onChange={handleDateChange}
-               
-                    />
-                </div> 
-
                 <div className="submit">
                     <Link to="/user_ticket" onClick={handleSearchClick}>Search</Link>
                 </div>
@@ -186,6 +173,7 @@ function User() {
                             <Link to="/User_flight">จองที่นั่ง</Link>
                             </div>  
                     </div>                      
+                    <Link to='/user_ticket' >Search</Link>
                 </div>
                    ))}
               
