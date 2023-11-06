@@ -128,6 +128,7 @@ app.post('/authen', jsonParser, function (req, res, next) {
    S.Sid AS SeatID,
    S.Snumber AS SeatNumber,
    B.Bid AS BookingID,
+   S.Fid AS FlightID,
    F.Destination AS FlightDestination,
    F.Fdate AS FlightDate,
    F.Ftime AS FlightTime
