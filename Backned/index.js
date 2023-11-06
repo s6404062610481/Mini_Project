@@ -98,7 +98,7 @@ app.post('/authen', jsonParser, function (req, res, next) {
   app.get('/api/flightall', (req, res) => {
     // Get the variable from the query parameters
      // Get the variable from the query parameters
- 
+
 
    // Construct the SQL query with the variable
    const query = `SELECT * FROM flight `;
@@ -120,8 +120,7 @@ app.post('/authen', jsonParser, function (req, res, next) {
   //get booking
   app.get('/api/flightbooking', (req, res) => {
     // Get the variable from the query parameters
-     // Get the variable from the query parameters
- 
+    const username = req.query.username;
 
    // Construct the SQL query with the variable
    const query = `SELECT
@@ -134,7 +133,7 @@ app.post('/authen', jsonParser, function (req, res, next) {
    F.Ftime AS FlightTime
 FROM
    Customer AS C
-   JOIN Booking AS B ON C.Username = 'npms' AND C.Username = B.Username
+   JOIN Booking AS B ON C.Username = '${username}' AND C.Username = B.Username
    JOIN Seat AS S ON B.Bid = S.Bid
    JOIN Flight AS F ON S.Fid = F.Fid; `;
 

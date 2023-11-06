@@ -25,17 +25,22 @@ function User_order() {
       const token = localStorage.getItem('token')
       console.log(token);
 
-      axios.get('http://localhost:3333/api/flightbooking').then((response) => {
-        const result =  response.data;
+      axios.get('http://localhost:3333/api/flightbooking', {
+        params: {
+            username: username ,
+          }
+        })
+        .then((response) => {
+        const result = response.data;
         setData({ 
             flight: result
-          });
+        });
         console.log(response);
-      })
-      .catch((error) => {
-        // handle errors
-      });
-      
+        })
+        .catch((error) => {
+        // Handle errors
+        });
+            
 
       const config = {
         headers: {
@@ -88,29 +93,7 @@ function User_order() {
                     />
                 </div>
 
-                {/* {data.flight.map(flight => (
-                <div className="ticket-user-ticket">
-               
-                    <div className="ticket-form" key={flight.Fid}>
-                         
-                            <div className="goto" >
-                                เดินทางไปที่ :  {flight.Destination}
-                            </div>
-        
-                            <div className="date">
-                                วัน :  {new Date(flight.Fdate).toLocaleDateString()}
-                            </div>
-                            <div className="time">
-                                เวลา : {flight.Ftime}
-                            </div>
-                        
-                            <div className="next">
-                            <Link to="/User_flight">จองที่นั่ง</Link>
-                            </div>  
-                    </div>                      
-                </div>
-                   ))}
-               */}
+      
                 {data.flight.map(flight => (
                 <div className="ticket" key={flight.Fid}>
                     <div className="ticket-form-user-order">
