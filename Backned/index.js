@@ -36,6 +36,7 @@ app.post('/register', jsonParser, function (req, res, next) {
   });
 })
 
+//api login for user
 app.post('/login', jsonParser, function (req, res, next) {
   connection.execute(
     'SELECT * FROM customer WHERE username =?',
@@ -60,6 +61,21 @@ app.post('/login', jsonParser, function (req, res, next) {
     }
   );
 })
+
+//api login for admin
+app.post('/api/login/addmin', (req, res) => {
+  const { username, password } = req.body;
+  'SELECT * FROM customer WHERE username =?'
+
+  // Simulated user authentication (you should validate against a database in a real application)
+  const user = users.find(u => u.username === username && u.password === password);
+
+  if (user) {
+    res.json({ message: 'Login successful', user });
+  } else {
+    res.status(401).json({ message: 'Login failed' });
+  }
+});
 
 app.post('/authen', jsonParser, function (req, res, next) {
   try {
