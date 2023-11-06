@@ -111,7 +111,7 @@ function Ticket() {
 
               <div className="submit-user-ticket">
                   <Link 
-                  to='/user_ticket' 
+                  to='/ticket' 
                   onClick={handleSearchClick}>Search</Link>
               </div>
             
@@ -132,7 +132,7 @@ function Ticket() {
                             </div>
                         
                             <div className="next">
-                            <Link to="/User_flight">จองที่นั่ง</Link>
+                            <Link to="/flight">จองที่นั่ง</Link>
                             </div>  
                     </div>                      
                 </div>
