@@ -64,13 +64,12 @@ nav{
     font-size: 18px;
 }
 .navhome{
-    border-radius: 30px;
     color: #333;
 }
 .navhome a{
     color: #333;
 }
-.navorder{
+.navorder a{
     color: #333;
 }
 .in{
