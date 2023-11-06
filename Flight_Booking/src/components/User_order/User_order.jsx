@@ -35,12 +35,12 @@ function User_order() {
                         <div className='nav-username'>
                         {username}
                         </div>
+                        <IoExitOutline 
+                        className='icon-user-exit' 
+                        size={25} 
+                        onClick={logout}
+                        />
                     </div>
-                    <IoExitOutline 
-                    className='icon-user-exit' 
-                    size={25} 
-                    onClick={logout}
-                    />
                 </div>
 
                 <div className="ticket">
