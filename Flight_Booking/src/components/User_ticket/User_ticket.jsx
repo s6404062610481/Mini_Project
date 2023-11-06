@@ -130,17 +130,16 @@ function User_ticket() {
                           </div>
                       </div>
                       <div className="nav-right">
-                          <div className='nav-username'>
-                          {username}
-                          </div>
-                      </div>
-                      <IoExitOutline 
-                      className='icon-user-exit' 
-                      size={25} 
-                      onClick={logout}
-                      />
-                  </div>
-
+                        <div className='nav-username'>
+                        {username}
+                        </div>
+                        <IoExitOutline 
+                        className='icon-user-exit' 
+                        size={25} 
+                        onClick={logout}
+                        />
+                    </div>
+                </div>
               <div className="dropdown-data-user-ticket">
                   <Dropdown 
                   Selected={Selected} 
