@@ -7,8 +7,6 @@ import axios from 'axios';
 
 function User() {
 
-    const [openMenu, setOpenMenu] = useState(false)
-
     const [Selected, setSelected] = useState("")
     const [selectedDate, setSelectedDate] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -113,10 +111,8 @@ function User() {
                 <div className='nav-user'>
                     <div className="logo-user">
                         <Link to="/user">Canfly</Link>
-                        <div className="berger" onClick={() => {
-                            setOpenMenu(!openMenu);
-                        }}>
-                            <PiListBold className={openMenu ? "open" : ""} />
+                        <div className="berger">
+                            <PiListBold />
                         </div>
                     </div> 
                     
