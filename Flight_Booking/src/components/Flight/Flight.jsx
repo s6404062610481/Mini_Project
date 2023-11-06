@@ -96,18 +96,22 @@ const Flight = () => {
                   </div>
                 </div>
 
-                <div className="dropdown-data-user-ticket">
-                    <Dropdown 
-                    Selected={Selected} 
-                    setSelected={setSelected} 
-                    onChange={handleDropdownChange}/>
-                      
-                    <input type="date" 
-                    className='date-input' 
-                    onChange={handleDateChange}
+                <div className="ticket-user-ticket">
                
-                    />
-                </div> 
+                    <div className="ticket-form">
+                         
+                            <div className="goto" >
+                                เดินทางไปที่ :  Thailand
+                            </div>
+        
+                            <div className="date">
+                                วัน :  19/12/2566
+                            </div>
+                            <div className="time">
+                                เวลา : 10:30:00
+                            </div>
+                    </div>                      
+                </div>
 
         <div className="seat_main_1">
           {/* red */}
@@ -478,7 +482,7 @@ const Flight = () => {
           </div>
         </div>
         <div className="btn-main">
-          <Link to='/'>Back</Link>
+          <Link to='/ticket'>Back</Link>
           <Link to='/Login'>Next</Link>
         </div>
       </div>
