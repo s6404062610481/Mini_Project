@@ -128,29 +128,27 @@ function User() {
                         <div className='nav-username'>
                         {username}
                         </div>
+                        <IoExitOutline 
+                        className='icon-user-exit' 
+                        size={25} 
+                        onClick={logout}
+                        />
                     </div>
-                    <IoExitOutline 
-                    className='icon-user-exit' 
-                    size={25} 
-                    onClick={logout}
-                    />
+                    
                 </div>
             
 
                 <article>
                     <div className="content">
-                    <h1>เริ่มเดินทางได้แล้ววันนี้</h1>
-                    <h2>จองเที่ยวบินทั่วโลกสำหรับทริปของคุณด้วยข้อเสนอที่ดีที่สุด</h2>
+                      <h1>เริ่มเดินทางได้แล้ววันนี้</h1>
+                      <h2>จองเที่ยวบินทั่วโลกสำหรับทริปของคุณด้วยข้อเสนอที่ดีที่สุด</h2>
                     </div>
+
+                    <div className="submit">
+                        <Link to="/user_ticket" onClick={handleSearchClick}>Search</Link>
+                    </div>
+
                 </article>
-
-                <div className="submit">
-                    <Link to="/user_ticket" onClick={handleSearchClick}>Search</Link>
-                </div>
-
-                
-              
-
             </div>
         </div>
     )
