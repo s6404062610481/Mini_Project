@@ -173,11 +173,23 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        background-image: url("https://images.unsplash.com/photo-1504253163759-c23fccaebb55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80");
+        object-fit: cover;
     }
     .nav-user{
         display: block;
     }
-    .icon-user-exit{
-
+    article, .content{
+        background-image: none;
+    }
+    .content{
+        margin-top: -50px;
+        padding: 25px;
+    }
+    .submit a{
+        background-color: #fff;
+        box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+        color: black;
+        margin-bottom: 50px;
     }
 }
