@@ -1,4 +1,5 @@
 import React from 'react'
+import './Login_admin.css'
 
 function Login_admin() {
     return (
@@ -7,11 +8,12 @@ function Login_admin() {
                 <div className="content-login-admin">
                     <h2>Login Admin</h2>
                     <div className="username-login-admin">
-                        Username : <input type="text" />
+                        Username <input type="text" />
                     </div>
                     <div className="password-login-admin">
-                        Password : <input type="text" />
+                        Password <input type="password" />
                     </div>
+                    <button className='btn-login-admin'>Login</button>
                 </div>
             </div>
         </div>  
