@@ -1,11 +1,13 @@
 import React, { useEffect,useState } from 'react'
 import { Link, NavLink,useNavigate  } from 'react-router-dom'
 import { IoExitOutline } from 'react-icons/io5'
+import { PiListBold } from 'react-icons/pi'
 import './User.css'
-import Dropdown from './Dropdown'
 import axios from 'axios';
 
 function User() {
+
+    const [openMenu, setOpenMenu] = useState(false)
 
     const [Selected, setSelected] = useState("")
     const [selectedDate, setSelectedDate] = useState('');
@@ -111,7 +113,13 @@ function User() {
                 <div className='nav-user'>
                     <div className="logo-user">
                         <Link to="/user">Canfly</Link>
+                        <div className="berger" onClick={() => {
+                            setOpenMenu(!openMenu);
+                        }}>
+                            <PiListBold className={openMenu ? "open" : ""} />
+                        </div>
                     </div> 
+                    
                     <div className="navcenter-user">
                         <div className="navhome-user">
                             <NavLink to="/user">Home</NavLink>
