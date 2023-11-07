@@ -2,8 +2,7 @@ import React, { useState,useEffect  } from 'react'
 import { MdEventSeat } from 'react-icons/md';
 import { Link, NavLink,useNavigate } from 'react-router-dom';
 import { IoExitOutline } from 'react-icons/io5'
-import Axios from 'axios';
-import Dropdown from '../User/Dropdown'
+import axios from 'axios';
 import './User_flight.css'
 
 const seats = Array.from({ length: 15 }, (_, index) => `A${index + 1}`);
@@ -200,23 +199,6 @@ function User_flight() {
                     </div>
 
                 </nav>
-
-                <div className="ticket-user-ticket">
-               
-                    <div className="ticket-form">
-                         
-                            <div className="goto-user-flight" >
-                                เดินทางไปที่ :  Thailand
-                            </div>
-        
-                            <div className="date-user-flight">
-                                วัน :  19/12/2566
-                            </div>
-                            <div className="time-user-flight">
-                                เวลา : 10:30:00
-                            </div>
-                    </div>                      
-                </div>
 
             <div className="seat_main_1-user-ticket">
           {/* red */}
