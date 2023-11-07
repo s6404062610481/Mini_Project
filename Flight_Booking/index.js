@@ -82,8 +82,8 @@ app.get('/flight', function (req, res) {
     });
   });
 
-  app.post('/reserve-seat', jsonParser, function (req, res) {
-    const { seatNumber, customerId } = req.body;
+app.post('/reserve-seat', jsonParser, function (req, res) {
+    const { seatNumber,} = req.body;
     connection.query(
       'UPDATE seat SET status = ?  WHERE snumber = ?',
       [true,  seatNumber],
