@@ -191,6 +191,20 @@ GROUP BY
   );
 
 
+app.post('/reserve-seat', jsonParser, function (req, res) {
+  const { seatNumber, customerId } = req.body;
+  connection.query(
+    'UPDATE seat SET status = ?  WHERE snumber = ?',
+    [true,  seatNumber],
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json({ status: 'ok', message: 'Seat reserved successfully' });
+    }
+  );
+});
+
+
+
 
 
 app.listen(3333, function () {
