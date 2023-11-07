@@ -7,6 +7,15 @@ import './User_ticket.css'
 
 function User_ticket() {
 
+    const [navActive, setnavActive] = useState("navcenter-user");
+    const navToggle = () => {
+        if(navActive==="navcenter-user"){
+            setnavActive("navcenter-user nav__active"); console.log("active")
+        }else{
+            setnavActive("navcenter-user"); console.log("no")
+        }
+    }
+
   const [Selected, setSelected] = useState('')
   const [selectedDate, setSelectedDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -139,6 +148,13 @@ function User_ticket() {
                         onClick={logout}
                         />
                     </div>
+
+                    <div className="nav-toggle" onClick={navToggle}>
+                        <div className="line1"></div>
+                        <div className="line2"></div>
+                        <div className="line3"></div>
+                    </div>
+
                 </div>
               <div className="dropdown-data-user-ticket">
                   <Dropdown 
