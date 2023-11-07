@@ -188,7 +188,7 @@ function User_ticket() {
                                 วัน :  01/12/2566
                             </div>
                             <div className="time-user-ticket">
-                                เวลา : 00.00.00
+                                เวลา : 12.30.00
                             </div>
                         
                             <div className="next">
