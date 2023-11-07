@@ -13,7 +13,7 @@ function User_flight() {
     const [navActive, setnavActive] = useState("navcenter-user");
     const navToggle = () => {
         if(navActive==="navcenter-user"){
-            setnavActive("navcenter-user nav__active-ticket"); console.log("active")
+            setnavActive("navcenter-user nav__active-user-flight"); console.log("active")
         }else{
             setnavActive("navcenter-user"); console.log("no")
         }
@@ -522,9 +522,11 @@ function User_flight() {
             </div>
           </div>
         </div>
-        <div className="btn-main">
-          <Link to='/user'onClick={handleNextClick}>Back</Link>
-          <Link to='/user_pay'onClick={handleNextClick}>Next</Link>
+        <div className="btn">
+            <div className="btn-main">
+            <Link to='/user'onClick={handleNextClick}>Back</Link>
+            <Link to='/user_pay'onClick={handleNextClick}>Next</Link>
+            </div>
         </div>
         
         </div>
