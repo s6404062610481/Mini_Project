@@ -18,6 +18,7 @@ function User() {
 
     const [Selected, setSelected] = useState("")
     const [selectedDate, setSelectedDate] = useState(''); 
+    const [usernamecookies, setUsernamecookies] = useState(''); 
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState({flight: []});
    
@@ -26,11 +27,15 @@ function User() {
 
     //get name
     const username = localStorage.getItem('username');
+  
 
+    
+    console.log("usernamecookies",usernamecookies);
     //function logout
     const logout = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
+      deleteCookie("username");
       navigate('/Login');
     };
 
@@ -80,11 +85,39 @@ function User() {
         }
       };
       console.log('Data state:', data);
+
+      //delete cookie
+      function deleteCookie(name) {
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      }
     
     useEffect(() => {
 
-       
-          console.log('Data state in useEffect:', data);
+      setCookie("username",username , 7);
+    //set cookies
+    function setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      const expires = "expires=" + date.toUTCString();
+      document.cookie = name + "=" + value + "; " + expires;
+    }
+
+    //get cookies
+      function getCookie(name) {
+        const cookies = document.cookie.split('; ');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i];
+          const [cookieName, cookieValue] = cookie.split('=');
+          if (cookieName === name) {
+            return cookieValue;
+          }
+        }
+        return null; // หากไม่พบคูกกี้ที่ต้องการ
+      }
+      //set value in usestate
+      const usernamecookies = getCookie('username');
+      setUsernamecookies(usernamecookies);
+      
       const token = localStorage.getItem('token')
       console.log(token);
     
@@ -133,7 +166,7 @@ function User() {
 
                     <div className="nav-right">
                         <div className='nav-username'>
-                        {username}
+                        {usernamecookies}
                         </div>
                         <IoExitOutline 
                         className='icon-user-exit' 

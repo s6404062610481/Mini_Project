@@ -78,7 +78,7 @@ app.post('/authen', jsonParser, function (req, res, next) {
    const fdate = req.query.fdate;
 
    // Construct the SQL query with the variable
-   const query = `SELECT * FROM flight WHERE Destination = "${destination}"  AND  "${fdate}"`;
+   const query = `SELECT * FROM flight WHERE Destination = "${destination}"  AND Fdate =  "${fdate}"`;
 
     // Execute the SQL query
     connection.query(query, (err, results) => {

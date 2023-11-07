@@ -21,6 +21,7 @@ function User_flight() {
 
     const [Selected, setSelected] = useState("")
     const [Date, setDate] = useState("")
+    const [usernamecookies, setUsernamecookies] = useState(''); 
 
   const navigate = useNavigate();
 
@@ -31,6 +32,7 @@ function User_flight() {
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
+    deleteCookie("username");
     navigate('/Login');
   };
 
@@ -84,7 +86,28 @@ function User_flight() {
     localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
   };
   
+    //delete cookie
+    function deleteCookie(name) {
+      document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+
   useEffect(() => {
+
+    //get cookies
+    function getCookie(name) {
+      const cookies = document.cookie.split('; ');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const [cookieName, cookieValue] = cookie.split('=');
+        if (cookieName === name) {
+          return cookieValue;
+        }
+      }
+      return null; // หากไม่พบคูกกี้ที่ต้องการ
+    }
+    const usernamecookies = getCookie('username');
+    setUsernamecookies(usernamecookies);
+
     // ตรวจสอบว่ามีข้อมูลที่นั่งที่ถูกเลือกใน localStorage หรือไม่
     const storedSelectedSeats = localStorage.getItem('selectedSeats');
     if (storedSelectedSeats) {
@@ -156,7 +179,7 @@ function User_flight() {
           </div>
           <div className="nav-right">
             <div className='nav-username'>
-              {username}
+              {usernamecookies}
             </div>
           </div>
           <IoExitOutline
