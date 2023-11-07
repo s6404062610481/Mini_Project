@@ -96,9 +96,6 @@ app.post('/authen', jsonParser, function (req, res, next) {
   
   //get flightall
   app.get('/api/flightall', (req, res) => {
-    // Get the variable from the query parameters
-     // Get the variable from the query parameters
-
 
    // Construct the SQL query with the variable
    const query = `SELECT * FROM flight `;
@@ -110,7 +107,6 @@ app.post('/authen', jsonParser, function (req, res, next) {
         res.status(500).json({ error: 'An error occurred' });
         return;
       }
-
       // Return the query results as JSON
       res.json(results);
     });
@@ -189,6 +185,20 @@ GROUP BY
     });
       }
   );
+
+
+app.post('/reserve-seat', jsonParser, function (req, res) {
+  const { seatNumber, customerId } = req.body;
+  connection.query(
+    'UPDATE seat SET status = ?  WHERE snumber = ?',
+    [true,  seatNumber],
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json({ status: 'ok', message: 'Seat reserved successfully' });
+    }
+  );
+});
+
 
 
 
