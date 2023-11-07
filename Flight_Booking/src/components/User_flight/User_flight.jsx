@@ -68,31 +68,20 @@ function User_flight() {
       });
   };
   // *********************//
-  const [selectedSeats, setSelectedSeats] = useState([]);
-  const [selectedAndReservedSeats, setSelectedAndReservedSeats] = useState([]);
+const [selectedSeats, setSelectedSeats] = useState([]); //ที่นั่ง ปจบ
+const [selectedAndReservedSeats, setSelectedAndReservedSeats] = useState([]);
+const [selectedAndReservedSeatsAfterNext, setSelectedAndReservedSeatsAfterNext] = useState([]);
 
-
-  const handleSeatClick = (seatNumber) => {
-    // เช็คว่าที่นั่งถูกเลือกบ่
-    if (selectedSeats.includes(seatNumber)) {
-      // ถ้าถูกเลือกอยู่แล้ว ให้ลบที่นั่งออกจาก selectedSeats
-      setSelectedSeats(selectedSeats.filter(seat => seat !== seatNumber));
-    } else {
-      // ถ้ายังไม่ถูกเลือก ให้เพิ่มที่นั่งเข้า selectedSeats
-      setSelectedSeats([...selectedSeats, seatNumber]);
-    }
-    localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
-  };
-  
-  useEffect(() => {
-    // ตรวจสอบว่ามีข้อมูลที่นั่งที่ถูกเลือกใน localStorage หรือไม่
-    const storedSelectedSeats = localStorage.getItem('selectedSeats');
-    if (storedSelectedSeats) {
-      // ถ้ามี ให้แปลงข้อมูล JSON เป็น array และอัปเดตใน state
-      setSelectedSeats(JSON.parse(storedSelectedSeats));
-    }
-  }, []); // ใส่วงเล็บว่างเพื่อให้ useEffect ทำงานเพียงครั้งเดียวหลังจากการเรียกใช้ครั้งแรก
-    
+const handleSeatClick = (seatNumber) => {
+  // เช็คว่าที่นั่งถูกเลือกบ่
+  if (selectedSeats.includes(seatNumber)) {
+    // ถ้าถูกเลือกอยู่แล้ว ให้ลบที่นั่งออกจาก selectedSeats
+    setSelectedSeats(selectedSeats.filter(seat => seat !== seatNumber));
+  } else {
+    // ถ้ายังไม่ถูกเลือก ให้เพิ่มที่นั่งเข้า selectedSeats
+    setSelectedSeats([...selectedSeats, seatNumber]);
+  }
+};
 
   ////////////เมื่อไหร่จะได้ไอ้แม่ย้อยยยยยยยย///////////
     
@@ -101,27 +90,28 @@ function User_flight() {
 
   const handleNextClick = () => {
     if (selectedSeats.length > 0) {
-      // ทำการอัปเดตสถานะเป็น true 
+      // ทำการอัปเดตสถานะเป็น true
       setStatus(true);
       console.log("Success");
-
+  
       // ทำการเรียกใช้ API เพื่ออัปเดตสถานะที่นั่งที่ถูกเลือก
       selectedSeats.forEach(seatNumber => {
         axios.post('http://localhost:3333/reserve-seat', { seatNumber })
           .then(response => {
             console.log(response.data);
-            // ทำตามการตอบกลับจาก API 
+            // ทำตามการตอบกลับจาก api
           })
           .catch(error => {
             console.error(error);
           });
       });
+  
+      // อัปเดต state `selectedAndReservedSeatsAfterNext`
+      setSelectedAndReservedSeatsAfterNext(selectedSeats.concat(selectedAndReservedSeats));
     } else {
       console.log("Please select a seat.");
     }
   };
-
-
 
   return (
     <div>
@@ -167,22 +157,15 @@ function User_flight() {
           {/* red */}
           <div className="seat_1">
             <div className="A">A</div>
-            {[1, 2, 3, 4, 5].map(seatNumber => {
-  const seatId = `A${seatNumber}`;
-  const isSelected = selectedSeats.includes(seatId);
-  const isReserved = isSelected && selectedAndReservedSeats.includes(seatId);
-  const isSelectable = status !== 0 && !isReserved;
-
-  return (
-    <div
-      key={seatId}
-      className={`seat ${isSelected ? 'seat-selected' : isReserved ? 'seat-reserved' : isSelectable ? 'seat-selectable' : 'seat-disabled'}`}
-      onClick={isSelectable ? () => handleSeatClick(seatId) : null}
-    >
-      <MdEventSeat color={(isSelected || isReserved) ? 'gray' : 'red'} size={40} />
-    </div>
-  );
-})}
+            {[1, 2, 3, 4, 5, ,].map(seatNumber => (
+              <div
+                key={`A${seatNumber}`}
+                className={`seat ${selectedSeats.includes(`A${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`A${seatNumber}`) ? 'seat-reserved' : ''}`}
+                onClick={() => handleSeatClick(`A${seatNumber}`)}
+              >
+                <MdEventSeat color={(selectedSeats.includes(`A${seatNumber}`) || selectedAndReservedSeats.includes(`A${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
+              </div>
+            ))}
           </div>
 
           {/* blue */}
@@ -193,20 +176,20 @@ function User_flight() {
                 className={`seat ${selectedSeats.includes(`A${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`A${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`A${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`A${seatNumber}`) || selectedAndReservedSeats.includes(`A${seatNumber}`)) ? 'gray' : 'blue'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`A${seatNumber}`) || selectedAndReservedSeats.includes(`A${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
 
           {/* red */}
           <div className="seat_3">
-            {[11, 12, 13, 14, 15].map(seatNumber => (
+          {[11, 12, 13, 14, 15, ,].map(seatNumber => (
               <div
                 key={`A${seatNumber}`}
                 className={`seat ${selectedSeats.includes(`A${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`A${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`A${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`A${seatNumber}`) || selectedAndReservedSeats.includes(`A${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`A${seatNumber}`) || selectedAndReservedSeats.includes(`A${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
@@ -223,7 +206,7 @@ function User_flight() {
                 className={`seat ${selectedSeats.includes(`B${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`B${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`B${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`B${seatNumber}`) || selectedAndReservedSeats.includes(`B${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`B${seatNumber}`) || selectedAndReservedSeats.includes(`B${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
@@ -236,7 +219,7 @@ function User_flight() {
                 className={`seat ${selectedSeats.includes(`B${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`B${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`B${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`B${seatNumber}`) || selectedAndReservedSeats.includes(`B${seatNumber}`)) ? 'gray' : 'blue'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`B${seatNumber}`) || selectedAndReservedSeats.includes(`B${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
@@ -249,7 +232,7 @@ function User_flight() {
                 className={`seat ${selectedSeats.includes(`B${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`B${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`B${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`B${seatNumber}`) || selectedAndReservedSeats.includes(`B${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`B${seatNumber}`) || selectedAndReservedSeats.includes(`B${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
@@ -266,7 +249,7 @@ function User_flight() {
                 className={`seat ${selectedSeats.includes(`C${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`C${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`C${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`C${seatNumber}`) || selectedAndReservedSeats.includes(`C${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`C${seatNumber}`) || selectedAndReservedSeats.includes(`C${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
@@ -280,7 +263,7 @@ function User_flight() {
                 className={`seat ${selectedSeats.includes(`C${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`C${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`C${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`C${seatNumber}`) || selectedAndReservedSeats.includes(`C${seatNumber}`)) ? 'gray' : 'blue'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`C${seatNumber}`) || selectedAndReservedSeats.includes(`C${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
@@ -294,7 +277,7 @@ function User_flight() {
                 className={`seat ${selectedSeats.includes(`C${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`C${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`C${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`C${seatNumber}`) || selectedAndReservedSeats.includes(`C${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`C${seatNumber}`) || selectedAndReservedSeats.includes(`C${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
@@ -311,7 +294,7 @@ function User_flight() {
                 className={`seat ${selectedSeats.includes(`D${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`D${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`D${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`D${seatNumber}`) || selectedAndReservedSeats.includes(`D${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`D${seatNumber}`) || selectedAndReservedSeats.includes(`D${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
@@ -324,7 +307,7 @@ function User_flight() {
                 className={`seat ${selectedSeats.includes(`D${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`D${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`D${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`D${seatNumber}`) || selectedAndReservedSeats.includes(`D${seatNumber}`)) ? 'gray' : 'blue'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`D${seatNumber}`) || selectedAndReservedSeats.includes(`D${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
@@ -337,7 +320,7 @@ function User_flight() {
                 className={`seat ${selectedSeats.includes(`D${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`D${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`D${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`D${seatNumber}`) || selectedAndReservedSeats.includes(`D${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`D${seatNumber}`) || selectedAndReservedSeats.includes(`D${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
