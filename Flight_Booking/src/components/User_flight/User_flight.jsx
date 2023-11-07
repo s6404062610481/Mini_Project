@@ -10,6 +10,15 @@ const seats = Array.from({ length: 15 }, (_, index) => `A${index + 1}`);
 
 function User_flight() {
 
+    const [navActive, setnavActive] = useState("navcenter-user");
+    const navToggle = () => {
+        if(navActive==="navcenter-user"){
+            setnavActive("navcenter-user nav__active-ticket"); console.log("active")
+        }else{
+            setnavActive("navcenter-user"); console.log("no")
+        }
+    }
+
     const [Selected, setSelected] = useState("")
     const [Date, setDate] = useState("")
 
@@ -101,7 +110,7 @@ function User_flight() {
                     <div className="logo-user">
                         <Link to="/user">Canfly</Link>
                     </div> 
-                    <div className="navcenter-user">
+                    <div className={navActive}>
                         <div className="navhome-user">
                             <NavLink to="/user">Home</NavLink>
                         </div>
@@ -119,6 +128,13 @@ function User_flight() {
                         onClick={logout}
                         />
                     </div>
+
+                    <div className="nav-toggle" onClick={navToggle}>
+                        <div className="line1"></div>
+                        <div className="line2"></div>
+                        <div className="line3"></div>
+                    </div>
+
                 </div>
 
                 <div className="ticket-user-ticket">
