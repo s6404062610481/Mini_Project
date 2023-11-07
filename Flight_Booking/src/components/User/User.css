@@ -118,13 +118,6 @@
     font-size: 16px;
 }
 
-.berger{
-    display: none;
-    color: #333;
-    font-size: 1.5rem;
-    margin-left: 10px;
-}
-
 .nav-toggle{
     cursor: pointer;
     display: none;

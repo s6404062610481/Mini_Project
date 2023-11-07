@@ -130,7 +130,7 @@ function User_ticket() {
                   <div className="logo-user">
                           <Link to="/user">Canfly</Link>
                       </div> 
-                      <div className="navcenter-user">
+                      <div className={navActive}>
                           <div className="navhome-user">
                               <NavLink to="/user">Home</NavLink>
                           </div>
@@ -174,6 +174,27 @@ function User_ticket() {
                   to='/user_ticket' 
                   onClick={handleSearchClick}>Search</Link>
               </div>
+
+              <div className="ticket-user-ticket">
+               
+                    <div className="ticket-form">
+                         
+                            <div className="goto" >
+                                เดินทางไปที่ :  Puket
+                            </div>
+        
+                            <div className="date">
+                                วัน :  01/12/2566
+                            </div>
+                            <div className="time">
+                                เวลา : 00.00.00
+                            </div>
+                        
+                            <div className="next">
+                            <Link to="/User_flight">จองที่นั่ง</Link>
+                            </div>  
+                    </div>                      
+                </div>
 
               {data.flight.map(flight => (
                 <div className="ticket-user-ticket">
