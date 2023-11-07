@@ -524,7 +524,7 @@ function User_flight() {
         </div>
         <div className="btn">
             <div className="btn-main">
-            <Link to='/user'onClick={handleNextClick}>Back</Link>
+            <Link to='/user_ticket'onClick={handleNextClick}>Back</Link>
             <Link to='/user_pay'onClick={handleNextClick}>Next</Link>
             </div>
         </div>

@@ -6,6 +6,15 @@ import qrcode from './qrcode.png'
 
 function User_pay() {
 
+    const [navActive, setnavActive] = useState("navcenter-user-pay");
+    const navToggle = () => {
+        if(navActive==="navcenter-user-pay"){
+            setnavActive("navcenter-user-pay nav__active-user-pay"); console.log("active")
+        }else{
+            setnavActive("navcenter-user-pay"); console.log("no")
+        }
+    }
+
     const [Selected, setSelected] = useState('')
     const [selectedDate, setSelectedDate] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +40,7 @@ function User_pay() {
                     <div className="logo-user">
                             <Link to="/user">Canfly</Link>
                         </div> 
-                        <div className="navcenter-user">
+                        <div className={navActive}>
                             <div className="navhome-user">
                                 <NavLink to="/user">Home</NavLink>
                             </div>
@@ -49,6 +58,13 @@ function User_pay() {
                             onClick={logout}
                             />
                     </div>
+
+                    <div className="nav-toggle" onClick={navToggle}>
+                        <div className="line1"></div>
+                        <div className="line2"></div>
+                        <div className="line3"></div>
+                    </div>
+
                 </div>
 
                 <div className="main-user-pay">
