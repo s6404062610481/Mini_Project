@@ -7,6 +7,15 @@ import axios from 'axios'
 
 function User_order() {
 
+    const [navActive, setnavActive] = useState("navcenter-user-order");
+    const navToggle = () => {
+        if(navActive==="navcenter-user-order"){
+            setnavActive("navcenter-user-order nav__active-user-order"); console.log("active")
+        }else{
+            setnavActive("navcenter-user-order"); console.log("no")
+        }
+    }
+
     //get name
     const username = localStorage.getItem('username');
 
@@ -73,7 +82,7 @@ function User_order() {
                     <div className="logo-user">
                         <Link to="/user">Canfly</Link>
                     </div> 
-                    <div className="navcenter-user">
+                    <div className={navActive}>
                         <div className="navhome-user">
                             <NavLink to="/user">Home</NavLink>
                         </div>
@@ -91,6 +100,13 @@ function User_order() {
                         onClick={logout}
                         />
                     </div>
+
+                    <div className="nav-toggle" onClick={navToggle}>
+                        <div className="line1"></div>
+                        <div className="line2"></div>
+                        <div className="line3"></div>
+                    </div>
+
                 </div>
 
       
