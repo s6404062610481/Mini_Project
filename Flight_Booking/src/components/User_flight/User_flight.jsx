@@ -40,6 +40,7 @@ function User_flight() {
   const [selectedAndReservedSeats, setSelectedAndReservedSeats] = useState([]);
   const [selectedAndReservedSeatsAfterNext, setSelectedAndReservedSeatsAfterNext] = useState([]);
   const [datastatus, setDatastatus] = useState({ status: [] });
+  
 
   const handleSeatClick = (seatNumber) => {
     // เช็คว่าที่นั่งถูกเลือกบ่
@@ -123,8 +124,10 @@ function User_flight() {
   }, []); // ใส่วงเล็บว่างเพื่อให้ useEffect ทำงานเพียงครั้งเดียวหลังจากการเรียกใช้ครั้งแรก
     
     // ใช้เข้าถึงนะจระคนดี
-    console.log(datastatus.status[1]);
- 
+   
+ for(let i =0 ; i<datastatus.status.length;i++){
+  console.log(datastatus.status[i]);
+ }
 
   return (
     <div>
@@ -178,23 +181,21 @@ function User_flight() {
     </div> */}
 
           
-          <div className="seat_1">
-            <div className="A">A</div>
-            {[1, 2, 3, 4, 5].map(seatNumber => (
+    <div className="seat_1">
+          <div className="A">A</div>
+          {[1, 2, 3, 4, 5].map(seatNumber => (
               <div
                 key={`A${seatNumber}`}
-                className={`seat ${selectedSeats.includes(`A${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`A${seatNumber}`) ? 'seat-reserved' : (status === 1 ? 'seat-gray' : '')}`}
+                className={`seat ${selectedSeats.includes(`A${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`A${seatNumber}`) ? 'seat-reserved' : ''}`}
                 onClick={() => handleSeatClick(`A${seatNumber}`)}
               >
-                <MdEventSeat size={'40'} />
-                {/* <MdEventSeat color={(selectedSeats.includes(`A${seatNumber}`) || selectedAndReservedSeats.includes(`A${seatNumber}`)) ? 'blue' : 'red'} size={'40'} /> */}
+                <MdEventSeat color={(selectedSeats.includes(`A${seatNumber}`) || selectedAndReservedSeats.includes(`A${seatNumber}`)) ? 'blue' : 'red'} size={'40'} />
               </div>
             ))}
-          </div>
-       
+        </div>
               
           {/* blue */}
-          <div className="seat_2">
+           <div className="seat_2">
             {[6, 7, 8, 9, 10].map(seatNumber => (
               <div
                 key={`A${seatNumber}`}
@@ -350,7 +351,7 @@ function User_flight() {
             ))}
           </div>
         
-        </div>
+        </div> 
         
 
         <div className="seat_main_5-user-ticket">
