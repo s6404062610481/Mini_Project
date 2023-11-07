@@ -5,8 +5,6 @@ import { IoExitOutline } from 'react-icons/io5'
 import axios from 'axios';
 import './User_flight.css'
 
-const seats = Array.from({ length: 15 }, (_, index) => `A${index + 1}`);
-
 function User_flight() {
 
   const [navActive, setnavActive] = useState("navcenter-user-flight");
