@@ -96,9 +96,6 @@ app.post('/authen', jsonParser, function (req, res, next) {
   
   //get flightall
   app.get('/api/flightall', (req, res) => {
-    // Get the variable from the query parameters
-     // Get the variable from the query parameters
-
 
    // Construct the SQL query with the variable
    const query = `SELECT * FROM flight `;
@@ -110,7 +107,6 @@ app.post('/authen', jsonParser, function (req, res, next) {
         res.status(500).json({ error: 'An error occurred' });
         return;
       }
-
       // Return the query results as JSON
       res.json(results);
     });
