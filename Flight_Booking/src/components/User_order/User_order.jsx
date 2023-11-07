@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink,useNavigate } from 'react-router-dom'
 import './User_order.css'
 import qrcode2 from './qrcode2.png'
 import { IoExitOutline } from 'react-icons/io5'
@@ -16,6 +16,8 @@ function User_order() {
         }
     }
 
+
+    const navigate = useNavigate();
     //get name
     const username = localStorage.getItem('username');
 

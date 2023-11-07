@@ -157,7 +157,7 @@ function User_flight() {
       });
 
   }, []);
-  console.log("kuy", datastatus);
+  console.log("check", datastatus.status);
   return (
     <div>
         <div className='Home'>
@@ -190,24 +190,18 @@ function User_flight() {
                     <div className="line3"></div>
                 </div>
 
-                    <div className="nav-toggle" onClick={navToggle}>
-                        <div className="line1"></div>
-                        <div className="line2"></div>
-                        <div className="line3"></div>
-                    </div>
-
                 </nav>
 
             <div className="seat_main_1-user-ticket">
           {/* red */}
-        
+          
           <div className="seat_1">
             <div className="A">A</div>
             <div
               className={`seat ${selectedSeats.includes("A1") ? 'seat-selected' : selectedAndReservedSeats.includes("A1") ? 'seat-reserved' : ''}`}
               onClick={() => handleSeatClick("A1")}
             >
-              <MdEventSeat className='A1' color={selectedSeats.includes("A1") || selectedAndReservedSeats.includes("A1") ? 'gray' : 'red'} size={'40'} />
+              <MdEventSeat color={selectedSeats.includes("A1") || selectedAndReservedSeats.includes("A1") ? 'gray' : 'red'} size={'40'} />
             </div>
 
 
