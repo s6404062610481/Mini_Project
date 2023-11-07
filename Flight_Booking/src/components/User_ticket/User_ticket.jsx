@@ -20,6 +20,7 @@ function User_ticket() {
   const [selectedDate, setSelectedDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({flight: []});
+  const [usernamecookies, setUsernamecookies] = useState(''); 
 
    
 
@@ -33,6 +34,7 @@ function User_ticket() {
     const logout = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
+      deleteCookie("username");
       navigate('/Login');
     };
 
@@ -80,9 +82,28 @@ function User_ticket() {
       }
     };
     console.log('Data state:', data);
-    
+    //delete cookie
+    function deleteCookie(name) {
+      document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
     
     useEffect(() => {
+
+  
+      //get cookies
+        function getCookie(name) {
+          const cookies = document.cookie.split('; ');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i];
+            const [cookieName, cookieValue] = cookie.split('=');
+            if (cookieName === name) {
+              return cookieValue;
+            }
+          }
+          return null; // หากไม่พบคูกกี้ที่ต้องการ
+        }
+        const usernamecookies = getCookie('username');
+        setUsernamecookies(usernamecookies);
 
       const token = localStorage.getItem('token')
       console.log(token);
@@ -121,7 +142,7 @@ function User_ticket() {
         // Handle login error (e.g., show an error message)
         alert("Incorrect information. Please check your credentials.");
       });
-    }, [Selected, Date]);
+    }, [,]);
 
     return (
       <div>
@@ -140,7 +161,7 @@ function User_ticket() {
                       </div>
                       <div className="nav-right">
                         <div className='nav-username'>
-                        {username}
+                        {usernamecookies}
                         </div>
                         <IoExitOutline 
                         className='icon-user-exit' 
@@ -175,27 +196,7 @@ function User_ticket() {
                   onClick={handleSearchClick}>Search</Link>
               </div>
 
-              <div className="ticket-user-ticket">
-               
-                    <div className="ticket-form">
-                         
-                            <div className="goto-user-ticket" >
-                                เดินทางไปที่ :  
-                                Puket
-                            </div>
-        
-                            <div className="date-user-ticket">
-                                วัน :  01/12/2566
-                            </div>
-                            <div className="time-user-ticket">
-                                เวลา : 12.30.00
-                            </div>
-                        
-                            <div className="next">
-                            <Link to="/User_flight">จองที่นั่ง</Link>
-                            </div>  
-                    </div>                      
-                </div>
+             
 
               {data.flight.map(flight => (
                 <div className="ticket-user-ticket">
