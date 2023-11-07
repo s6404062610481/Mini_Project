@@ -162,7 +162,7 @@ function User_flight() {
               className={`seat ${selectedSeats.includes("A1") ? 'seat-selected' : selectedAndReservedSeats.includes("A1") ? 'seat-reserved' : ''}`}
               onClick={() => handleSeatClick("A1")}
             >
-              <MdEventSeat color={selectedSeats.includes("A1") || selectedAndReservedSeats.includes("A1") ? 'gray' : 'red'} size={'40'} />
+              <MdEventSeat className='A1' color={selectedSeats.includes("A1") || selectedAndReservedSeats.includes("A1") ? 'gray' : 'red'} size={'40'} />
             </div>
 
 

@@ -178,8 +178,9 @@
         justify-content: center;
         align-items: center;
         background-image: url("https://images.unsplash.com/photo-1504253163759-c23fccaebb55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80");
-        object-fit: cover;
-    }
+        background-size: cover;
+        background-repeat: no-repeat;
+    }   
     .nav-user{
         display: flex;
         justify-content: center;
