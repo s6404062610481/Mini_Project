@@ -141,14 +141,14 @@ function User_flight() {
                
                     <div className="ticket-form">
                          
-                            <div className="goto" >
+                            <div className="goto-user-flight" >
                                 เดินทางไปที่ :  Thailand
                             </div>
         
-                            <div className="date">
+                            <div className="date-user-flight">
                                 วัน :  19/12/2566
                             </div>
-                            <div className="time">
+                            <div className="time-user-flight">
                                 เวลา : 10:30:00
                             </div>
                     </div>                      
