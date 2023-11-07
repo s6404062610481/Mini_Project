@@ -31,6 +31,10 @@ const Signin = () => {
     e.preventDefault();
     console.log('Form data:', formData);
 
+    if (!validateForm()) {
+        return; // Don't proceed if the form is not valid
+      }
+
     // Create an object to send as the request body
     const requestBody = {
       username: formData.username,
@@ -68,7 +72,46 @@ const Signin = () => {
         }
       });
   };
+    const validateForm = () => {
+    var usernameRegex = /^.{5,}$/;
+    var passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/;
+    var nameRegex = /^[a-zA-Zก-๏\s]+$/;
+    var emailRegex = /.*@gmail\.com$/;
+    var surnameRegex = /^[a-zA-Zก-๏\s]+$/;
+    var phoneRegex = /^0\d{9}$/;
 
+    if (!usernameRegex.test(formData.username)) {
+      alert("Invalid username");
+      return false;
+    }
+
+    if (!passwordRegex.test(formData.password)) {
+      alert("Invalid password");
+      return false;
+    }
+
+    if (!nameRegex.test(formData.fname)) {
+      alert("Invalid name");
+      return false;
+    }
+
+    if (!emailRegex.test(formData.email)) {
+      alert("Invalid email");
+      return false;
+    }
+
+    if (!surnameRegex.test(formData.surname)) {
+      alert("Invalid surname");
+      return false;
+    }
+
+    if (!phoneRegex.test(formData.phone)) {
+      alert("Invalid phone");
+      return false;
+    }
+
+    return true;
+  };
 
 
   return (
