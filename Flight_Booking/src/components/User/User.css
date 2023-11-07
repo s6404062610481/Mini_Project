@@ -125,24 +125,34 @@
     margin-left: 10px;
 }
 
+.nav-toggle{
+    cursor: pointer;
+    display: none;
+}
+
+.nav-toggle div{
+    border-radius: 30px;
+    width: 2rem;
+    height: 0.2rem;
+    margin: 0.4rem;
+    background-color: black;
+}
+
 @media only screen and (max-width: 915px) {
+    .nav-toggle{
+        display: block;
+    }
     .navcenter-user{
-        display: none;
+        border-radius: 30px;
+        top: 15vh;
+        height: 15vh;
+        padding: 15px;
+        position: fixed;
+        box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+        width: 40%;
+        right: 0;
         flex-direction: column;
-        margin-bottom: 0.25rem;
-    }
-    .navhome-user{
-        padding: 15px;
-        margin-bottom: 10px;
-    }
-    .navorder-user{
-        padding: 15px;
-    }
-    .berger .open{
-        display: flex;
-    }
-    .berger{
-        display: inline-block;
+        transform: translateX(200%);
     }
     article .content{
         display: flex;
@@ -164,6 +174,11 @@
         margin-bottom: 50px;
     }
 }
+
+.nav__active {
+    transform: translateX(0%);
+  }
+
 @media only screen and (max-width: 665px) {
     .Home{
         display: flex;
@@ -173,7 +188,25 @@
         object-fit: cover;
     }
     .nav-user{
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .navcenter-user{
+        border-radius: 30px;
+        top: 28vh;
+        height: 15vh;
+        padding: 15px;
+        position: fixed;
+        box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+        width: 40%;
+        right: 20px;
+        flex-direction: column;
+        transform: translateX(200%);
+    }
+    .nav-right{
+        margin-bottom: 10px;
     }
     article, .content{
         background-image: none;
@@ -181,6 +214,7 @@
     .content{
         margin-top: -50px;
         padding: 25px;
+        margin-bottom: 20px;
     }
     .submit a{
         background-color: #fff;
@@ -189,3 +223,6 @@
         margin-bottom: 50px;
     }
 }
+.nav__active {
+    transform: translateX(0%);
+  }

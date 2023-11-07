@@ -7,8 +7,17 @@ import axios from 'axios';
 
 function User() {
 
+    const [navActive, setnavActive] = useState("navcenter-user");
+    const navToggle = () => {
+        if(navActive==="navcenter-user"){
+            setnavActive("navcenter-user nav__active"); console.log("active")
+        }else{
+            setnavActive("navcenter-user"); console.log("no")
+        }
+    }
+
     const [Selected, setSelected] = useState("")
-    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedDate, setSelectedDate] = useState(''); 
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState({flight: []});
    
@@ -111,12 +120,9 @@ function User() {
                 <div className='nav-user'>
                     <div className="logo-user">
                         <Link to="/user">Canfly</Link>
-                        <div className="berger">
-                            <PiListBold />
-                        </div>
                     </div> 
                     
-                    <div className="navcenter-user">
+                    <div className={navActive}>
                         <div className="navhome-user">
                             <NavLink to="/user">Home</NavLink>
                         </div>
@@ -124,6 +130,7 @@ function User() {
                             <NavLink to="/user_order">Your order</NavLink>
                         </div>
                     </div>
+
                     <div className="nav-right">
                         <div className='nav-username'>
                         {username}
@@ -133,6 +140,12 @@ function User() {
                         size={25} 
                         onClick={logout}
                         />
+                    </div>
+
+                    <div className="nav-toggle" onClick={navToggle}>
+                        <div className="line1"></div>
+                        <div className="line2"></div>
+                        <div className="line3"></div>
                     </div>
                     
                 </div>
