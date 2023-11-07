@@ -7,12 +7,12 @@ import './User_ticket.css'
 
 function User_ticket() {
 
-    const [navActive, setnavActive] = useState("navcenter-user");
+    const [navActive, setnavActive] = useState("navcenter-user-ticket");
     const navToggle = () => {
-        if(navActive==="navcenter-user"){
-            setnavActive("navcenter-user nav__active"); console.log("active")
+        if(navActive==="navcenter-user-ticket"){
+            setnavActive("navcenter-user-ticket nav__active-ticket"); console.log("active")
         }else{
-            setnavActive("navcenter-user"); console.log("no")
+            setnavActive("navcenter-user-ticket"); console.log("no")
         }
     }
 
