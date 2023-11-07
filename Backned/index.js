@@ -71,27 +71,125 @@ app.post('/authen', jsonParser, function (req, res, next) {
   }
 })
 // Search flight
-app.get('/api/flight', (req, res) => {
-   // Get the variable from the query parameters
+  app.get('/api/flight', (req, res) => {
+    // Get the variable from the query parameters
+     // Get the variable from the query parameters
    const destination = req.query.destination;
    const fdate = req.query.fdate;
 
    // Construct the SQL query with the variable
-   const query = `SELECT * FROM flight WHERE Destination = "${destination}" AND  "${fdate}"`;
+   const query = `SELECT * FROM flight WHERE Destination = "${destination}"  AND  "${fdate}"`;
 
-  // Execute the SQL query
-  connection.query(query, (err, results) => {
-    if (err) {
-      console.error('Error executing SQL query: ' + err.message);
-      res.status(500).json({ error: 'An error occurred' });
-      return;
-    }
+    // Execute the SQL query
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error('Error executing SQL query: ' + err.message);
+        res.status(500).json({ error: 'An error occurred' });
+        return;
+      }
 
-    // Return the query results as JSON
-    res.json(results);
-  });
-    }
-);
+      // Return the query results as JSON
+      res.json(results);
+    });
+      }
+  );
+  
+  //get flightall
+  app.get('/api/flightall', (req, res) => {
+    // Get the variable from the query parameters
+     // Get the variable from the query parameters
+
+
+   // Construct the SQL query with the variable
+   const query = `SELECT * FROM flight `;
+
+    // Execute the SQL query
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error('Error executing SQL query: ' + err.message);
+        res.status(500).json({ error: 'An error occurred' });
+        return;
+      }
+
+      // Return the query results as JSON
+      res.json(results);
+    });
+      }
+  );
+
+  //get booking
+  app.get('/api/flightbooking', (req, res) => {
+    // Get the variable from the query parameters
+    const username = req.query.username;
+
+   // Construct the SQL query with the variable
+   const query = `SELECT
+   S.Sid AS SeatID,
+   S.Snumber AS SeatNumber,
+   B.Bid AS BookingID,
+   S.Fid AS FlightID,
+   F.Destination AS FlightDestination,
+   F.Fdate AS FlightDate,
+   F.Ftime AS FlightTime
+FROM
+   Customer AS C
+   JOIN Booking AS B ON C.Username = '${username}' AND C.Username = B.Username
+   JOIN Seat AS S ON B.Bid = S.Bid
+   JOIN Flight AS F ON S.Fid = F.Fid; `;
+
+    // Execute the SQL query
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error('Error executing SQL query: ' + err.message);
+        res.status(500).json({ error: 'An error occurred' });
+        return;
+      }
+
+      // Return the query results as JSON
+      res.json(results);
+    });
+      }
+  );
+ 
+  //get 
+  app.get('/api/flightbill', (req, res) => {
+    // Get the variable from the query parameters
+     // Get the variable from the query parameters
+ 
+
+   // Construct the SQL query with the variable
+   const query = `SELECT
+   C.Username AS CustomerName,
+   F.Ftime AS FlightTime,
+   F.Fdate AS FlightDate,
+   F.Fid AS FlightID,
+   F.Destination AS FlightDestination,
+   SUM(S.Price) AS SumPrice,
+   S.Sid AS SeatID,
+   S.snumber AS SeatNumber,
+   S.Status AS SeatStatus
+FROM
+   Customer AS C
+   JOIN Booking AS B ON C.Username = B.Username
+   JOIN Seat AS S ON B.Bid = 2 AND B.Bid = S.Bid
+   JOIN Flight AS F ON S.Fid = F.Fid
+GROUP BY
+   C.Username, F.Ftime, F.Fdate, F.Fid, F.Destination, S.Sid, S.snumber, S.Status `;
+
+    // Execute the SQL query
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error('Error executing SQL query: ' + err.message);
+        res.status(500).json({ error: 'An error occurred' });
+        return;
+      }
+
+      // Return the query results as JSON
+      res.json(results);
+    });
+      }
+  );
+
 
 app.post('/reserve-seat', jsonParser, function (req, res) {
   const { seatNumber, customerId } = req.body;

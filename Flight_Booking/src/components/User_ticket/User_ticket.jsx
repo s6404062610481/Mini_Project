@@ -7,15 +7,28 @@ import './User_ticket.css'
 
 function User_ticket() {
 
-    const [Selected, setSelected] = useState("")
-    const [Date, setDate] = useState("")
+    const [navActive, setnavActive] = useState("navcenter-user-ticket");
+    const navToggle = () => {
+        if(navActive==="navcenter-user-ticket"){
+            setnavActive("navcenter-user-ticket nav__active-ticket"); console.log("active")
+        }else{
+            setnavActive("navcenter-user-ticket"); console.log("no")
+        }
+    }
+
+  const [Selected, setSelected] = useState('')
+  const [selectedDate, setSelectedDate] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState({flight: []});
+
    
 
     const navigate = useNavigate();
 
     //get name
     const username = localStorage.getItem('username');
-
+      
+    
     //function logout
     const logout = () => {
       localStorage.removeItem('token');
@@ -33,42 +46,64 @@ function User_ticket() {
     //get data form
     const handleDateChange = (e) => {
       const selectedDate = e.target.value;
-      setDate(selectedDate);
+      setSelectedDate(selectedDate);
       console.log('Selected Date:', selectedDate);
       // You can do other things with the selected date here, if needed
     };
 
     //submit SELECT data 
-    const handleSearchClick = () => {
-      axios.get('http://localhost:3333/api/flight', {
-        params: {
-          destination: Selected,
-          fdate: Date
-        }
-      })
-      .then((response) => {
-        // Filter flights based on selected destination and date
-        const filteredFlights = response.data.filter((flight) => flight.Destination === Selected && flight.Fdate === Date);
-        // Handle and display the filtered data in your React app
-        console.log(filteredFlights);
-        // เราสามารถทำอะไรก็ได้ที่นี่ด้วยข้อมูลที่ได้รับจาก filteredFlights
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+    const handleSearchClick = async () => { // Mark the function as async
+      console.log('handleSearchClick:', Selected);
+      console.log('handleSearchClick:', selectedDate);
+      setIsLoading(true);
+  
+      try {
+        const response = await axios.get('http://localhost:3333/api/flight', {
+          params: {
+            destination: Selected,
+            fdate: selectedDate,
+          }
+        });
+        // Handle and display the data in your React app
+        console.log(response.data);
+        const result = await response.data;
+        console.log('result is: ', JSON.stringify(result, null, 4));
+        
+       setData({ 
+        flight: result
       });
+ 
+      } catch (error) {
+        console.error('Error:', error);
+      }finally {
+        setIsLoading(false);
+      }
     };
+    console.log('Data state:', data);
+    
     
     useEffect(() => {
-  
+
       const token = localStorage.getItem('token')
       console.log(token);
-    
+
       const config = {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json', // Specify the content type if needed
         },
       };
+
+      axios.get('http://localhost:3333/api/flightall').then((response) => {
+        const result =  response.data;
+        setData({ 
+            flight: result
+          });
+        console.log(response);
+      })
+      .catch((error) => {
+        // handle errors
+      });
   
       console.log('Headers:', config.headers);
       axios.post("http://localhost:3333/authen", {}, config)
@@ -89,24 +124,23 @@ function User_ticket() {
     }, [Selected, Date]);
 
     return (
-        <div>
-            <div className='Home'>
-                <div className='nav-user'>
-                    <div className="logo-user">
-                            <Link to="/user">Canfly</Link>
-                        </div> 
-                        <div className="navcenter-user">
-                            <div className="navhome-user">
-                                <NavLink to="/user">Home</NavLink>
-                            </div>
-                            <div className="navorder-user">
-                                <NavLink to="/user_order">Your order</NavLink>
-                            </div>
-                        </div>
-                        <div className="nav-right">
-                            <div className='nav-username'>
-                            {username}
-                            </div>
+      <div>
+          <div className='Home'>
+              <div className='nav-user'>
+                  <div className="logo-user">
+                          <Link to="/user">Canfly</Link>
+                      </div> 
+                      <div className={navActive}>
+                          <div className="navhome-user">
+                              <NavLink to="/user">Home</NavLink>
+                          </div>
+                          <div className="navorder-user">
+                              <NavLink to="/user_order">Your order</NavLink>
+                          </div>
+                      </div>
+                      <div className="nav-right">
+                        <div className='nav-username'>
+                        {username}
                         </div>
                         <IoExitOutline 
                         className='icon-user-exit' 
@@ -115,31 +149,83 @@ function User_ticket() {
                         />
                     </div>
 
-                <div className="dropdown-data-user-ticket">
-                    <Dropdown 
-                    Selected={Selected} 
-                    setSelected={setSelected} 
-                    onChange={handleDropdownChange}/>
-                      
-                    <input type="date" 
-                    className='date-input' 
-                    onChange={handleDateChange}
+                    <div className="nav-toggle" onClick={navToggle}>
+                        <div className="line1"></div>
+                        <div className="line2"></div>
+                        <div className="line3"></div>
+                    </div>
+
+                </div>
+              <div className="dropdown-data-user-ticket">
+                  <Dropdown 
+                  Selected={Selected} 
+                  setSelected={setSelected} 
+                  onChange={handleDropdownChange}/>
+                    
+                  <input type="date" 
+                  className='date-input' 
+                  onChange={handleDateChange}
+             
+                  />
+              </div> 
+
+              <div className="submit-user-ticket">
+                  <Link 
+                  to='/user_ticket' 
+                  onClick={handleSearchClick}>Search</Link>
+              </div>
+
+              <div className="ticket-user-ticket">
                
-                    />
-                </div> 
-
-                <div className="submit-user-ticket">
-                    <Link 
-                    to='/user_ticket' 
-                    onClick={handleSearchClick}>Search</Link>
-                </div>
-
-                
-                </div>
-
-            </div>
+                    <div className="ticket-form">
+                         
+                            <div className="goto-user-ticket" >
+                                เดินทางไปที่ :  Puket
+                            </div>
         
-    )
+                            <div className="date-user-ticket">
+                                วัน :  01/12/2566
+                            </div>
+                            <div className="time-user-ticket">
+                                เวลา : 00.00.00
+                            </div>
+                        
+                            <div className="next">
+                            <Link to="/User_flight">จองที่นั่ง</Link>
+                            </div>  
+                    </div>                      
+                </div>
+
+              {data.flight.map(flight => (
+                <div className="ticket-user-ticket">
+               
+                    <div className="ticket-form" key={flight.Fid}>
+                         
+                            <div className="goto-user-ticket" >
+                                เดินทางไปที่ :  {flight.Destination}
+                            </div>
+        
+                            <div className="date-user-ticket">
+                                วัน :  {new Date(flight.Fdate).toLocaleDateString()}
+                            </div>
+                            <div className="time-user-ticket">
+                                เวลา : {flight.Ftime}
+                            </div>
+                        
+                            <div className="next">
+                            <Link to="/User_flight">จองที่นั่ง</Link>
+                            </div>  
+                    </div>                      
+                </div>
+                   ))}
+              
+          </div>
+
+          </div>
+      
+  )
 }
+
+
 
 export default User_ticket

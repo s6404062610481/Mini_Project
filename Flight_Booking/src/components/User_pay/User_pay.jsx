@@ -5,6 +5,25 @@ import './User_pay.css'
 import qrcode from './qrcode.png'
 
 function User_pay() {
+
+    const [Selected, setSelected] = useState('')
+    const [selectedDate, setSelectedDate] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [data, setData] = useState({flight: []});
+
+    const navigate = useNavigate();
+
+    //get name
+    const username = localStorage.getItem('username');
+    
+    
+    //function logout
+    const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    navigate('/Login');
+    };
+
     return (
         <div>
             <div className='Home'>
@@ -22,12 +41,14 @@ function User_pay() {
                         </div>
                         <div className="nav-right">
                             <div className='nav-username'>
+                            {username}
                             </div>
-                        </div>
-                        <IoExitOutline 
-                        className='icon-user-exit' 
-                        size={25} 
-                        />
+                            <IoExitOutline 
+                            className='icon-user-exit' 
+                            size={25} 
+                            onClick={logout}
+                            />
+                    </div>
                 </div>
 
                 <div className="main-user-pay">

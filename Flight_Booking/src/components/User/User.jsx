@@ -1,14 +1,25 @@
 import React, { useEffect,useState } from 'react'
 import { Link, NavLink,useNavigate  } from 'react-router-dom'
 import { IoExitOutline } from 'react-icons/io5'
+import { PiListBold } from 'react-icons/pi'
 import './User.css'
-import Dropdown from './Dropdown'
 import axios from 'axios';
 
 function User() {
 
+    const [navActive, setnavActive] = useState("navcenter-user-home");
+    const navToggle = () => {
+        if(navActive==="navcenter-user-home"){
+            setnavActive("navcenter-user-home nav__active-user-home"); console.log("active")
+        }else{
+            setnavActive("navcenter-user-home"); console.log("no")
+        }
+    }
+
     const [Selected, setSelected] = useState("")
-    const [Date, setDate] = useState("")
+    const [selectedDate, setSelectedDate] = useState(''); 
+    const [isLoading, setIsLoading] = useState(false);
+    const [data, setData] = useState({flight: []});
    
 
     const navigate = useNavigate();
@@ -33,32 +44,47 @@ function User() {
     //get data form
     const handleDateChange = (e) => {
       const selectedDate = e.target.value;
-      setDate(selectedDate);
+      setSelectedDate(selectedDate);
       console.log('Selected Date:', selectedDate);
       // You can do other things with the selected date here, if needed
     };
 
     //submit SELECT data 
-    const handleSearchClick = () => {
-      console.log('handleSearchClick:', Selected);
-      console.log('handleSearchClick :', Date);
-      axios.get('http://localhost:3333/api/flight', {
-        params: {
-          destination: Selected,
-          fdate: Date
+    const handleSearchClick = async () => { // Mark the function as async
+        console.log('handleSearchClick:', Selected);
+        console.log('handleSearchClick:', selectedDate);
+        localStorage.setItem('sendSelected', Selected); 
+        localStorage.setItem('sendselectedDate',selectedDate); 
+        setIsLoading(true);
+    
+        try {
+          const response = await axios.get('http://localhost:3333/api/flight', {
+            params: {
+              destination: Selected,
+              fdate: selectedDate,
+            }
+          });
+          // Handle and display the data in your React app
+          console.log(response.data);
+          const result = await response.data;
+          console.log('result is: ', JSON.stringify(result, null, 4));
+          
+         setData({ 
+          flight: result
+        });
+   
+        } catch (error) {
+          console.error('Error:', error);
+        }finally {
+          setIsLoading(false);
         }
-      })
-      .then((response) => {
-        // Handle and display the data in your React app
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-    };
+      };
+      console.log('Data state:', data);
     
     useEffect(() => {
-  
+
+       
+          console.log('Data state in useEffect:', data);
       const token = localStorage.getItem('token')
       console.log(token);
     
@@ -95,7 +121,8 @@ function User() {
                     <div className="logo-user">
                         <Link to="/user">Canfly</Link>
                     </div> 
-                    <div className="navcenter-user">
+                    
+                    <div className={navActive}>
                         <div className="navhome-user">
                             <NavLink to="/user">Home</NavLink>
                         </div>
@@ -103,44 +130,38 @@ function User() {
                             <NavLink to="/user_order">Your order</NavLink>
                         </div>
                     </div>
+
                     <div className="nav-right">
                         <div className='nav-username'>
                         {username}
                         </div>
+                        <IoExitOutline 
+                        className='icon-user-exit' 
+                        size={25} 
+                        onClick={logout}
+                        />
                     </div>
-                    <IoExitOutline 
-                    className='icon-user-exit' 
-                    size={25} 
-                    onClick={logout}
-                    />
+
+                    <div className="nav-toggle" onClick={navToggle}>
+                        <div className="line1"></div>
+                        <div className="line2"></div>
+                        <div className="line3"></div>
+                    </div>
+                    
                 </div>
             
 
                 <article>
                     <div className="content">
-                    <h1>เริ่มเดินทางได้แล้ววันนี้</h1>
-                    <h2>จองเที่ยวบินทั่วโลกสำหรับทริปของคุณด้วยข้อเสนอที่ดีที่สุด</h2>
+                      <h1>เริ่มเดินทางได้แล้ววันนี้</h1>
+                      <h2>จองเที่ยวบินทั่วโลกสำหรับทริปของคุณด้วยข้อเสนอที่ดีที่สุด</h2>
                     </div>
+
+                    <div className="submit">
+                        <Link to="/user_ticket" onClick={handleSearchClick}>Search</Link>
+                    </div>
+
                 </article>
-
-                <div className="dropdown-data">
-                    <Dropdown 
-                    Selected={Selected} 
-                    setSelected={setSelected} 
-                    onChange={handleDropdownChange}/>
-                      
-                    <input type="date" 
-                    className='date-input' 
-                    onChange={handleDateChange}
-               
-                    />
-                </div> 
-
-                <div className="submit">
-                    <Link 
-                    to='/user_ticket' 
-                    onClick={handleSearchClick}>Search</Link>
-                </div>
             </div>
         </div>
     )

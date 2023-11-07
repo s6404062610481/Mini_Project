@@ -1,35 +1,61 @@
-import React, { useEffect , useState } from 'react'
+import React, { useEffect,useState } from 'react'
 import './Home.css'
 import { Link, NavLink,useNavigate } from 'react-router-dom'
+import { IoExitOutline } from 'react-icons/io5'
+import Dropdown from '../User/Dropdown'
 import axios from 'axios';
 
-/* <div className='nav'>
-        <div className="logo">
-          <Link to="/">Canfly</Link>
-        </div> 
-        <div className="navcenter">
-          <div className="navhome">
-            <Link to="/">Home</Link>
-          </div>
-          <div className="navorder">
-            <Link to="/">Your order</Link>
-          </div>
-          <div className="navfav">
-            <Link to="/">Favourites</Link>
-          </div>
-        </div>
-        <div className="in">
-          <div className='sign'>
-            <Link to="/Signin">SIGN IN</Link>
-          </div>
-          <div className='log'>
-            <Link to="/Login">LOG IN</Link>
-          </div>
-        </div>
-      </div>
-*/
 const Home = () => {
-  const navigate = useNavigate();
+
+    const [Selected, setSelected] = useState("")
+    const [Date, setDate] = useState("")
+   
+
+    const navigate = useNavigate();
+
+    //get name
+    const username = localStorage.getItem('username');
+
+    //function logout
+    const logout = () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      navigate('/Login');
+    };
+
+    //get value from dropdown
+    const handleDropdownChange = (selectedValue) => {
+      setSelected(selectedValue);
+      // You can now use the selected value in this parent component
+      console.log('Selected option in parent component:', selectedValue);
+    };
+
+    //get data form
+    const handleDateChange = (e) => {
+      const selectedDate = e.target.value;
+      setDate(selectedDate);
+      console.log('Selected Date:', selectedDate);
+      // You can do other things with the selected date here, if needed
+    };
+
+    //submit SELECT data 
+    const handleSearchClick = () => {
+      console.log('handleSearchClick:', Selected);
+      console.log('handleSearchClick :', Date);
+      axios.get('http://localhost:3333/api/flight', {
+        params: {
+          destination: Selected,
+          fdate: Date
+        }
+      })
+      .then((response) => {
+        // Handle and display the data in your React app
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    };
 
   useEffect(() => {
 
@@ -66,50 +92,43 @@ const Home = () => {
 
   return (
     <>
-    <div className='Home'>
-      <nav>
-        <div className="logo">
-            <Link to="/">Canfly</Link>
-        </div> 
-        <div className="navcenter">
-            <div className="navhome">
-                <Link to="/">Home</Link>
-            </div>
-            <div className="navorder">
-                <Link to="/">Your order</Link>
-            </div>
-            <div className="navfav">
-                <Link to="/">Favourites</Link>
-            </div>
-        </div>
-        <div className="in">
-        <div className='sign'>
-            <Link to="/Signin">SIGN IN</Link>
-        </div>
-        <div className='log'>
-            <Link to="/Login">LOG IN</Link>
-        </div>
-        </div>
-      </nav>
+    <div>
+            <div className='Home'>
+                <div className='nav-user'>
+                    <div className="logo">
+                        <Link to="/">Canfly</Link>
+                    </div> 
+                    <div className="navcenter">
+                        <div className="navhome">
+                            <NavLink to="/">Home</NavLink>
+                        </div>
+                        <div className="navorder">
+                            <NavLink to="/">Your order</NavLink>
+                        </div>
+                    </div>
+                    <div className="in">
+                      <div className='sign'>
+                        <Link to="/Signin">SIGN IN</Link>
+                      </div>
+                      <div className='log'>
+                        <Link to="/Login">LOG IN</Link>
+                      </div>
+                  </div>
+                </div>
+            
 
-        <article>
-            <div className="content">
-            <h1>เริ่มเดินทางได้แล้ววันนี้</h1>
-            <h2>จองเที่ยวบินทั่วโลกสำหรับทริปของคุณด้วยข้อเสนอที่ดีที่สุด</h2>
-            </div>
-        </article>
+                <article>
+                    <div className="content">
+                    <h1>เริ่มเดินทางได้แล้ววันนี้</h1>
+                    <h2>จองเที่ยวบินทั่วโลกสำหรับทริปของคุณด้วยข้อเสนอที่ดีที่สุด</h2>
+                    </div>
+                </article>
 
-        <div className="datainput">
-            <input type="text" className='inputwhere' placeholder='เดินทางไปที่ไหน'/>
-            <input type="date" className='inputwhere' placeholder='วัน'/>
-            <input type="text" className='inputwhere' placeholder='เวลา'/>
-        </div>      
-        <div className="submit">
-          <Link to='/Ticket'>Search</Link>
-          
+                <div className="submit">
+                    <Link to='/ticket' >Search</Link>
+                </div>
+            </div>
         </div>
-       
-    </div>
 
     
     </>

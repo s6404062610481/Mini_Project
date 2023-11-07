@@ -1,11 +1,51 @@
 import React, { useState } from 'react';
 import './Flight.css';
 import { MdEventSeat } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import Dropdown from '../User/Dropdown';
 import Axios from 'axios';
 const seats = Array.from({ length: 15 }, (_, index) => `A${index + 1}`);
 
 const Flight = () => {
+
+  const [Selected, setSelected] = useState("")
+  const [Date, setDate] = useState("")
+
+  //get value from dropdown
+  const handleDropdownChange = (selectedValue) => {
+    setSelected(selectedValue);
+    // You can now use the selected value in this parent component
+    console.log('Selected option in parent component:', selectedValue);
+  };
+
+  //get data form
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setDate(selectedDate);
+    console.log('Selected Date:', selectedDate);
+    // You can do other things with the selected date here, if needed
+  };
+
+  //submit SELECT data 
+  const handleSearchClick = () => {
+    console.log('handleSearchClick:', Selected);
+    console.log('handleSearchClick :', Date);
+    axios.get('http://localhost:3333/api/flight', {
+      params: {
+        destination: Selected,
+        fdate: Date
+      }
+    })
+    .then((response) => {
+      // Handle and display the data in your React app
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  };
+
+
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [selectedAndReservedSeats, setSelectedAndReservedSeats] = useState([]);
 
@@ -33,45 +73,45 @@ const Flight = () => {
 
   return (
     <>
-      <div className='Home'>
-        <div className='nav'>
-          <div className="logo">
-            <Link to="/">Canfly</Link>
-          </div>
-          <div className="navcenter">
-            <div className="navhome">
-              <Link to="/">Home</Link>
-            </div>
-            <div className="navorder">
-              <Link to="/">Your order</Link>
-            </div>
-            <div className="navfav">
-              <Link to="/">Favourites</Link>
-            </div>
-          </div>
-          <div className="in">
-            <div className='sign'>
-              <Link to="/Signin">SIGN IN</Link>
-            </div>
-            <div className='log'>
-              <Link to="/Login">LOG IN</Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="ticket">
-                <div className="ticket-form-flight">
-                        <div className="goto">
-                            เดินทางไปที่ : Thailand 
+        <div className='Home'>
+                <div className='nav-user'>
+                    <div className="logo">
+                        <Link to="/">Canfly</Link>
+                    </div> 
+                    <div className="navcenter">
+                        <div className="navhome">
+                            <NavLink to="/">Home</NavLink>
                         </div>
-                        <div className="date">
-                            วัน : 01/12/2024
+                        <div className="navorder">
+                            <NavLink to="/">Your order</NavLink>
                         </div>
-                        <div className="time">
-                            เวลา : 09:00 น.
-                        </div>
+                    </div>
+                    <div className="in">
+                      <div className='sign'>
+                        <Link to="/Signin">SIGN IN</Link>
+                      </div>
+                      <div className='log'>
+                        <Link to="/Login">LOG IN</Link>
+                      </div>
+                  </div>
                 </div>
-            </div> 
+
+                <div className="ticket-user-ticket">
+               
+                    <div className="ticket-form">
+                         
+                            <div className="goto" >
+                                เดินทางไปที่ :  Thailand
+                            </div>
+        
+                            <div className="date">
+                                วัน :  19/12/2566
+                            </div>
+                            <div className="time">
+                                เวลา : 10:30:00
+                            </div>
+                    </div>                      
+                </div>
 
         <div className="seat_main_1">
           {/* red */}
@@ -441,9 +481,11 @@ const Flight = () => {
             </div>
           </div>
         </div>
-        <div className="btn-main">
-          <Link to='/'>Back</Link>
-          <Link to='/Pay'>Next</Link>
+        <div className="btn">
+          <div className="btn-main">
+            <Link to='/ticket'>Back</Link>
+            <Link to='/Login'>Next</Link>
+          </div>
         </div>
       </div>
     </>

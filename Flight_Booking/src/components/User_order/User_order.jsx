@@ -1,8 +1,70 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import './User_order.css'
+import qrcode2 from './qrcode2.png'
+import { IoExitOutline } from 'react-icons/io5'
+import axios from 'axios'
 
 function User_order() {
+
+    //get name
+    const username = localStorage.getItem('username');
+
+    const [data, setData] = useState({flight: []});
+
+    //function logout
+    const logout = () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      navigate('/Login');
+    };
+    
+   
+    useEffect(() => {
+        
+      const token = localStorage.getItem('token')
+      console.log(token);
+
+      axios.get('http://localhost:3333/api/flightbooking', {
+        params: {
+            username: username ,
+          }
+        })
+        .then((response) => {
+        const result = response.data;
+        setData({ 
+            flight: result
+        });
+        console.log(response);
+        })
+        .catch((error) => {
+        // Handle errors
+        });
+            
+
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json', // Specify the content type if needed
+        },
+      };
+      console.log('Headers:', config.headers);
+      axios.post("http://localhost:3333/authen", {}, config)
+        .then((response) => {
+          console.log(response.data);
+          if(response.data.status === 'ok'){
+          } else {
+            alert('Invalid authen');
+            navigate('/Login');
+        }
+        // Handle the successful login response (e.g., store tokens, redirect)
+      })
+      .catch((error) => {
+        console.error("Login error:", error.response.data);
+        // Handle login error (e.g., show an error message)
+        alert("Incorrect information. Please check your credentials.");
+      });
+      }, []);
     
     return (
         <div>
@@ -21,86 +83,80 @@ function User_order() {
                     </div>
                     <div className="nav-right">
                         <div className='nav-username'>
-                            User name
+                        {username}
                         </div>
+                        <IoExitOutline 
+                        className='icon-user-exit' 
+                        size={25} 
+                        onClick={logout}
+                        />
                     </div>
                 </div>
 
-                <div className="ticket">
+      
+                {data.flight.map(flight => (
+                <div className="ticket" key={flight.Fid}>
                     <div className="ticket-form-user-order">
-                        <div className="goto">
-                            ID : 1
+                        <div className="main-user-order">
+                            <div className="content-user-order">
+                                <div className="booking-user-order">
+                                    <div className="booking-data-user-order">
+                                        Booking ID
+                                    </div>
+                                    <span>{flight.BookingID}</span>
+                                </div>
+                                <div className="name-flight">
+                                    <div className="name-flight-data-user-order">
+                                        FLIGHT INFORMATION
+                                    </div>
+                                </div>
+                                <div className="flight-id">
+                                    <div className="flight-id-data">
+                                        Flight ID
+                                    </div>
+                                    <span>{flight.FlightID}</span>
+                                </div>
+                            </div>
+
+                            <div className="img-user-order">
+                                <div className="img-data-user-order">
+                                    <img src={qrcode2} alt="" />
+                                </div>
+                            </div>
                         </div>
-                        <div className="date">
-                            Airline : Nokair
+                        <hr className='hr-user-order' />
+                        <div className="destination">
+                            <div className="des-to">
+                                <div className="des-to-data">
+                                    To
+                                </div>
+                                <span>{flight.FlightDestination}</span>
+                            </div>
+                            <div className="des-seat">
+                                <div className="dses-seat-data">
+                                    Seat
+                                </div>
+                                <span>{flight.SeatNumber}</span>
+                            </div>
                         </div>
-                        <div className="date">
-                            Destination : Puket
-                        </div>
-                        <div className="date">
-                            Date : 01/11/2024
-                        </div>
-                        <div className="time">
-                            Time : 09:30:00
-                        </div>
-                        <div className="time">
-                            Seat : A1
-                        </div>
-                        <div className="time">
-                            Price : 1300 Bath
+                        <div className="date-time-user-order">
+                            <div className="date-user-order">
+                                <div className="date-data-user-order">
+                                    Date
+                                </div>
+                                <span>{new Date(flight.FlightDate).toLocaleDateString()}</span>
+                            </div>
+                            <div className="time-user-order">
+                                <div className="time-date-user-order">
+                                    Time
+                                </div>
+                                <span>{flight.FlightTime}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="ticket">
-                    <div className="ticket-form-user-order">
-                        <div className="goto">
-                            ID : 1
-                        </div>
-                        <div className="date">
-                            Airline : Nokair
-                        </div>
-                        <div className="date">
-                            Destination : Puket
-                        </div>
-                        <div className="date">
-                            Date : 01/11/2024
-                        </div>
-                        <div className="time">
-                            Time : 09:30:00
-                        </div>
-                        <div className="time">
-                            Seat : A1
-                        </div>
-                        <div className="time">
-                            Price : 1300 Bath
-                        </div>
-                    </div>
-                </div>
-                <div className="ticket">
-                    <div className="ticket-form-user-order">
-                        <div className="goto">
-                            ID : 1
-                        </div>
-                        <div className="date">
-                            Airline : Nokair
-                        </div>
-                        <div className="date">
-                            Destination : Puket
-                        </div>
-                        <div className="date">
-                            Date : 01/11/2024
-                        </div>
-                        <div className="time">
-                            Time : 09:30:00
-                        </div>
-                        <div className="time">
-                            Seat : A1
-                        </div>
-                        <div className="time">
-                            Price : 1300 Bath
-                        </div>
-                    </div>
-                </div>
+                    ))}
+    
 
             </div>
         </div>

@@ -1,0 +1,65 @@
+.main-login-admin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 12.5%;
+}
+.content-login-admin{
+    box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+    width: 500px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 30px;
+}
+.content-login-admin h2{
+    margin-bottom: 30px;
+}
+.username-login-admin{
+    margin-bottom: 15px;
+}
+.username-login-admin input{
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    width: 300px;
+    height: 40px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 2);
+    padding: 10px;
+    font-weight: 16px;
+    margin-left: 10px; 
+    font-size: 16px;
+}
+.password-login-admin{
+    margin-bottom: 30px;
+}
+
+.password-login-admin input{
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    width: 300px;
+    height: 40px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 2);
+    padding: 10px;
+    font-weight: 16px;
+    margin-left: 10px; 
+    font-size: 16px;
+}
+
+.btn-login-admin{
+    font-size: 18px;
+    color: white;
+    background-color: blue;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    width: 200px;
+    height: 40px;
+    cursor: pointer;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 2);
+}

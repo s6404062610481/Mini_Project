@@ -10,8 +10,17 @@ const seats = Array.from({ length: 15 }, (_, index) => `A${index + 1}`);
 
 function User_flight() {
 
-  const [Selected, setSelected] = useState("")
-  const [Date, setDate] = useState("")
+    const [navActive, setnavActive] = useState("navcenter-user-flight");
+    const navToggle = () => {
+        if(navActive==="navcenter-user-flight"){
+            setnavActive("navcenter-user-flight nav__active-user-flight"); console.log("active")
+        }else{
+            setnavActive("navcenter-user-flight"); console.log("no")
+        }
+    }
+
+    const [Selected, setSelected] = useState("")
+    const [Date, setDate] = useState("")
 
   const navigate = useNavigate();
 
@@ -86,6 +95,7 @@ function User_flight() {
     
 
   ////////////เมื่อไหร่จะได้ไอ้แม่ย้อยยยยยยยย///////////
+    
 
   const [status, setStatus] = useState(false);
 
@@ -387,15 +397,17 @@ function User_flight() {
             </div>
           </div>
         </div>
-        <div className="btn-main">
-          <Link to='/user_ticket'>Back</Link>
-          <Link to='/user_pay' onClick={handleNextClick}>Next</Link>
-          {status ? <p>Seats reserved successfully!</p> : <p>Please select a seat.</p>}
+        <div className="btn">
+            <div className="btn-main">
+            <Link to='/user'onClick={handleNextClick}>Back</Link>
+            <Link to='/user_pay'onClick={handleNextClick}>Next</Link>
+            </div>
         </div>
-
+        
+        </div>
       </div>
-    </div>
-  )
-}
+
+    )
+    }
 
 export default User_flight

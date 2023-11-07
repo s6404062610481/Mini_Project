@@ -6,17 +6,18 @@
 }
 .logo-user{
     font-size: 50px;
+    margin-bottom: 10px;
 }
 .logo-user a{
     color: #333;
 }
-.navcenter-user{
+.navcenter-user-home{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.navhome-user {
-    margin-right: 50px;
+.navcenter-user-home{
+    width: 300px;
 }
 .navhome-user a{
     color: black;
@@ -32,9 +33,6 @@
     background-color: black;
     color: white;
     border-radius: 30px;
-}
-.navorder-user{
-    margin-left: 50px;
 }
 .navorder-user a{
     color: black;
@@ -60,7 +58,13 @@
     color: white;
     width: 150px;
     height: 40px;
-    border-radius: 30px
+    border-radius: 30px;
+    margin-right: 10px;
+}
+.nav-right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dropdown{
@@ -68,39 +72,32 @@
     margin: 50px 20px;
     user-select: none;
 }
-.dropdown-btn{
+.dropdown .dropdown-btn{
     box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
     border-radius: 30px;
-    background: #fff;
+    background-color: #fff;
     color: #333;
     padding: 15px 20px;
     height: 50px;
     cursor: pointer;
 }
-.dropdown-content{
+.dropdown .dropdown-content{
     position: absolute;
     box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
-    background: #fff;
+    background-color: #fff;
     border-radius: 30px;
     width: 300px;
     color: #333;
     padding: 15px;
-    cursor: pointer;
 }
 
-.dropdowm-item{
+.dropdown .dropdown-content .dropdown-item{
     padding: 10px;
     cursor: pointer;
     transition: all 0.2s;
 }
-.dropdowm-item:hover{
-    background: #efeded;
-}
-
-.icon-user-exit{
-    position: absolute;
-    right: 115px;
-    top: 50px;
+.dropdown .dropdown-content .dropdown-item:hover{
+    background-color: #eae8e8;
 }
 
 .dropdown-data{
@@ -120,3 +117,105 @@
     box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
     font-size: 16px;
 }
+
+.nav-toggle{
+    cursor: pointer;
+    display: none;
+}
+
+.nav-toggle div{
+    border-radius: 30px;
+    width: 2rem;
+    height: 0.2rem;
+    margin: 0.4rem;
+    background-color: black;
+}
+
+@media only screen and (max-width: 915px) {
+    .nav-toggle{
+        display: block;
+    }
+    .navcenter-user-home{
+        border-radius: 30px;
+        top: 15vh;
+        height: 15vh;
+        padding: 15px;
+        position: fixed;
+        box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+        width: 40%;
+        right: 0;
+        flex-direction: column;
+        transform: translateX(200%);
+    }
+    article .content{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-radius: 0%;
+    }
+    article{
+        background-image: url("https://images.unsplash.com/photo-1504253163759-c23fccaebb55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80");
+    }
+    .submit{
+        margin-top: -100px;
+        margin-bottom: 50px;
+    }
+    .submit a{
+        background-color: rgb(165, 163, 163);
+        box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+        color: white;
+        margin-bottom: 50px;
+    }
+}
+
+.nav__active-user-home {
+    transform: translateX(0%);
+  }
+
+@media only screen and (max-width: 665px) {
+    .Home{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("https://images.unsplash.com/photo-1504253163759-c23fccaebb55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80");
+        object-fit: cover;
+    }
+    .nav-user{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .navcenter-user-home{
+        border-radius: 30px;
+        top: 28vh;
+        height: 15vh;
+        padding: 15px;
+        position: fixed;
+        box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+        width: 40%;
+        right: 20px;
+        flex-direction: column;
+        transform: translateX(200%);
+    }
+    .nav-right{
+        margin-bottom: 10px;
+    }
+    article, .content{
+        background-image: none;
+    }
+    .content{
+        margin-top: -50px;
+        padding: 25px 50px 25px 50px;
+        margin-bottom: 20px;
+    }
+    .submit a{
+        background-color: #fff;
+        box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+        color: black;
+        margin-bottom: 50px;
+    }
+}
+.nav__active-user-home {
+    transform: translateX(0%);
+  }
