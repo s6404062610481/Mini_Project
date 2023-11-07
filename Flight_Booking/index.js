@@ -82,7 +82,17 @@ app.get('/flight', function (req, res) {
     });
   });
 
-app.post('/reserve-seat', jsonParser, function (req, res) {
+  app.get('/api/flight', function (req, res) {
+    connection.query('SELECT * FROM flight', function (error, results, fields) {
+      if (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+      res.json(results); 
+    });
+  });
+
+  app.post('/reserve-seat', jsonParser, function (req, res) {
     const { seatNumber,} = req.body;
     connection.query(
       'UPDATE seat SET status = ?  WHERE snumber = ?',
@@ -104,16 +114,6 @@ app.post('/cancel-reservation', jsonParser, function (req, res) {
         res.json({ status: 'ok', message: 'Seat reservation canceled successfully' });
       }
     );
-  });
-
-  app.get('/api/flight', function (req, res) {
-    connection.query('SELECT * FROM flight', function (error, results, fields) {
-      if (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
-        return;
-      }
-      res.json(results); 
-    });
   });
 
 

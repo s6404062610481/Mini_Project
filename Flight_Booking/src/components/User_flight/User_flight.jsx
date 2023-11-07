@@ -61,7 +61,7 @@ function User_flight() {
   // *********************//
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [selectedAndReservedSeats, setSelectedAndReservedSeats] = useState([]);
-    
+
 
   const handleSeatClick = (seatNumber) => {
     // เช็คว่าที่นั่งถูกเลือกบ่
@@ -72,33 +72,46 @@ function User_flight() {
       // ถ้ายังไม่ถูกเลือก ให้เพิ่มที่นั่งเข้า selectedSeats
       setSelectedSeats([...selectedSeats, seatNumber]);
     }
+    localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+  };
+  
+  useEffect(() => {
+    // ตรวจสอบว่ามีข้อมูลที่นั่งที่ถูกเลือกใน localStorage หรือไม่
+    const storedSelectedSeats = localStorage.getItem('selectedSeats');
+    if (storedSelectedSeats) {
+      // ถ้ามี ให้แปลงข้อมูล JSON เป็น array และอัปเดตใน state
+      setSelectedSeats(JSON.parse(storedSelectedSeats));
+    }
+  }, []); // ใส่วงเล็บว่างเพื่อให้ useEffect ทำงานเพียงครั้งเดียวหลังจากการเรียกใช้ครั้งแรก
+    
+
+  ////////////เมื่อไหร่จะได้ไอ้แม่ย้อยยยยยยยย///////////
+
+  const [status, setStatus] = useState(false);
+
+  const handleNextClick = () => {
+    if (selectedSeats.length > 0) {
+      // ทำการอัปเดตสถานะเป็น true 
+      setStatus(true);
+      console.log("Success");
+
+      // ทำการเรียกใช้ API เพื่ออัปเดตสถานะที่นั่งที่ถูกเลือก
+      selectedSeats.forEach(seatNumber => {
+        axios.post('http://localhost:3333/reserve-seat', { seatNumber })
+          .then(response => {
+            console.log(response.data);
+            // ทำตามการตอบกลับจาก API 
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      });
+    } else {
+      console.log("Please select a seat.");
+    }
   };
 
-      ////////////เมื่อไหร่จะได้ไอ้แม่ย้อยยยยยยยย///////////
 
-const [status,setStatus] = useState(false);
-
-const handleNextClick = () => {
-  if (selectedSeats.length > 0) {
-    // ทำการอัปเดตสถานะเป็น true 
-    setStatus(true);
-    console.log("Success");
-
-    // ทำการเรียกใช้ API เพื่ออัปเดตสถานะที่นั่งที่ถูกเลือก
-    selectedSeats.forEach(seatNumber => {
-      axios.post('http://localhost:3333/reserve-seat', { seatNumber })
-        .then(response => {
-          console.log(response.data);
-          // ทำตามการตอบกลับจาก API 
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    });
-  } else {
-    console.log("Please select a seat.");
-  }
-};
 
   return (
     <div>
@@ -144,15 +157,22 @@ const handleNextClick = () => {
           {/* red */}
           <div className="seat_1">
             <div className="A">A</div>
-            {[1, 2, 3, 4, 5, ,].map(seatNumber => (
-              <div
-                key={`A${seatNumber}`}
-                className={`seat ${selectedSeats.includes(`A${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`A${seatNumber}`) ? 'seat-reserved' : ''}`}
-                onClick={() => handleSeatClick(`A${seatNumber}`)}
-              >
-                <MdEventSeat color={(selectedSeats.includes(`A${seatNumber}`) || selectedAndReservedSeats.includes(`A${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
-              </div>
-            ))}
+            {[1, 2, 3, 4, 5].map(seatNumber => {
+  const seatId = `A${seatNumber}`;
+  const isSelected = selectedSeats.includes(seatId);
+  const isReserved = isSelected && selectedAndReservedSeats.includes(seatId);
+  const isSelectable = status !== 0 && !isReserved;
+
+  return (
+    <div
+      key={seatId}
+      className={`seat ${isSelected ? 'seat-selected' : isReserved ? 'seat-reserved' : isSelectable ? 'seat-selectable' : 'seat-disabled'}`}
+      onClick={isSelectable ? () => handleSeatClick(seatId) : null}
+    >
+      <MdEventSeat color={(isSelected || isReserved) ? 'gray' : 'red'} size={40} />
+    </div>
+  );
+})}
           </div>
 
           {/* blue */}
@@ -229,7 +249,7 @@ const handleNextClick = () => {
         <div className="seat_main_3">
           {/* red */}
           <div className="seat_1_main_3">
-            <div className="C">B</div>
+            <div className="C">C</div>
             {[1, 2, 3, 4, 5].map(seatNumber => (
               <div
                 key={`C${seatNumber}`}
@@ -277,11 +297,11 @@ const handleNextClick = () => {
             <div className="D">D</div>
             {[1, 2, 3, 4, 5].map(seatNumber => (
               <div
-                key={`B${seatNumber}`}
-                className={`seat ${selectedSeats.includes(`B${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`B${seatNumber}`) ? 'seat-reserved' : ''}`}
-                onClick={() => handleSeatClick(`B${seatNumber}`)}
+                key={`D${seatNumber}`}
+                className={`seat ${selectedSeats.includes(`D${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`D${seatNumber}`) ? 'seat-reserved' : ''}`}
+                onClick={() => handleSeatClick(`D${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`B${seatNumber}`) || selectedAndReservedSeats.includes(`B${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`D${seatNumber}`) || selectedAndReservedSeats.includes(`D${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
@@ -290,11 +310,11 @@ const handleNextClick = () => {
           <div className="seat_2_main_4">
             {[6, 7, 8, 9, 10].map(seatNumber => (
               <div
-                key={`B${seatNumber}`}
-                className={`seat ${selectedSeats.includes(`B${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`B${seatNumber}`) ? 'seat-reserved' : ''}`}
-                onClick={() => handleSeatClick(`B${seatNumber}`)}
+                key={`D${seatNumber}`}
+                className={`seat ${selectedSeats.includes(`D${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`D${seatNumber}`) ? 'seat-reserved' : ''}`}
+                onClick={() => handleSeatClick(`D${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`B${seatNumber}`) || selectedAndReservedSeats.includes(`B${seatNumber}`)) ? 'gray' : 'blue'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`D${seatNumber}`) || selectedAndReservedSeats.includes(`D${seatNumber}`)) ? 'gray' : 'blue'} size={'40'} />
               </div>
             ))}
           </div>
@@ -303,11 +323,11 @@ const handleNextClick = () => {
           <div className="seat_3_main_4">
             {[11, 12, 13, 14, 15].map(seatNumber => (
               <div
-                key={`B${seatNumber}`}
-                className={`seat ${selectedSeats.includes(`B${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`B${seatNumber}`) ? 'seat-reserved' : ''}`}
-                onClick={() => handleSeatClick(`B${seatNumber}`)}
+                key={`D${seatNumber}`}
+                className={`seat ${selectedSeats.includes(`D${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`D${seatNumber}`) ? 'seat-reserved' : ''}`}
+                onClick={() => handleSeatClick(`D${seatNumber}`)}
               >
-                <MdEventSeat color={(selectedSeats.includes(`B${seatNumber}`) || selectedAndReservedSeats.includes(`B${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
+                <MdEventSeat color={(selectedSeats.includes(`D${seatNumber}`) || selectedAndReservedSeats.includes(`D${seatNumber}`)) ? 'gray' : 'red'} size={'40'} />
               </div>
             ))}
           </div>
@@ -367,11 +387,11 @@ const handleNextClick = () => {
             </div>
           </div>
         </div>
-          <div className="btn-main">
-            <Link to='/user_ticket'>Back</Link>
-            <Link to='/user_pay' onClick={handleNextClick}>Next</Link>
-            {status ? <p>Seats reserved successfully!</p> : <p>Please select a seat.</p>}
-          </div>
+        <div className="btn-main">
+          <Link to='/user_ticket'>Back</Link>
+          <Link to='/user_pay' onClick={handleNextClick}>Next</Link>
+          {status ? <p>Seats reserved successfully!</p> : <p>Please select a seat.</p>}
+        </div>
 
       </div>
     </div>
