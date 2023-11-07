@@ -203,17 +203,7 @@ app.post('/reserve-seat', jsonParser, function (req, res) {
   );
 });
 
-app.post('/cancel-reservation', jsonParser, function (req, res) {
-  const { seatNumber } = req.body;
-  connection.query(
-    'UPDATE seat SET status = ? WHERE snumber = ?',
-    [false, seatNumber],
-    function (error, results, fields) {
-      if (error) throw error;
-      res.json({ status: 'ok', message: 'Seat reservation canceled successfully' });
-    }
-  );
-});
+
 
 
 
