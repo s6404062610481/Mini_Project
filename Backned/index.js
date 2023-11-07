@@ -150,9 +150,6 @@ FROM
  
   //get 
   app.get('/api/flightbill', (req, res) => {
-    // Get the variable from the query parameters
-     // Get the variable from the query parameters
- 
 
    // Construct the SQL query with the variable
    const query = `SELECT
