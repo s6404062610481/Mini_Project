@@ -10,17 +10,17 @@ const seats = Array.from({ length: 15 }, (_, index) => `A${index + 1}`);
 
 function User_flight() {
 
-    const [navActive, setnavActive] = useState("navcenter-user-flight");
-    const navToggle = () => {
-        if(navActive==="navcenter-user-flight"){
-            setnavActive("navcenter-user-flight nav__active-user-flight"); console.log("active")
-        }else{
-            setnavActive("navcenter-user-flight"); console.log("no")
-        }
+  const [navActive, setnavActive] = useState("navcenter-user-flight");
+  const navToggle = () => {
+    if (navActive === "navcenter-user-flight") {
+      setnavActive("navcenter-user-flight nav__active-user-flight"); console.log("active")
+    } else {
+      setnavActive("navcenter-user-flight"); console.log("no")
     }
+  }
 
-    const [Selected, setSelected] = useState("")
-    const [Date, setDate] = useState("")
+  const [Selected, setSelected] = useState("")
+  const [Date, setDate] = useState("")
 
   const navigate = useNavigate();
 
@@ -68,23 +68,24 @@ function User_flight() {
       });
   };
   // *********************//
-const [selectedSeats, setSelectedSeats] = useState([]); //ที่นั่ง ปจบ
-const [selectedAndReservedSeats, setSelectedAndReservedSeats] = useState([]);
-const [selectedAndReservedSeatsAfterNext, setSelectedAndReservedSeatsAfterNext] = useState([]);
+  const [selectedSeats, setSelectedSeats] = useState([]); //ที่นั่ง ปจบ
+  const [selectedAndReservedSeats, setSelectedAndReservedSeats] = useState([]);
+  const [selectedAndReservedSeatsAfterNext, setSelectedAndReservedSeatsAfterNext] = useState([]);
+  const [datastatus, setDatastatus] = useState({ status: [] });
 
-const handleSeatClick = (seatNumber) => {
-  // เช็คว่าที่นั่งถูกเลือกบ่
-  if (selectedSeats.includes(seatNumber)) {
-    // ถ้าถูกเลือกอยู่แล้ว ให้ลบที่นั่งออกจาก selectedSeats
-    setSelectedSeats(selectedSeats.filter(seat => seat !== seatNumber));
-  } else {
-    // ถ้ายังไม่ถูกเลือก ให้เพิ่มที่นั่งเข้า selectedSeats
-    setSelectedSeats([...selectedSeats, seatNumber]);
-  }
-};
+  const handleSeatClick = (seatNumber) => {
+    // เช็คว่าที่นั่งถูกเลือกบ่
+    if (selectedSeats.includes(seatNumber)) {
+      // ถ้าถูกเลือกอยู่แล้ว ให้ลบที่นั่งออกจาก selectedSeats
+      setSelectedSeats(selectedSeats.filter(seat => seat !== seatNumber));
+    } else {
+      // ถ้ายังไม่ถูกเลือก ให้เพิ่มที่นั่งเข้า selectedSeats
+      setSelectedSeats([...selectedSeats, seatNumber]);
+    }
+  };
 
   ////////////เมื่อไหร่จะได้ไอ้แม่ย้อยยยยยยยย///////////
-    
+
 
   const [status, setStatus] = useState(false);
 
@@ -93,7 +94,7 @@ const handleSeatClick = (seatNumber) => {
       // ทำการอัปเดตสถานะเป็น true
       setStatus(true);
       console.log("Success");
-  
+
       // ทำการเรียกใช้ API เพื่ออัปเดตสถานะที่นั่งที่ถูกเลือก
       selectedSeats.forEach(seatNumber => {
         axios.post('http://localhost:3333/reserve-seat', { seatNumber })
@@ -105,13 +106,38 @@ const handleSeatClick = (seatNumber) => {
             console.error(error);
           });
       });
-  
+
       // อัปเดต state `selectedAndReservedSeatsAfterNext`
       setSelectedAndReservedSeatsAfterNext(selectedSeats.concat(selectedAndReservedSeats));
     } else {
       console.log("Please select a seat.");
     }
   };
+  useEffect(() => {
+    axios.get('http://localhost:3333/check-seat')
+      .then((response) => {
+        const result = response.data;
+        setDatastatus({
+          status: result
+        });
+        console.log(response);
+      })
+      .catch((error) => {
+        // handle errors
+      });
+
+  }, []);
+  console.log("kuy", datastatus);
+
+
+  const displayLocations = () => {
+    return datastatus.map((status, index) => (
+      <div key={index}>
+        <p>Location {index + 1}: {status}</p>
+      </div>
+    ));
+  };
+ 
 
   return (
     <div>
@@ -152,12 +178,18 @@ const handleSeatClick = (seatNumber) => {
 
           />
         </div>
+        {/*{data.status.map((item) => {
+          if (item.status === 'ตัวแปรตัว') {
 
+
+          })*/}
+          
         <div className="seat_main_1-user-ticket">
           {/* red */}
+        
           <div className="seat_1">
             <div className="A">A</div>
-            {[1, 2, 3, 4, 5, ,].map(seatNumber => (
+            {[1, 2, 3, 4, 5].map(seatNumber => (
               <div
                 key={`A${seatNumber}`}
                 className={`seat ${selectedSeats.includes(`A${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`A${seatNumber}`) ? 'seat-reserved' : ''}`}
@@ -167,7 +199,8 @@ const handleSeatClick = (seatNumber) => {
               </div>
             ))}
           </div>
-
+       
+              
           {/* blue */}
           <div className="seat_2">
             {[6, 7, 8, 9, 10].map(seatNumber => (
@@ -183,7 +216,7 @@ const handleSeatClick = (seatNumber) => {
 
           {/* red */}
           <div className="seat_3">
-          {[11, 12, 13, 14, 15, ,].map(seatNumber => (
+            {[11, 12, 13, 14, 15,].map(seatNumber => (
               <div
                 key={`A${seatNumber}`}
                 className={`seat ${selectedSeats.includes(`A${seatNumber}`) ? 'seat-selected' : selectedAndReservedSeats.includes(`A${seatNumber}`) ? 'seat-reserved' : ''}`}
@@ -324,8 +357,10 @@ const handleSeatClick = (seatNumber) => {
               </div>
             ))}
           </div>
-
+        
         </div>
+  
+        
 
         <div className="seat_main_5-user-ticket">
           <div className="seat_1_main_5-user-ticket">
@@ -381,16 +416,16 @@ const handleSeatClick = (seatNumber) => {
           </div>
         </div>
         <div className="btn">
-            <div className="btn-main">
-            <Link to='/user'onClick={handleNextClick}>Back</Link>
-            <Link to='/user_pay'onClick={handleNextClick}>Next</Link>
-            </div>
+          <div className="btn-main">
+            <Link to='/user' onClick={handleNextClick}>Back</Link>
+            <Link to='/user_pay' onClick={handleNextClick}>Next</Link>
+          </div>
         </div>
-        
-        </div>
-      </div>
 
-    )
-    }
+      </div>
+    </div>
+
+  )
+}
 
 export default User_flight

@@ -118,29 +118,14 @@ app.post('/cancel-reservation', jsonParser, function (req, res) {
   });
 
   app.get('/check-seat', function(req, res){
-    const { seatNumber } = req.query;
-    const isReserved = selectedAndReservedSeatsAfterNext.includes(seatNumber);
-
-    connection.query(
-        'SELECT status FROM seat WHERE Fid = 1 ',
-        [seatNumber],
-        function(error, results, fields){
-            if(error) throw error;
-
-            if(results.length > 0) {
-                const seatStatus = results[0].status;
-
-                if(isReserved || seatStatus) {
-                    res.json({ status: 'reserved' });
-                } else {
-                    res.json({ status: 'available' });
-                }
-            } else {
-                res.json({ status: 'error', message: 'Seat not found' });
-            }
-        }
-    );
-});
+    connection.query('SELECT status FROM seat WHERE Fid = 1', function (error, results, fields) {
+      if (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+      res.json(results); 
+    });
+  });
 
 
 
