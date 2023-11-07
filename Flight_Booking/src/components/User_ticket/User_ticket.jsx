@@ -179,14 +179,14 @@ function User_ticket() {
                
                     <div className="ticket-form">
                          
-                            <div className="goto" >
+                            <div className="goto-user-ticket" >
                                 เดินทางไปที่ :  Puket
                             </div>
         
-                            <div className="date">
+                            <div className="date-user-ticket">
                                 วัน :  01/12/2566
                             </div>
-                            <div className="time">
+                            <div className="time-user-ticket">
                                 เวลา : 00.00.00
                             </div>
                         
@@ -201,14 +201,14 @@ function User_ticket() {
                
                     <div className="ticket-form" key={flight.Fid}>
                          
-                            <div className="goto" >
+                            <div className="goto-user-ticket" >
                                 เดินทางไปที่ :  {flight.Destination}
                             </div>
         
-                            <div className="date">
+                            <div className="date-user-ticket">
                                 วัน :  {new Date(flight.Fdate).toLocaleDateString()}
                             </div>
-                            <div className="time">
+                            <div className="time-user-ticket">
                                 เวลา : {flight.Ftime}
                             </div>
                         

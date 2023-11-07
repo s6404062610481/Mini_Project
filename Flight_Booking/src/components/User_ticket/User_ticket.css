@@ -17,6 +17,15 @@
     align-items: center;
     margin-top: 20px;
 }
+.goto-user-ticket{
+    margin-right: 10px;
+}
+.date-user-ticket{
+    margin-right: 10px;
+}
+.time-user-ticket{
+    margin-right: 10px;
+}
 .submit-user-ticket{
     display: flex;
     justify-content: center;
@@ -67,21 +76,53 @@
 
     .navcenter-user-ticket{
         border-radius: 30px;
-        top: 37vh;
-        height: 7vh;
+        top: 23vh;
+        height: 13vh;
         padding: 15px;
         position: fixed;
         box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
         width: 40%;
         right: 20px;
-        flex-direction: row;
+        flex-direction: column;
         transform: translateX(200%);
+    }
+
+    .submit-user-ticket{
+        margin-top: 4rem;
     }
 
     .submit-user-ticket a{
         background-color: rgb(165, 163, 163);
         box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
         color: white;
+    }
+
+    .dropdown-data-user-ticket{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .ticket-user-ticket{
+        width: 250px;
+    }
+    .ticket-form{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 150px;
+        background-color: #fff;
+    }
+    .goto-user-ticket{
+        margin-bottom: 10px;
+    }
+    .date-user-ticket{
+        margin-bottom: 10px;
+    }
+    .time-user-ticket{
+        margin-bottom: 10px;
     }
 }
 .nav__active-ticket{
