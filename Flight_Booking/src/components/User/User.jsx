@@ -22,6 +22,7 @@ function User() {
     const logout = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('username');
+      document.cookie = "username=";
       navigate('/Login');
     };
 
