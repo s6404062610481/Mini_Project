@@ -1,3 +1,9 @@
+.navcenter-user-flight{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+}
 .seat_main_1-user-ticket{
     display: flex;
     justify-content: center;
@@ -50,8 +56,7 @@
     margin-right: 23px;
 }
 @media only screen and (max-width: 915px) {
-
-    .navcenter-user{
+    .navcenter-user-flight{
         border-radius: 30px;
         top: 15vh;
         height: 7vh;
@@ -70,7 +75,34 @@
 
 @media only screen and (max-width: 665px) {
 
-    .navcenter-user{
+    .Home{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("https://images.unsplash.com/photo-1504253163759-c23fccaebb55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80");
+        object-fit: cover;
+    }
+    .nav-user{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .seat_main_1-user-ticket{
+        display: block;
+    }
+    .seat_main_2{
+        display: block;
+    }
+    .seat_main_3{
+        display: block;
+    }
+    .seat_main_4{
+        display: block;
+    }
+
+    .navcenter-user-flight{
         border-radius: 30px;
         top: 8.5vh;
         height: 7vh;
@@ -81,6 +113,18 @@
         right: 10px;
         flex-direction: row;
         transform: translateX(200%);
+    }
+    .seat_main_5-user-ticket{
+        display: block;
+    }
+    .seat_1_main_5-user-ticket{
+        display: block;
+    }
+    .seat_2_main_5-user-ticket{
+        display: block;
+    }
+    .seat_3_main_5-user-ticket{
+        display: block;
     }
 }
 .nav__active-user-flight{

@@ -10,12 +10,12 @@ const seats = Array.from({ length: 15 }, (_, index) => `A${index + 1}`);
 
 function User_flight() {
 
-    const [navActive, setnavActive] = useState("navcenter-user");
+    const [navActive, setnavActive] = useState("navcenter-user-flight");
     const navToggle = () => {
-        if(navActive==="navcenter-user"){
-            setnavActive("navcenter-user nav__active-user-flight"); console.log("active")
+        if(navActive==="navcenter-user-flight"){
+            setnavActive("navcenter-user-flight nav__active-user-flight"); console.log("active")
         }else{
-            setnavActive("navcenter-user"); console.log("no")
+            setnavActive("navcenter-user-flight"); console.log("no")
         }
     }
 
