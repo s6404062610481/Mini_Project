@@ -93,6 +93,30 @@ app.get('/api/flight', (req, res) => {
     }
 );
 
+app.post('/reserve-seat', jsonParser, function (req, res) {
+  const { seatNumber, customerId } = req.body;
+  connection.query(
+    'UPDATE seat SET status = ?  WHERE snumber = ?',
+    [true,  seatNumber],
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json({ status: 'ok', message: 'Seat reserved successfully' });
+    }
+  );
+});
+
+app.post('/cancel-reservation', jsonParser, function (req, res) {
+  const { seatNumber } = req.body;
+  connection.query(
+    'UPDATE seat SET status = ? WHERE snumber = ?',
+    [false, seatNumber],
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json({ status: 'ok', message: 'Seat reservation canceled successfully' });
+    }
+  );
+});
+
 
 
 app.listen(3333, function () {
