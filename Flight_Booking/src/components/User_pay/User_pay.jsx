@@ -26,7 +26,7 @@ function User_pay() {
 
     return (
         <div>
-            <div className='Home'>
+            <div className='Home-pay'>
                 <div className='nav-user'>
                     <div className="logo-user">
                             <Link to="/user">Canfly</Link>

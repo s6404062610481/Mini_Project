@@ -1,3 +1,9 @@
+.Home-pay{
+    background-color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 .main-user-pay{
     display: flex;
     justify-content: center;
@@ -93,4 +99,26 @@
 .bg-user-pay img{
     width: 125px;
     height: 125px;
+}
+@media only screen and (max-width: 915px) {
+    .nav-toggle{
+        display: block;
+    }
+    .navcenter-user-home{
+        border-radius: 30px;
+        top: 15vh;
+        height: 15vh;
+        padding: 15px;
+        position: fixed;
+        box-shadow: 0px 1px 7px rgba(0, 0, 0, 2);
+        width: 40%;
+        right: 0;
+        flex-direction: column;
+        transform: translateX(200%);
+    }
+}
+@media only screen and (max-width: 665px) {
+    .Home-pay{
+        background: none;
+    }
 }
