@@ -180,7 +180,8 @@ function User_ticket() {
                     <div className="ticket-form">
                          
                             <div className="goto-user-ticket" >
-                                เดินทางไปที่ :  Puket
+                                เดินทางไปที่ :  
+                                Puket
                             </div>
         
                             <div className="date-user-ticket">
