@@ -126,7 +126,7 @@ function User_ticket() {
     return (
       <div>
           <div className='Home'>
-              <div className='nav-user'>
+              <nav>
                   <div className="logo-user">
                           <Link to="/user">Canfly</Link>
                       </div> 
@@ -155,7 +155,7 @@ function User_ticket() {
                         <div className="line3"></div>
                     </div>
 
-                </div>
+                </nav>
               <div className="dropdown-data-user-ticket">
                   <Dropdown 
                   Selected={Selected} 

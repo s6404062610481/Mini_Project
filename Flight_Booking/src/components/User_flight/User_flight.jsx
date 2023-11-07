@@ -106,7 +106,7 @@ function User_flight() {
     return (
         <div>
             <div className='Home'>
-                <div className='nav-user'>
+                <nav>
                     <div className="logo-user">
                         <Link to="/user">Canfly</Link>
                     </div> 
@@ -135,7 +135,7 @@ function User_flight() {
                         <div className="line3"></div>
                     </div>
 
-                </div>
+                </nav>
 
                 <div className="ticket-user-ticket">
                

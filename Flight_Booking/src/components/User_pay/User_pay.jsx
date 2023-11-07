@@ -36,7 +36,7 @@ function User_pay() {
     return (
         <div>
             <div className='Home-pay'>
-                <div className='nav-user'>
+                <nav>
                     <div className="logo-user">
                             <Link to="/user">Canfly</Link>
                         </div> 
@@ -65,7 +65,7 @@ function User_pay() {
                         <div className="line3"></div>
                     </div>
 
-                </div>
+                </nav>
 
                 <div className="main-user-pay">
                     <div className="content-user-pay">

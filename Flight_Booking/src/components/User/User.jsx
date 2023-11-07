@@ -117,7 +117,7 @@ function User() {
     return (
         <div>
             <div className='Home'>
-                <div className='nav-user'>
+                <nav>
                     <div className="logo-user">
                         <Link to="/user">Canfly</Link>
                     </div> 
@@ -148,7 +148,7 @@ function User() {
                         <div className="line3"></div>
                     </div>
                     
-                </div>
+              </nav>
             
 
                 <article>
