@@ -92,6 +92,7 @@ app.get('/flight', function (req, res) {
     });
   });
 
+
   app.post('/reserve-seat', jsonParser, function (req, res) {
     const { seatNumber,} = req.body;
     connection.query(
@@ -115,6 +116,18 @@ app.post('/cancel-reservation', jsonParser, function (req, res) {
       }
     );
   });
+
+  app.get('/check-seat', function(req, res){
+    connection.query('SELECT status FROM seat WHERE Fid = 1', function (error, results, fields) {
+      if (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+      res.json(results); 
+    });
+  });
+
+
 
 
 

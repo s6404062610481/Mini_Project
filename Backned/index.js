@@ -96,7 +96,6 @@ app.post('/authen', jsonParser, function (req, res, next) {
   
   //get flightall
   app.get('/api/flightall', (req, res) => {
-
    // Construct the SQL query with the variable
    const query = `SELECT * FROM flight `;
 
@@ -149,9 +148,6 @@ FROM
  
   //get 
   app.get('/api/flightbill', (req, res) => {
-    // Get the variable from the query parameters
-     // Get the variable from the query parameters
- 
 
    // Construct the SQL query with the variable
    const query = `SELECT
