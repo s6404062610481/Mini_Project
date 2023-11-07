@@ -7,12 +7,12 @@ import axios from 'axios';
 
 function User() {
 
-    const [navActive, setnavActive] = useState("navcenter-user");
+    const [navActive, setnavActive] = useState("navcenter-user-home");
     const navToggle = () => {
-        if(navActive==="navcenter-user"){
-            setnavActive("navcenter-user nav__active"); console.log("active")
+        if(navActive==="navcenter-user-home"){
+            setnavActive("navcenter-user-home nav__active-user-home"); console.log("active")
         }else{
-            setnavActive("navcenter-user"); console.log("no")
+            setnavActive("navcenter-user-home"); console.log("no")
         }
     }
 

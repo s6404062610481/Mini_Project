@@ -11,12 +11,12 @@
 .logo-user a{
     color: #333;
 }
-.navcenter-user{
+.navcenter-user-home{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.navcenter-user{
+.navcenter-user-home{
     width: 300px;
 }
 .navhome-user a{
@@ -135,7 +135,7 @@
     .nav-toggle{
         display: block;
     }
-    .navcenter-user{
+    .navcenter-user-home{
         border-radius: 30px;
         top: 15vh;
         height: 15vh;
@@ -168,7 +168,7 @@
     }
 }
 
-.nav__active {
+.nav__active-user-home {
     transform: translateX(0%);
   }
 
@@ -186,7 +186,7 @@
         align-items: center;
         flex-direction: column;
     }
-    .navcenter-user{
+    .navcenter-user-home{
         border-radius: 30px;
         top: 28vh;
         height: 15vh;
@@ -216,6 +216,6 @@
         margin-bottom: 50px;
     }
 }
-.nav__active {
+.nav__active-user-home {
     transform: translateX(0%);
   }
