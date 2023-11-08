@@ -259,7 +259,7 @@ app.post('/add-user', (req, res) => {
   const email = req.body.email;
   const phone = req.body.phone;
 
-  connection.query("INSERT INTO customer (username, password, fname, surname, email, phone) VALUSES (?,?,?,?,?,?)",
+  connection.query("INSERT INTO customer (username, password, fname, surname, email, phone) VALUES (?,?,?,?,?,?)",
   [username, password, fname, surname, email, phone],
   (err, result) => {
     if(err){
