@@ -12,7 +12,7 @@ function Admin_user() {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [name, setName] = useState('')
+    const [fname, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState(0)
@@ -29,7 +29,7 @@ function Admin_user() {
         axios.post('http://localhost:3333/add-user', {
             username: username,
             password: password,
-            name: name,
+            fname: fname,
             surname: surname,
             email: email,
             phone: phone
@@ -39,7 +39,7 @@ function Admin_user() {
             {
                 username: username,
                 password: password,
-                name: name,
+                fname: fname,
                 surname: surname,
                 email: email,
                 phone: phone
@@ -133,7 +133,7 @@ function Admin_user() {
                                     }}/>
                                 </div>
                                 <div className="modal-content-username">
-                                    Password <input type="password" className='modal-input' onChange={(event)=> {
+                                    Password <input type="text" className='modal-input' onChange={(event)=> {
                                         setPassword(event.target.value);
                                     }}/>
                                 </div>
@@ -150,7 +150,7 @@ function Admin_user() {
                                     }} />
                                 </div>
                                 <div className="modal-content-username">
-                                    Email <input type="email" className='modal-input-email' onChange={(event)=> {
+                                    Email <input type="text" className='modal-input-email' onChange={(event)=> {
                                         setEmail(event.target.value);
                                     }}/>
                                 </div>
@@ -163,7 +163,7 @@ function Admin_user() {
                             
                         </div>
                         <div className="modal-button">
-                            <button className='button-add-admin'>Add</button>
+                            <button className='button-add-admin' onClick={addUser}>Add</button>
                             <button className='button-close-admin' onClick={toggleModal}>Close</button>
                         </div>
                     </div>
