@@ -33,44 +33,16 @@ function User_flight() {
     navigate('/Login');
   };
 
-    //get value from dropdown
-    const handleDropdownChange = (selectedValue) => {
-      setSelected(selectedValue);
-      // You can now use the selected value in this parent component
-      console.log('Selected option in parent component:', selectedValue);
-    };
 
-    //get data form
-    const handleDateChange = (e) => {
-      const selectedDate = e.target.value;
-      setDate(selectedDate);
-      console.log('Selected Date:', selectedDate);
-      // You can do other things with the selected date here, if needed
-    };
 
     //submit SELECT data 
-    const handleSearchClick = () => {
-      console.log('handleSearchClick:', Selected);
-      console.log('handleSearchClick :', Date);
-      axios.get('http://localhost:3333/api/flight', {
-        params: {
-          destination: Selected,
-          fdate: Date
-        }
-      })
-      .then((response) => {
-        // Handle and display the data in your React app
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
+   
   // *********************//
   const [selectedSeats, setSelectedSeats] = useState([]); //ที่นั่ง ปจบ
   const [selectedAndReservedSeats, setSelectedAndReservedSeats] = useState([]);
   const [selectedAndReservedSeatsAfterNext, setSelectedAndReservedSeatsAfterNext] = useState([]);
   const [datastatus, setDatastatus] = useState({ status: [] });
+  const [datause, setDatause] = useState({ flight: [] });
 
   const handleSeatClick = (seatNumber) => {
     // เช็คว่าที่นั่งถูกเลือกบ่
@@ -88,7 +60,72 @@ function User_flight() {
       document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 
+    // const see = sessionStorage.setItem();
+    // console.log("asdasdasdasdas",see)
+   
   useEffect(() => {
+    
+    axios.get('http://localhost:3333/check-seat')
+    .then((response) => {
+      const result = response.data;
+      setDatastatus({
+        status: result
+      });
+      console.log(response);
+    })
+    .catch((error) => {
+      // handle errors
+    });
+  
+    //set value seeion
+    const fid = sessionStorage.getItem('Fid');
+    axios.get('http://localhost:3333/api/flight/user_ticket', {
+      params: {
+        Fidsend: fid,
+      }
+    })
+    .then((response) => {
+      const resultdata = response.data;
+      setDatause({
+        flight: resultdata
+      });
+      console.log('111111111111111111111111111',response.data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+    
+  
+    // axios.get('http://localhost:3333/api/flight/user_ticket')
+    // .then((response) => {
+   
+    //   console.log(response);
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
+
+    // axios.get('http://localhost:3333/api/flight/user_ticket' )
+    // .then((response) {
+    //     console.log(response.data);
+    // })
+    // .catch((error) {
+    //     console.error(error);
+    // });
+    // axios.get('http://localhost:3333/api/flight/user_ticket'params: {
+    //   destination: Selected,
+    //   fdate: selectedDate,
+    // })
+    // .then((response) => {
+    //   const result = response.data;
+    //   // setDatastatus({
+    //   //   status: result
+    //   // });
+    //   console.log(response);
+    // })
+    // .catch((error) => {
+    //   // handle errors
+    // });
 
     //get cookies
     function getCookie(name) {
@@ -143,20 +180,8 @@ function User_flight() {
         console.log("Please select a seat.");
     }
   };
-  useEffect(() => {
-    axios.get('http://localhost:3333/check-seat')
-      .then((response) => {
-        const result = response.data;
-        setDatastatus({
-          status: result
-        });
-        console.log(response);
-      })
-      .catch((error) => {
-        // handle errors
-      });
+  console.log("asdasdasdasdasdsadasd",datause);
 
-  }, []);
   console.log("check", datastatus.status);
   return (
     <div>
@@ -191,6 +216,27 @@ function User_flight() {
                 </div>
 
                 </nav>
+                
+                {datause.flight.map(flight => (
+                <div className="ticket-user-ticket">
+               
+                    <div className="ticket-form" key={flight.Fid} >
+
+                         
+                            <div className="goto-user-ticket" >
+                                เดินทางไปที่ : {flight.Destination }
+                            </div>
+        
+                            <div className="date-user-ticket">
+                                วัน :  {flight.Fdate}  
+                            </div>
+                            <div className="time-user-ticket">
+                                เวลา :   {flight.Ftime}
+                            </div>
+
+                    </div>                      
+                </div>
+                    ))}
 
             <div className="seat_main_1-user-ticket">
           {/* red */}

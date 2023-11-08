@@ -73,7 +73,6 @@ app.post('/authen', jsonParser, function (req, res, next) {
 // Search flight
   app.get('/api/flight', (req, res) => {
     // Get the variable from the query parameters
-     // Get the variable from the query parameters
    const destination = req.query.destination;
    const fdate = req.query.fdate;
 
@@ -106,6 +105,32 @@ app.post('/authen', jsonParser, function (req, res, next) {
         res.status(500).json({ error: 'An error occurred' });
         return;
       }
+      // Return the query results as JSON
+      res.json(results);
+    });
+      }
+  );
+
+  //get data in user_flight
+  app.get('/api/flight/user_ticket', (req, res) => {
+    // Get the variable from the query parameters
+   const fid = req.query.Fidsend ;
+  
+  //  const fid = 2;
+
+   // Construct the SQL query with the variable
+   const query = `SELECT flight.Fid ,flight.Destination, flight.Fdate, flight.Ftime
+   FROM flight
+   WHERE flight.Fid = ${fid};`;
+
+    // Execute the SQL query
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error('Error executing SQL query: ' + err.message);
+        res.status(500).json({ error: 'An error occurred' });
+        return;
+      }
+
       // Return the query results as JSON
       res.json(results);
     });

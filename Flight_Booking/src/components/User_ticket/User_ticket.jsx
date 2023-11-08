@@ -114,6 +114,7 @@ function User_ticket() {
           'Content-Type': 'application/json', // Specify the content type if needed
         },
       };
+      
 
       axios.get('http://localhost:3333/api/flightall').then((response) => {
         const result =  response.data;
@@ -143,6 +144,10 @@ function User_ticket() {
         alert("Incorrect information. Please check your credentials.");
       });
     }, [,]);
+    const handleFidClick = (Fid) => {
+      // Store the clicked Fid in sessionStorage
+      sessionStorage.setItem('Fid', Fid);
+    };
 
     return (
       <div>
@@ -202,9 +207,10 @@ function User_ticket() {
                 <div className="ticket-user-ticket">
                
                     <div className="ticket-form" key={flight.Fid}>
+
                          
                             <div className="goto-user-ticket" >
-                                เดินทางไปที่ :  {flight.Destination}
+                                เดินทางไปที่ :  {flight.Destination }
                             </div>
         
                             <div className="date-user-ticket">
@@ -215,10 +221,11 @@ function User_ticket() {
                             </div>
                         
                             <div className="next">
-                            <Link to="/User_flight">จองที่นั่ง</Link>
+                            <Link to="/User_flight" onClick={() => handleFidClick(flight.Fid)} >จองที่นั่ง</Link>
                             </div>  
                     </div>                      
                 </div>
+                
                    ))}
               
           </div>
