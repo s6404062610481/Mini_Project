@@ -2,12 +2,21 @@ import React, { useState } from 'react'
 import './Admin_user.css'
 import { IoExitOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 function exit(){
     alert('Are you sure to logout !!!')
 }
 
 function Admin_user() {
+
+    const [userList, setUserList] = useState([]);
+
+    const getUser = () => {
+        axios.get('http://localhost:3333/quantity-user').then((response)=> {
+            setUserList(response.data)
+        })
+    }
 
     const [modal, setModal] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -45,66 +54,34 @@ function Admin_user() {
             <div className="list-user">
                 List User
             </div>
-            <div className="admin-datauser">
-                <div className="admin-username">
-                    Username : TAGOYAGI
-                </div>
-                <div className="admin-name">
-                    Name : Eiei
-                </div>
-                <div className="admin-surname">
-                    Surname : Gaga
-                </div>
-                <div className="admin-phone">
-                    Phone : 0123456789
-                </div>
-                <div className="admin-edit" onClick={toggleEdit}>
-                    Edit
-                </div>
-                <div className="admin-delete">
-                    Delete
-                </div>
-            </div>
-            <div className="admin-datauser">
-                <div className="admin-username">
-                    Username : TAGOYAGI
-                </div>
-                <div className="admin-name">
-                    Name : Eiei
-                </div>
-                <div className="admin-surname">
-                    Surname : Gaga
-                </div>
-                <div className="admin-phone">
-                    Phone : 0123456789
-                </div>
-                <div className="admin-edit" onClick={toggleEdit}>
-                    Edit
-                </div>
-                <div className="admin-delete">
-                    Delete
-                </div>
-            </div>
-            <div className="admin-datauser">
-                <div className="admin-username">
-                    Username : TAGOYAGI
-                </div>
-                <div className="admin-name">
-                    Name : Eiei
-                </div>
-                <div className="admin-surname">
-                    Surname : Gaga
-                </div>
-                <div className="admin-phone">
-                    Phone : 0123456789
-                </div>
-                <div className="admin-edit" onClick={toggleEdit}>
-                    Edit
-                </div>
-                <div className="admin-delete">
-                    Delete
-                </div>
-            </div>
+
+            <button onClick={getUser}>Show User</button>
+
+            {userList.map((val, key) => {
+                return(
+                    <div className="admin-datauser">
+                        <div className="admin-username">
+                            Username : {val.username}
+                        </div>
+                        <div className="admin-name">
+                            Name : {val.fname}
+                        </div>
+                        <div className="admin-surname">
+                            Surname : {val.surname}
+                        </div>
+                        <div className="admin-phone">
+                            Phone : {val.phone}
+                        </div>
+                        <div className="admin-edit" onClick={toggleEdit}>
+                            Edit
+                        </div>
+                        <div className="admin-delete">
+                            Delete
+                        </div>
+                    </div>
+                )
+            })}
+
             <div className="admin-add-user" onClick={toggleModal}>
                 Add User
             </div>
