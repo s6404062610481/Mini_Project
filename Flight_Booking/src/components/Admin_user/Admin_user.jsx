@@ -10,11 +10,41 @@ function exit(){
 
 function Admin_user() {
 
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [name, setName] = useState('')
+    const [surname, setSurname] = useState('')
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState(0)
+
     const [userList, setUserList] = useState([]);
 
     const getUser = () => {
         axios.get('http://localhost:3333/quantity-user').then((response)=> {
             setUserList(response.data)
+        })
+    }
+
+    const addUser = () => {
+        axios.post('http://localhost:3333/add-user', {
+            username: username,
+            password: password,
+            name: name,
+            surname: surname,
+            email: email,
+            phone: phone
+        }).then(() => {
+            setUserList([
+                ...userList,
+            {
+                username: username,
+                password: password,
+                name: name,
+                surname: surname,
+                email: email,
+                phone: phone
+            }
+            ])
         })
     }
 
@@ -98,24 +128,36 @@ function Admin_user() {
 
                             <div className="modal-content-input-user-1">
                                 <div className="modal-content-username">
-                                    Username <input type="text" className='modal-input' />
+                                    Username <input type="text" className='modal-input' onChange={(event)=> {
+                                        setUsername(event.target.value);
+                                    }}/>
                                 </div>
                                 <div className="modal-content-username">
-                                    Password <input type="password" className='modal-input' />
+                                    Password <input type="password" className='modal-input' onChange={(event)=> {
+                                        setPassword(event.target.value);
+                                    }}/>
                                 </div>
                                 <div className="modal-content-password">
-                                    Name <input type="text" className='modal-input-name' />
+                                    Name <input type="text" className='modal-input-name'onChange={(event)=> {
+                                        setName(event.target.value);
+                                    }} />
                                 </div>
                             </div>
                             <div className="modal-content-input-user-2">
                                 <div className="modal-content-username">
-                                    Surname <input type="text" className='modal-input' />
+                                    Surname <input type="text" className='modal-input'onChange={(event)=> {
+                                        setSurname(event.target.value);
+                                    }} />
                                 </div>
                                 <div className="modal-content-username">
-                                    Email <input type="email" className='modal-input-email' />
+                                    Email <input type="email" className='modal-input-email' onChange={(event)=> {
+                                        setEmail(event.target.value);
+                                    }}/>
                                 </div>
                                 <div className="modal-content-password">
-                                    Phone <input type="number" className='modal-input-phone' />
+                                    Phone <input type="number" className='modal-input-phone' onChange={(event)=> {
+                                        setPhone(event.target.value);
+                                    }}/>
                                 </div>
                             </div>
                             

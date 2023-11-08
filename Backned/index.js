@@ -251,6 +251,26 @@ app.get('/quantity-user', (req, res) => {
   })
 })
 
+app.post('/add-user', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  const name = req.body.name;
+  const surname = req.body.surname;
+  const email = req.body.email;
+  const phone = req.body.phone;
+
+  connection.query("INSERT INTO customer (username, password, name, surname, email, phone) VALUSES (?,?,?,?,?,?)",
+  [username, password, name, surname, email, phone],
+  (err, result) => {
+    if(err){
+      console.log(err)
+    }else{
+      res.send("Valuses Inserted")
+    }
+  }
+  );
+})
+
 
 
 app.listen(3333, function () {
