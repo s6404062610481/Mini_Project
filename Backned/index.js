@@ -206,6 +206,16 @@ app.get('/check-seat', function(req, res){
 });
 
 
+app.get('/quantity-admin', (req, res) => {
+  connection.query('SELECT * FROM admin', (err, result) => {
+    if(err){
+      console.log(err);
+    }else{
+      res.send(result);
+    }
+  })
+})
+
 
 
 app.listen(3333, function () {

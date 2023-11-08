@@ -2,8 +2,17 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IoExitOutline } from 'react-icons/io5'
 import './Admin.css'
+import axios from 'axios'
 
 function Admin() {
+
+    const [adminList, setAdminList] = useState([])
+
+    const getAdmin = () => {
+        axios.get('http://localhost:3333/quantity-admin').then((response)=> {
+            setAdminList(response.data)
+        })
+    }
 
     const [modal, setModal] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -45,71 +54,37 @@ function Admin() {
                     Flight : 15
                 </div>
             </div>
+
             <section>
                 <div className="list-user">
                     List Admin
                 </div>
-
-                <div className="admin-datauser">
-                    <div className="admin-username">
-                        Username : TAGOYAGI
+                <button onClick={getAdmin}>Show Admin</button>
+                
+                {adminList.map((val, key) => {
+                return (
+                    <div className="admin-datauser">
+                        <div className="admin-username">
+                            Username : {val.username}
+                        </div>
+                        <div className="admin-name">
+                            Password : {val.password}
+                        </div>
+                        <div className="admin-surname">
+                            Surname : Gaga
+                        </div>
+                        <div className="admin-phone">
+                            Phone : 0123456789
+                        </div>
+                        <div className="admin-edit" onClick={toggleEdit}>
+                            Edit
+                        </div>
+                        <div className="admin-delete">
+                            Delete
+                        </div>
                     </div>
-                    <div className="admin-name">
-                        Name : Eiei
-                    </div>
-                    <div className="admin-surname">
-                        Surname : Gaga
-                    </div>
-                    <div className="admin-phone">
-                        Phone : 0123456789
-                    </div>
-                    <div className="admin-edit" onClick={toggleEdit}>
-                        Edit
-                    </div>
-                    <div className="admin-delete">
-                        Delete
-                    </div>
-                </div>
-                <div className="admin-datauser">
-                    <div className="admin-username">
-                        Username : TAGOYAGI
-                    </div>
-                    <div className="admin-name">
-                        Name : Eiei
-                    </div>
-                    <div className="admin-surname">
-                        Surname : Gaga
-                    </div>
-                    <div className="admin-phone">
-                        Phone : 0123456789
-                    </div>
-                    <div className="admin-edit" onClick={toggleEdit}>
-                        Edit
-                    </div>
-                    <div className="admin-delete">
-                        Delete
-                    </div>
-                </div>
-                <div className="admin-datauser">
-                    <div className="admin-username">
-                        Username : TAGOYAGI
-                    </div>
-                    <div className="admin-name">
-                        Name : Eiei
-                    </div>
-                    <div className="admin-surname">
-                        Surname : Gaga
-                    </div>
-                    <div className="admin-phone">
-                        Phone : 0123456789
-                    </div>
-                    <div className="admin-edit" onClick={toggleEdit}>
-                        Edit
-                    </div>
-                    <div className="admin-delete">
-                        Delete
-                    </div>
-                </div>
+                    )
+                })}
                 <div className="admin-add-admin" onClick={toggleModal}>
                     Add Admin
                 </div>
