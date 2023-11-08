@@ -216,6 +216,16 @@ app.get('/quantity-admin', (req, res) => {
   })
 })
 
+app.get('/quantity-user', (req, res) => {
+  connection.query('SELECT * FROM customer', (err, result) => {
+    if(err){
+      console.log(err);
+    }else{
+      res.send(result)
+    }
+  })
+})
+
 
 
 app.listen(3333, function () {
