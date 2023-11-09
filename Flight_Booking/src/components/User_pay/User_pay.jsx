@@ -1,8 +1,9 @@
-import React, { useState,useEffect  } from 'react'
+import React, { useState, useEffect  } from 'react'
 import { Link, NavLink,useNavigate } from 'react-router-dom';
 import { IoExitOutline } from 'react-icons/io5'
 import './User_pay.css'
 import qrcode from './qrcode.png'
+import axios from 'axios'
 
 function User_pay() {
 
@@ -18,8 +19,11 @@ function User_pay() {
     const [Selected, setSelected] = useState('')
     const [selectedDate, setSelectedDate] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [data, setData] = useState({flight: []});
+    const [databill, setDatabill] = useState({flight: []});
+    const uniqueData = new Set();
 
+   
+      
     const navigate = useNavigate();
 
     //get name
@@ -32,7 +36,30 @@ function User_pay() {
     localStorage.removeItem('username');
     navigate('/Login');
     };
+    console.log("99999999999999999999999",databill)
+    useEffect(() => {
+        axios.get('http://localhost:3333/api/user_bill').then((response) => {
+            const result =  response.data;
+            setDatabill({ 
+                flight: result
+              });
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          
+    }, []);
 
+    databill.flight.forEach(flight => {
+        // เพิ่มข้อมูลลงใน Set
+        uniqueData.add(flight);
+      });
+
+      const uniqueDataArray = [...uniqueData];
+
+      console.log("8888888888888888888888888",uniqueDataArray)
+  
     return (
         <div>
             <div className='Home-pay'>
@@ -66,14 +93,18 @@ function User_pay() {
                     </div>
 
                 </nav>
-
+            
+               
+   
+ 
+  
                 <div className="main-user-pay">
                     <div className="content-user-pay">
                         <div className="name-user-pay">
                             <div className="name-data-user-pay">
                                 Name
                             </div>
-                            <span>Tanawat Kama</span>
+                            <span> {[...new Set(uniqueDataArray.map(flight => flight.fname))]}  {[...new Set(uniqueDataArray.map(flight => flight.surname))]}</span>
                         </div>
                         <hr />
                         <div className="time-fligth">
@@ -81,13 +112,13 @@ function User_pay() {
                                 <div className="time-data-user-pay">
                                     Time    
                                 </div>
-                                <span>09:30:00</span>
+                                <span>{[...new Set(uniqueDataArray.map(flight => flight.Ftime))]}</span>
                             </div>
                             <div className="flight-user-pay">
                                 <div className="flight-data-user-pay">
                                     Flight
                                 </div>
-                                <span>A0233</span>
+                                <span>{[...new Set(uniqueDataArray.map(flight => flight.Fid))]}</span>
                             </div>
                         </div>
                         <hr />
@@ -95,7 +126,7 @@ function User_pay() {
                             <div className="date-data-user-pay">
                                 Date
                             </div>
-                            <span>01/12/2565</span>
+                            <span>{[...new Set(uniqueDataArray.map(flight => flight.Fdate))]}</span>
                         </div>
                         <hr />
                         <div className="to-price-user-pay">
@@ -103,23 +134,30 @@ function User_pay() {
                                 <div className="to-data-user-pay">
                                     To
                                 </div>
-                                <span>Puket</span>
+                                <span>{[...new Set(uniqueDataArray.map(flight => flight.Destination))]}</span>
                             </div>
                             <div className="price-user-pay">
                                 <div className="price-data-user-pay">
                                     Price
                                 </div>
-                                <span>1300 Bath</span>
+                                {uniqueDataArray.length > 0 && (
+                                <span>
+                                {uniqueDataArray[uniqueDataArray.length - 1]?.price * uniqueDataArray.length}
+                                </span>
+                                 )}
                             </div>
                         </div>
                         <hr />
+                      
                         <div className="seat-user-pay">
+                       
                             <div className="seat-data-user-pay">
                                 Seat
                             </div>
-                            <span>B09</span>
-                        </div>
+                            <span> {uniqueDataArray.map(flight => flight.snumber).join(' ')}</span>
+                        </div>          
                         <hr />
+            
                         <div className="bg-user-pay">
                            <img src={qrcode} alt="" />
                         </div>

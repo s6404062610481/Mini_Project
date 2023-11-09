@@ -234,6 +234,40 @@ app.post('/reserve-seat', jsonParser, function (req, res) {
   );
 });
 
+// get bill
+app.get('/api/user_bill', (req, res) => {
+  // Construct the SQL query with the variable
+  const query = `SELECT 
+  seat.Sid, seat.snumber, seat.price,
+  flight.Fid, flight.Fdate, flight.Ftime,flight.Destination,
+  customer.fname,customer.surname,
+  booking.Bid
+  FROM 
+    seat
+  JOIN 
+    booking ON seat.Bid = booking.Bid
+  JOIN 
+    flight ON seat.Fid = flight.Fid
+  JOIN 
+    customer ON booking.username = customer.username
+  WHERE 
+    booking.Bid = (SELECT MAX(Bid) FROM booking)
+  ORDER BY 
+    booking.Bid DESC;`;
+
+   // Execute the SQL query
+   connection.query(query, (err, results) => {
+     if (err) {
+       console.error('Error executing SQL query: ' + err.message);
+       res.status(500).json({ error: 'An error occurred' });
+       return;
+     }
+     // Return the query results as JSON
+     res.json(results);
+   });
+     }
+ );
+
 app.get('/check-seat', function(req, res){
   connection.query('SELECT status FROM seat WHERE Fid = 1', function (error, results, fields) {
     if (error) {
