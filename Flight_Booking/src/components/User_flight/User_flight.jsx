@@ -59,12 +59,48 @@ function User_flight() {
     function deleteCookie(name) {
       document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
+  const [status, setStatus] = useState(false);
 
-    // const see = sessionStorage.setItem();
-    // console.log("asdasdasdasdas",see)
+  const handleNextClick = () => {
+      //insert booking
+      axios.post('http://localhost:3333/api/booking', {
+        usernamesend: usernamecookies,
+      })
+      .then((response) => {
+        console.log(response);
+      }, (error) => {
+        console.log(error);
+      });
+    if (selectedSeats.length > 0) {
+      // ทำการอัปเดตสถานะเป็น true
+      setStatus(true);
+      console.log("Success");
+
+      const fid = sessionStorage.getItem('Fid');
+      // ทำการเรียกใช้ API เพื่ออัปเดตสถานะที่นั่งที่ถูกเลือก
+      selectedSeats.forEach(seatNumber => {
+        axios.post('http://localhost:3333/reserve-seat', { seatNumber,fid})
+          .then(response => {
+            console.log(response.data);
+            // ทำตามการตอบกลับจาก api
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      });
+      // อัปเดต state `selectedAndReservedSeatsAfterNext`
+      setSelectedAndReservedSeatsAfterNext(selectedSeats.concat(selectedAndReservedSeats));
+    } else {
+        console.log("Please select a seat.");
+    }
+    
+  };
    
   useEffect(() => {
     
+
+   
+ 
     axios.get('http://localhost:3333/check-seat')
     .then((response) => {
       const result = response.data;
@@ -77,7 +113,7 @@ function User_flight() {
       // handle errors
     });
   
-    //set value seeion
+    //set value session
     const fid = sessionStorage.getItem('Fid');
     axios.get('http://localhost:3333/api/flight/user_ticket', {
       params: {
@@ -95,37 +131,6 @@ function User_flight() {
       console.error('Error:', error);
     });
     
-  
-    // axios.get('http://localhost:3333/api/flight/user_ticket')
-    // .then((response) => {
-   
-    //   console.log(response);
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // });
-
-    // axios.get('http://localhost:3333/api/flight/user_ticket' )
-    // .then((response) {
-    //     console.log(response.data);
-    // })
-    // .catch((error) {
-    //     console.error(error);
-    // });
-    // axios.get('http://localhost:3333/api/flight/user_ticket'params: {
-    //   destination: Selected,
-    //   fdate: selectedDate,
-    // })
-    // .then((response) => {
-    //   const result = response.data;
-    //   // setDatastatus({
-    //   //   status: result
-    //   // });
-    //   console.log(response);
-    // })
-    // .catch((error) => {
-    //   // handle errors
-    // });
 
     //get cookies
     function getCookie(name) {
@@ -154,35 +159,6 @@ function User_flight() {
   ////////////เมื่อไหร่จะได้ไอ้แม่ย้อยยยยยยยย///////////
 
 
-  const [status, setStatus] = useState(false);
-
-  const handleNextClick = () => {
-    if (selectedSeats.length > 0) {
-      // ทำการอัปเดตสถานะเป็น true
-      setStatus(true);
-      console.log("Success");
-
-      // ทำการเรียกใช้ API เพื่ออัปเดตสถานะที่นั่งที่ถูกเลือก
-      selectedSeats.forEach(seatNumber => {
-        axios.post('http://localhost:3333/reserve-seat', { seatNumber })
-          .then(response => {
-            console.log(response.data);
-            // ทำตามการตอบกลับจาก api
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      });
-
-      // อัปเดต state `selectedAndReservedSeatsAfterNext`
-      setSelectedAndReservedSeatsAfterNext(selectedSeats.concat(selectedAndReservedSeats));
-    } else {
-        console.log("Please select a seat.");
-    }
-  };
-  console.log("asdasdasdasdasdsadasd",datause);
-
-  console.log("check", datastatus.status);
   return (
     <div>
         <div className='Home'>

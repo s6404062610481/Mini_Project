@@ -10,6 +10,7 @@ const secret = 'fullstack'
 
 
 app.use(cors())
+app.use(express.json());
 
 const mysql = require('mysql2');
 
@@ -115,8 +116,6 @@ app.post('/authen', jsonParser, function (req, res, next) {
   app.get('/api/flight/user_ticket', (req, res) => {
     // Get the variable from the query parameters
    const fid = req.query.Fidsend ;
-  
-  //  const fid = 2;
 
    // Construct the SQL query with the variable
    const query = `SELECT flight.Fid ,flight.Destination, flight.Fdate, flight.Ftime
@@ -136,6 +135,21 @@ app.post('/authen', jsonParser, function (req, res, next) {
     });
       }
   );
+
+  //  //insert booking
+  app.post('/api/booking', (req, res) => {
+    const username = req.body.usernamesend || null;;
+    // Insert the data into the database
+    connection.execute("INSERT INTO booking (username, bdate) VALUES (?, CURDATE())", [username], function(err) {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      res.json({
+        message: 'Data inserted successfully',
+      });
+    });
+  });
 
   //get booking
   app.get('/api/flightbooking', (req, res) => {
@@ -209,16 +223,50 @@ GROUP BY
 
 
 app.post('/reserve-seat', jsonParser, function (req, res) {
-  const { seatNumber, customerId } = req.body;
+  const { seatNumber, fid } = req.body;
   connection.query(
-    'UPDATE seat SET status = ?  WHERE snumber = ?',
-    [true,  seatNumber],
+    'UPDATE seat SET status = ? ,Bid = (SELECT MAX(Bid) FROM booking) WHERE snumber = ? AND Fid = ?',
+    [true,  seatNumber,fid],
     function (error, results, fields) {
       if (error) throw error;
       res.json({ status: 'ok', message: 'Seat reserved successfully' });
     }
   );
 });
+
+// get bill
+app.get('/api/user_bill', (req, res) => {
+  // Construct the SQL query with the variable
+  const query = `SELECT 
+  seat.Sid, seat.snumber, seat.price,
+  flight.Fid, flight.Fdate, flight.Ftime,flight.Destination,
+  customer.fname,customer.surname,
+  booking.Bid
+  FROM 
+    seat
+  JOIN 
+    booking ON seat.Bid = booking.Bid
+  JOIN 
+    flight ON seat.Fid = flight.Fid
+  JOIN 
+    customer ON booking.username = customer.username
+  WHERE 
+    booking.Bid = (SELECT MAX(Bid) FROM booking)
+  ORDER BY 
+    booking.Bid DESC;`;
+
+   // Execute the SQL query
+   connection.query(query, (err, results) => {
+     if (err) {
+       console.error('Error executing SQL query: ' + err.message);
+       res.status(500).json({ error: 'An error occurred' });
+       return;
+     }
+     // Return the query results as JSON
+     res.json(results);
+   });
+     }
+ );
 
 app.get('/check-seat', function(req, res){
   connection.query('SELECT status FROM seat WHERE Fid = 1', function (error, results, fields) {
