@@ -319,7 +319,7 @@ app.post('/add-user', (req, res) => {
   );
 })
 
-app.put('/update-user', (req, res) => {
+app.put('/update-user/id', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const fname = req.body.fname;
@@ -329,7 +329,7 @@ app.put('/update-user', (req, res) => {
 
   connection.query(
     'UPDATE customer SET = username = ?, password = ?, fname = ?, surname = ?, email = ?, phone = ? WHERE username = ?',
-    [username, password, fname, surname, email, phone], (err, result) => {
+    [username, password, fname, surname, email, phone, username], (err, result) => {
       if(err){
         console.log(err)
       }else{

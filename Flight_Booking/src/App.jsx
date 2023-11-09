@@ -15,6 +15,7 @@ import User_ticket from './components/User_ticket/User_ticket';
 import User_flight from './components/User_flight/User_flight';
 import User_pay from './components/User_pay/User_pay';
 import Login_admin from './components/Login_admin/Login_admin';
+import Admin_edit from './components/Admin_edit/Admin_edit';
 function App() {
 
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path='/User_flight' element={<User_flight />}></Route>
         <Route path='/User_pay' element={<User_pay />}></Route>
         <Route path='/Login_admin' element={<Login_admin />}></Route>
+        <Route path='/Admin_edit/:id' element={<Admin_edit />}></Route>
       </Routes>
       
     </BrowserRouter>

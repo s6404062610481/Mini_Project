@@ -3,7 +3,6 @@ import './Admin_user.css'
 import { IoExitOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { response } from 'express'
 
 function exit(){
     alert('Are you sure to logout !!!')
@@ -18,7 +17,8 @@ function Admin_user() {
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState(0)
 
-    const [id, setId] = useState('')
+    const [editId, setEditId] = useState(-1)
+
     const [newusername, setNewUsername] = useState('')
     const [newpassword, setNewPassword] = useState('')
     const [newfname, setNewName] = useState('')
@@ -57,22 +57,23 @@ function Admin_user() {
         })
     }
 
-    const updateUserList = (username) => {
-        axios.put('http://localhost:3333/update-user', 
-        { username : newusername, password : newpassword, fname : newfname,  surname : newsurname, email : newemail, phone : newphone}).then((response) => {
-            setUserList(
-                userList.map((val) => {
-                    return val.username == username ? {
-                        username: val.username,
-                        password: val.password,
-                        fname: val.fname,
-                        surname: val.surname,
-                        email: val.email,
-                        phone: val.phone
-                    } : val;
-                })
-            )
-        })
+    const handleEdit = (id) => {
+        setEditId(id);
+    }
+
+    const handleUpdateUser = () => {
+        axios.put('http://localhost:3333/update-user/'+editId, {
+            username: editId,
+            password: newpassword,
+            fname: newfname,
+            surname: newsurname,
+            email: newemail,
+            phone: newphone
+        }).then(res=>{
+            console.log(res);
+            location.reload();
+            setEditId(-1);
+        }).catch(err => console.log(err))
     }
 
     const [modal, setModal] = useState(false);
@@ -83,7 +84,7 @@ function Admin_user() {
     }
 
     const toggleEdit = () => {
-        setEdit(!edit)
+        setEdit(edit)
     }
 
   return (
@@ -115,6 +116,7 @@ function Admin_user() {
             <button onClick={getUser}>Show User</button>
 
             {userList.map((val, key) => {
+
                 return(
                     <div className="admin-datauser">
                         <div className="admin-username">
@@ -129,9 +131,9 @@ function Admin_user() {
                         <div className="admin-phone">
                             Phone : {val.phone}
                         </div>
-                        <div className="admin-edit" onClick={toggleEdit}>
+                        <Link className="admin-edit" to={`/update-user/${val.username}`}>
                             Edit
-                        </div>
+                        </Link>
                         <div className="admin-delete">
                             Delete
                         </div>
@@ -197,59 +199,6 @@ function Admin_user() {
                 </div>
             )}
 
-            {edit && (
-                <div className="modal">
-                <div onClick={toggleEdit} className="overlay"></div>
-                <div className="modal-content-user">
-
-                    <h2>Edit User</h2>
-
-                    <div className="modal-content-input-user">
-
-                        <div className="modal-content-input-user-1">
-                            <div className="modal-content-username">
-                                Username <input type="text" className='modal-input' onChange={(event) => {
-                                    setNewUsername(event.target.value)
-                                }}/>
-                            </div>
-                            <div className="modal-content-username">
-                                Password <input type="password" className='modal-input' onChange={(event) => {
-                                    setNewPassword(event.target.value)
-                                }}/>
-                            </div>
-                            <div className="modal-content-password">
-                                Name <input type="text" className='modal-input-name' onChange={(event) => {
-                                    setNewName(event.target.value)
-                                }}/>
-                            </div>
-                        </div>
-                        <div className="modal-content-input-user-2">
-                            <div className="modal-content-username">
-                                Surname <input type="text" className='modal-input' onChange={(event) => {
-                                    setNewSurname(event.target.value)
-                                }}/>
-                            </div>
-                            <div className="modal-content-username">
-                                Email <input type="email" className='modal-input-email' onChange={(event) => {
-                                    setNewEmail(event.target.value)
-                                }}/>
-                            </div>
-                            <div className="modal-content-password">
-                                Phone <input type="number" className='modal-input-phone' onChange={(event) => {
-                                    setNewPhone(event.target.value)
-                                }}/>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div className="modal-button">
-                        <button className='button-edit-admin'onClick={() => {updateUserList(val.username)}}>Edit</button>
-                        <button className='button-close-admin' onClick={toggleEdit}>Close</button>
-                    </div>
-                </div>
-            </div>
-            )}
-        
     </div>
   )
 }
