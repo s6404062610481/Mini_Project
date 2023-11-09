@@ -46,20 +46,12 @@ function Admin() {
                 </div>
                 <IoExitOutline className='icon-admin-exit' size={25} />
             </div>
-            <div className="admin-main">
-                <div className="admin-main-user">
-                    User : 10
-                </div>
-                <div className="admin-main-flight">
-                    Flight : 15
-                </div>
-            </div>
 
             <section>
                 <div className="list-user">
                     List Admin
                 </div>
-                <button onClick={getAdmin}>Show Admin</button>
+                <button onClick={getAdmin} className='admin-add-admin'>Show Admin</button>
                 
                 {adminList.map((val, key) => {
                 return (

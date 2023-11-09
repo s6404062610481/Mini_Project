@@ -113,7 +113,7 @@ function Admin_user() {
                 List User
             </div>
 
-            <button onClick={getUser}>Show User</button>
+            <button onClick={getUser} className='admin-add-admin'>Show User</button>
 
             {userList.map((val, key) => {
 
@@ -131,9 +131,9 @@ function Admin_user() {
                         <div className="admin-phone">
                             Phone : {val.phone}
                         </div>
-                        <Link className="admin-edit" to={`/update-user/${val.username}`}>
+                        <div className="admin-edit" onClick={handleUpdateUser}>
                             Edit
-                        </Link>
+                        </div>
                         <div className="admin-delete">
                             Delete
                         </div>
