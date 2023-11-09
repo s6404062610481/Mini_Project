@@ -223,10 +223,10 @@ GROUP BY
 
 
 app.post('/reserve-seat', jsonParser, function (req, res) {
-  const { seatNumber, customerId } = req.body;
+  const { seatNumber, fid } = req.body;
   connection.query(
-    'UPDATE seat SET status = ?  WHERE snumber = ?',
-    [true,  seatNumber],
+    'UPDATE seat SET status = ? ,Bid = (SELECT MAX(Bid) FROM booking) WHERE snumber = ? AND Fid = ?',
+    [true,  seatNumber,fid],
     function (error, results, fields) {
       if (error) throw error;
       res.json({ status: 'ok', message: 'Seat reserved successfully' });
