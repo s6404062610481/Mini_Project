@@ -71,6 +71,7 @@ function User_flight() {
       }, (error) => {
         console.log(error);
       });
+      
     if (selectedSeats.length > 0) {
       // ทำการอัปเดตสถานะเป็น true
       setStatus(true);
@@ -95,19 +96,19 @@ function User_flight() {
     }
     
   };
+
+  console.log("asdasdasdasssda",datastatus)
    
   useEffect(() => {
     
 
-   
- 
     axios.get('http://localhost:3333/check-seat')
     .then((response) => {
       const result = response.data;
       setDatastatus({
         status: result
       });
-      console.log(response);
+      console.log("666666666666666666666666666666666",response);
     })
     .catch((error) => {
       // handle errors
@@ -155,9 +156,6 @@ function User_flight() {
     }
   }, []); // ใส่วงเล็บว่างเพื่อให้ useEffect ทำงานเพียงครั้งเดียวหลังจากการเรียกใช้ครั้งแรก
     
-
-  ////////////เมื่อไหร่จะได้ไอ้แม่ย้อยยยยยยยย///////////
-
 
   return (
     <div>
@@ -219,13 +217,9 @@ function User_flight() {
           
           <div className="seat_1">
             <div className="A">A</div>
-            <div
-              className={`seat ${selectedSeats.includes("A1") ? 'seat-selected' : selectedAndReservedSeats.includes("A1") ? 'seat-reserved' : ''}`}
-              onClick={() => handleSeatClick("A1")}
-            >
+            <div className={`seat ${selectedSeats.includes("A1") ? 'seat-selected' : selectedAndReservedSeats.includes("A1") ? 'seat-reserved' : ''}`} onClick={() => handleSeatClick("A1")}>
               <MdEventSeat color={selectedSeats.includes("A1") || selectedAndReservedSeats.includes("A1") ? 'gray' : 'red'} size={'40'} />
             </div>
-
 
             <div className={`seat ${selectedSeats.includes("A2") ? 'seat-selected' : selectedAndReservedSeats.includes("A2") ? 'seat-reserved' : ''}`} onClick={() => handleSeatClick("A2")}>
               <MdEventSeat color={selectedSeats.includes("A2") || selectedAndReservedSeats.includes("A2") ? 'gray' : 'red'} size={'40'} />
@@ -244,10 +238,8 @@ function User_flight() {
             </div>
 
           </div>
-       
-              
+             
           {/* blue */}
-
           <div className="seat_2">
             <div className={`seat ${selectedSeats.includes("A6") ? 'seat-selected' : selectedAndReservedSeats.includes("A6") ? 'seat-reserved' : ''}`} onClick={() => handleSeatClick("A6")}>
               <MdEventSeat color={selectedSeats.includes("A6") || selectedAndReservedSeats.includes("A6") ? 'gray' : 'blue'} size={'40'} />
