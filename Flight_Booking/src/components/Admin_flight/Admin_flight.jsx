@@ -2,8 +2,64 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IoExitOutline } from 'react-icons/io5'
 import './Admin_flight.css'
+import Dropdown from '../User/Dropdown'
+import axios from 'axios'
 
 function Admin_flight() {
+
+    const [seatList, setSeatList] = useState([])
+
+    const getSeatList = () => {
+        axios.get('http://localhost:3333/list-seat').then((response)=> {
+            setSeatList(response.data)
+        })
+    }
+
+    const [Selected, setSelected] = useState('')
+
+    //get value from dropdown
+    const handleDropdownChange = (selectedValue) => {
+        setSelected(selectedValue);
+        // You can now use the selected value in this parent component
+        console.log('Selected option in parent component:', selectedValue);
+      };
+  
+      //get data form
+      const handleDateChange = (e) => {
+        const selectedDate = e.target.value;
+        setSelectedDate(selectedDate);
+        console.log('Selected Date:', selectedDate);
+        // You can do other things with the selected date here, if needed
+      };
+
+      //submit SELECT data 
+    const handleSearchClick = async () => { // Mark the function as async
+        console.log('handleSearchClick:', Selected);
+        console.log('handleSearchClick:', selectedDate);
+        setIsLoading(true);
+    
+        try {
+          const response = await axios.get('http://localhost:3333/api/flight', {
+            params: {
+              destination: Selected,
+              fdate: selectedDate,
+            }
+          });
+          // Handle and display the data in your React app
+          console.log(response.data);
+          const result = await response.data;
+          console.log('result is: ', JSON.stringify(result, null, 4));
+          
+         setData({ 
+          flight: result
+        });
+   
+        } catch (error) {
+          console.error('Error:', error);
+        }finally {
+          setIsLoading(false);
+        }
+      };
 
     const [modal, setModal] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -41,6 +97,39 @@ function Admin_flight() {
             <div className="list-user">
                 List Flight
             </div>
+            <div className="dropdown-data-user-ticket">
+                  <Dropdown 
+                  Selected={Selected} 
+                  setSelected={setSelected} 
+                  onChange={handleDropdownChange}/>
+                    
+                  <input type="date" 
+                  className='date-input' 
+             
+                  />
+            </div> 
+            <div className="submit-user-ticket">
+                  <Link 
+                  to='/admin_flight' 
+                  onClick={handleSearchClick}>Search</Link>
+              </div>
+              <button onClick={getSeatList}>Seat</button>
+
+              {seatList.map((val, key) => {
+                console.log('ff')
+                return(
+                        <tr>
+                            <td>{val.Destination}</td>
+                            <td>{val.snumber}</td>
+                            <td>{val.status}</td>
+                        </tr>
+                );
+              })}
+              <div className="admin-datauser">
+                        <div className="admin-username">Destination :</div>
+                        <div className="admin-surname">Seat Number :</div>
+                        <div className="admin-surname">Status : </div>
+                    </div>
             <div className="admin-datauser">
                 <div className="admin-username">
                     Airline : Nokair

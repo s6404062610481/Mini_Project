@@ -339,6 +339,19 @@ app.put('/update-user/id', (req, res) => {
     );
 })
 
+app.get('/list-seat', (req, res) => {
+  connection.query(
+  'SELECT flight.Destination, seat.snumber, seat.status FROM `flight`JOIN seat ON flight.Fid = seat.Fid WHERE seat.status = 1'
+  , (err, result) => {
+    if(err){
+      console.log(err)
+    }else{
+      res.send(result)
+    }
+  }
+  )
+})
+
 
 
 app.listen(3333, function () {
