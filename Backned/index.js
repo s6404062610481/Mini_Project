@@ -10,6 +10,7 @@ const secret = 'fullstack'
 
 
 app.use(cors())
+app.use(express.json());
 
 const mysql = require('mysql2');
 
@@ -115,8 +116,6 @@ app.post('/authen', jsonParser, function (req, res, next) {
   app.get('/api/flight/user_ticket', (req, res) => {
     // Get the variable from the query parameters
    const fid = req.query.Fidsend ;
-  
-  //  const fid = 2;
 
    // Construct the SQL query with the variable
    const query = `SELECT flight.Fid ,flight.Destination, flight.Fdate, flight.Ftime
@@ -136,6 +135,21 @@ app.post('/authen', jsonParser, function (req, res, next) {
     });
       }
   );
+
+  //  //insert booking
+  app.post('/api/booking', (req, res) => {
+    const username = req.body.usernamesend || null;;
+    // Insert the data into the database
+    connection.execute("INSERT INTO booking (username, bdate) VALUES (?, CURDATE())", [username], function(err) {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      res.json({
+        message: 'Data inserted successfully',
+      });
+    });
+  });
 
   //get booking
   app.get('/api/flightbooking', (req, res) => {
