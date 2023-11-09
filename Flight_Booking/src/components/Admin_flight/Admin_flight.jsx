@@ -2,8 +2,61 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IoExitOutline } from 'react-icons/io5'
 import './Admin_flight.css'
+import Dropdown from '../User/Dropdown'
+import axios from 'axios'
 
 function Admin_flight() {
+
+    const [seatList, setSeatList] = useState([])
+
+    const getSeatList = () => {
+        axios.get('http://localhost:3333/list-seat').then((response)=> {
+            setSeatList(response.data)
+        })
+    }
+
+    const [Selected, setSelected] = useState('')
+    const [selectedDate, setSelectedDate] = useState('');
+    const [datalistFlight, setDataListFlight] = useState({flight: []});
+
+    //get value from dropdown
+    const handleDropdownChange = (selectedValue) => {
+        setSelected(selectedValue);
+        // You can now use the selected value in this parent component
+        console.log('Selected option in parent component:', selectedValue);
+      };
+  
+      //get data form
+      const handleDateChange = (e) => {
+        const selectedDate = e.target.value;
+        setSelectedDate(selectedDate);
+        console.log('Selected Date:', selectedDate);
+        // You can do other things with the selected date here, if needed
+      };
+
+      //submit SELECT data 
+    const handleSearchClick = async () => { // Mark the function as async
+        console.log('handleSearchClick:', Selected);
+        console.log('handleSearchClick:', selectedDate);
+    
+        axios.get('http://localhost:3333/list-seat', {
+        params: {
+            Destination: Selected,
+            fDate: selectedDate,
+        }
+        })
+        .then((response) => {
+        const resultdata = response.data;
+        setDataListFlight({
+            flight: resultdata
+        });
+        console.log('111111111111111111111111111',response.data);
+        })
+        .catch((error) => {
+        console.error('Error:', error);
+        });
+      };
+      console.log("55555555555",datalistFlight)
 
     const [modal, setModal] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -41,66 +94,49 @@ function Admin_flight() {
             <div className="list-user">
                 List Flight
             </div>
-            <div className="admin-datauser">
-                <div className="admin-username">
-                    Airline : Nokair
+            <div className="dropdown-data-user-ticket">
+                  <Dropdown 
+                  Selected={Selected} 
+                  setSelected={setSelected} 
+                  onChange={handleDropdownChange}/>
+                    
+                  <input type="date" 
+                  className='date-input' 
+                  onChange={handleDateChange}
+                  />
+            </div> 
+            <div className="submit-user-ticket">
+                  <Link 
+                  to='/admin_flight' 
+                  onClick={handleSearchClick}>Search</Link>
+              </div>
+              <table>
+                <tr>
+                    <th>Seat ID</th>
+                    <th>Flight Number</th>
+                    <th>Seat Number</th>
+                    <th>Username</th>
+                </tr>
+                {datalistFlight.flight.map((val, key)=>{
+                    return(
+                        <tr>
+                            <td>{val.Sid}</td>
+                            <td>{val.Fid}</td>
+                            <td>{val.snumber}</td>
+                            <td>{val.username}</td>
+                        </tr>
+                    );
+                })}
+                </table>
+              {seatList.map((val, key) => {
+                return(
+                    <div className="admin-datauser">
+                    <div className="admin-username">Destination : {val.Destination}</div>
+                    <div className="admin-surname">Seat Number : {val.snumber}</div>
+                    <div className="admin-surname">Status : {val.status} </div>
                 </div>
-                <div className="admin-name">
-                    Destination : Puket
-                </div>
-                <div className="admin-surname">
-                    Date : 2566-12-01
-                </div>
-                <div className="admin-phone">
-                    Time : 09:30:00
-                </div>
-                <div className="admin-edit" onClick={toggleEdit}>
-                    Edit
-                </div>
-                <div className="admin-delete">
-                    Delete
-                </div>
-            </div>
-            <div className="admin-datauser">
-                <div className="admin-username">
-                    Airline : Nokair
-                </div>
-                <div className="admin-name">
-                    Destination : Puket
-                </div>
-                <div className="admin-surname">
-                    Date : 2566-12-01
-                </div>
-                <div className="admin-phone">
-                    Time : 09:30:00
-                </div>
-                <div className="admin-edit" onClick={toggleEdit}>
-                    Edit
-                </div>
-                <div className="admin-delete">
-                    Delete
-                </div>
-            </div>
-            <div className="admin-datauser">
-                <div className="admin-username">
-                    Airline : Nokair
-                </div>
-                <div className="admin-name">
-                    Destination : Puket
-                </div>
-                <div className="admin-surname">
-                    Date : 2566-12-01
-                </div>
-                <div className="admin-phone">
-                    Time : 09:30:00
-                </div>
-                <div className="admin-edit" onClick={toggleEdit}>
-                    Edit
-                </div>
-                <div className="admin-delete">
-                    Delete
-                </div>
-            </div>
+                );
+              })}
             <div className="admin-add-user"  onClick={toggleModal}>
                 Add Flight
             </div>
