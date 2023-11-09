@@ -3,6 +3,7 @@ import './Admin_user.css'
 import { IoExitOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { response } from 'express'
 
 function exit(){
     alert('Are you sure to logout !!!')
@@ -16,6 +17,13 @@ function Admin_user() {
     const [surname, setSurname] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState(0)
+
+    const [newusername, setNewUsername] = useState('')
+    const [newpassword, setNewPassword] = useState('')
+    const [newfname, setNewName] = useState('')
+    const [newsurname, setNewSurname] = useState('')
+    const [newemail, setNewEmail] = useState('')
+    const [newphone, setNewPhone] = useState(0)
 
     const [userList, setUserList] = useState([]);
 
@@ -45,6 +53,24 @@ function Admin_user() {
                 phone: phone
             }
             ])
+        })
+    }
+
+    const updateUserList = (username) => {
+        axios.put('http://localhost:3333/update-user', 
+        { username : newusername, password : newpassword, fname : newfname,  surname : newsurname, email : newemail, phone : newphone}).then((response) => {
+            setUserList(
+                userList.map((val) => {
+                    return val.username == username ? {
+                        username: val.username,
+                        password: val.password,
+                        fname: val.fname,
+                        surname: val.surname,
+                        email: val.email,
+                        phone: val.phone
+                    } : val;
+                })
+            )
         })
     }
 
@@ -181,30 +207,42 @@ function Admin_user() {
 
                         <div className="modal-content-input-user-1">
                             <div className="modal-content-username">
-                                Username <input type="text" className='modal-input' />
+                                Username <input type="text" className='modal-input' onChange={(event) => {
+                                    setNewUsername(event.target.value)
+                                }}/>
                             </div>
                             <div className="modal-content-username">
-                                Password <input type="password" className='modal-input' />
+                                Password <input type="password" className='modal-input' onChange={(event) => {
+                                    setNewPassword(event.target.value)
+                                }}/>
                             </div>
                             <div className="modal-content-password">
-                                Name <input type="text" className='modal-input-name' />
+                                Name <input type="text" className='modal-input-name' onChange={(event) => {
+                                    setNewName(event.target.value)
+                                }}/>
                             </div>
                         </div>
                         <div className="modal-content-input-user-2">
                             <div className="modal-content-username">
-                                Surname <input type="text" className='modal-input' />
+                                Surname <input type="text" className='modal-input' onChange={(event) => {
+                                    setNewSurname(event.target.value)
+                                }}/>
                             </div>
                             <div className="modal-content-username">
-                                Email <input type="email" className='modal-input-email' />
+                                Email <input type="email" className='modal-input-email' onChange={(event) => {
+                                    setNewEmail(event.target.value)
+                                }}/>
                             </div>
                             <div className="modal-content-password">
-                                Phone <input type="number" className='modal-input-phone' />
+                                Phone <input type="number" className='modal-input-phone' onChange={(event) => {
+                                    setNewPhone(event.target.value)
+                                }}/>
                             </div>
                         </div>
                         
                     </div>
                     <div className="modal-button">
-                        <button className='button-edit-admin'>Edit</button>
+                        <button className='button-edit-admin' onClick={() => { updateUserList(val.username)}}>Edit</button>
                         <button className='button-close-admin' onClick={toggleEdit}>Close</button>
                     </div>
                 </div>
