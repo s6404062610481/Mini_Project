@@ -340,17 +340,35 @@ app.put('/update-user/id', (req, res) => {
 })
 
 app.get('/list-seat', (req, res) => {
-  connection.query(
-  'SELECT flight.Destination, seat.snumber, seat.status FROM `flight`JOIN seat ON flight.Fid = seat.Fid WHERE seat.status = 1'
-  , (err, result) => {
-    if(err){
-      console.log(err)
-    }else{
-      res.send(result)
-    }
-  }
-  )
-})
+
+  const getDes = req.query.Destination
+  const getDate = req.query.fDate
+
+  const query = `SELECT 
+  seat.Sid, seat.snumber, customer.username
+  FROM 
+    seat
+  JOIN 
+    booking ON seat.Bid = booking.Bid
+  JOIN 
+    flight ON seat.Fid = flight.Fid
+  JOIN 
+    customer ON booking.username = customer.username
+  WHERE 
+    flight.Destination = '${getDes}' AND flight.Fdate = '${getDate}' AND seat.status = 1`
+
+    connection.query(query, (err, results) => {
+      if (err) {
+        console.error('Error executing SQL query: ' + err.message);
+        res.status(500).json({ error: 'An error occurred' });
+        return;
+      }
+
+      // Return the query results as JSON
+      res.json(results);
+    });
+      }
+  );
 
 
 
