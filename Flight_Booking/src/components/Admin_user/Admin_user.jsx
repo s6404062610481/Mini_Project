@@ -18,6 +18,7 @@ function Admin_user() {
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState(0)
 
+    const [id, setId] = useState('')
     const [newusername, setNewUsername] = useState('')
     const [newpassword, setNewPassword] = useState('')
     const [newfname, setNewName] = useState('')
@@ -242,7 +243,7 @@ function Admin_user() {
                         
                     </div>
                     <div className="modal-button">
-                        <button className='button-edit-admin' onClick={() => { updateUserList(val.username)}}>Edit</button>
+                        <button className='button-edit-admin'onClick={() => {updateUserList(val.username)}}>Edit</button>
                         <button className='button-close-admin' onClick={toggleEdit}>Close</button>
                     </div>
                 </div>

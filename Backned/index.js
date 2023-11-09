@@ -319,6 +319,26 @@ app.post('/add-user', (req, res) => {
   );
 })
 
+app.put('/update-user', (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  const fname = req.body.fname;
+  const surname = req.body.surname;
+  const email = req.body.email;
+  const phone = req.body.phone;
+
+  connection.query(
+    'UPDATE customer SET = username = ?, password = ?, fname = ?, surname = ?, email = ?, phone = ? WHERE username = ?',
+    [username, password, fname, surname, email, phone], (err, result) => {
+      if(err){
+        console.log(err)
+      }else{
+        res.send(result)
+      }
+    }
+    );
+})
+
 
 
 app.listen(3333, function () {
