@@ -26,6 +26,14 @@
     text-align: center;
     margin-top: 40px;
 }
-Table{
-    background-color: aqua;
+table{
+    width: 50%;
+    border-collapse: collapse;
+    text-align: center;
+    margin: 10px;
+}
+tr,td,th{
+    padding: 10px;
+    text-align: center;
+    border: 1px solid;
 }

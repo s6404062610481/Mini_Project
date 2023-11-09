@@ -345,7 +345,7 @@ app.get('/list-seat', (req, res) => {
   const getDate = req.query.fDate
 
   const query = `SELECT 
-  seat.Sid, seat.snumber, customer.username
+  seat.Sid, seat.snumber, customer.username, flight.Fid
   FROM 
     seat
   JOIN 

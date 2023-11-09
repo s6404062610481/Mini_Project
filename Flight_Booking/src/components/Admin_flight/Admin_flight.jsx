@@ -110,17 +110,24 @@ function Admin_flight() {
                   to='/admin_flight' 
                   onClick={handleSearchClick}>Search</Link>
               </div>
-
+              <table>
+                <tr>
+                    <th>Seat ID</th>
+                    <th>Flight Number</th>
+                    <th>Seat Number</th>
+                    <th>Username</th>
+                </tr>
                 {datalistFlight.flight.map((val, key)=>{
                     return(
                         <tr>
                             <td>{val.Sid}</td>
+                            <td>{val.Fid}</td>
                             <td>{val.snumber}</td>
                             <td>{val.username}</td>
                         </tr>
                     );
                 })}
-
+                </table>
               {seatList.map((val, key) => {
                 return(
                     <div className="admin-datauser">
